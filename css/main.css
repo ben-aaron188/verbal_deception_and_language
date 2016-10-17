@@ -132,6 +132,98 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
+.text3 {
+    border: 0.3vw solid #FFBF00;
+    letter-spacing: 0.01vw;
+    height: 30%;
+    width: 40%;
+    /*padding-bottom: 12.5%;*/
+    margin: 0;
+    position: absolute;
+    text-align: left;
+    font-size: 1.2vw;
+    top: 50%;
+    left: 30%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+}
+.table_row_div {
+    border-bottom: 0.1vw solid #FFBF00;
+    height: 35%;
+    width: 95%;
+    margin: 0;
+    position: relative;;
+    text-align: left;
+    font-size: 1.2vw;
+    top: 30%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+}
+.activity_span{
+  height: 35%;
+  width: 40%;
+  margin: 0;
+  position: absolute;
+  text-align: left;
+  font-size: 1.1vw;
+  top: 50%;
+  left: 25%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-top: 1%;
+}
+.certainty_span{
+  height: 35%;
+  width: 40%;
+  margin: 0;
+  position: absolute;
+  text-align: left;
+  font-size: 1.1vw;
+  top: 50%;
+  left: 75%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-top: 1%;
+}
+
+#activity_future, #activity_past{
+  height: 55%;
+  width: 40%;
+  /*padding-bottom: 12.5%;*/
+  margin: 0;
+  position: absolute;
+  text-align: left;
+  font-size: 1.1vw;
+  top: 65%;
+  left: 25%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+#activity_future_non, #activity_past_non{
+  height: 55%;
+  width: 40%;
+  /*padding-bottom: 12.5%;*/
+  margin: 0;
+  position: absolute;
+  text-align: left;
+  font-size: 1.1vw;
+  top: 65%;
+  left: 75%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
 .text2_ {
     border: 0.1vw solid Red;
     letter-spacing: 0.01vw;
@@ -217,6 +309,23 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
     display: none;
+}
+.select_menu_2 {
+    letter-spacing: 0.01vw;
+    max-height: 50%;
+    width: 60%;
+    margin: 0;
+    position: absolute;
+    text-align: left;
+    font-size: 1.0vw;
+    top: 60%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+    /*display: none;*/
 }
 .select_menu__ {
     border: 0.2vw solid white;
@@ -343,13 +452,12 @@ h2 {
 }
 
 .slider_io {
-    height: 25%;
-    width: 80%;
+    height: 70%;
+    width: 90%;
     margin: 0;
     position: absolute;
     text-align: left;
-    /*font-size: 1.0vw;*/
-    top: 80%;
+    top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -374,7 +482,6 @@ h2 {
     margin: 0;
     position: absolute;
     text-align: left;
-    /*font-size: 1.2vw;*/
     top: 50%;
     left: 50%;
     margin-right: -50%;
@@ -385,8 +492,8 @@ h2 {
     margin: 0;
     position: absolute;
     text-align: center;
-    font-size: 1.2vw;
-    top: 85%;
+    font-size: 1.1vw;
+    top: 95%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -436,6 +543,24 @@ h2 {
     background-color: #1C1C1C;
     overflow-x: hidden;
     max-height: 50%;
+    width: 60%;
+    padding: 1%;
+    margin: 0;
+    position: absolute;
+    text-align: left;
+    font-size: 1.3vw;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+}
+.main_instructions_ {
+    border: 0.3vw solid #FFBF00;
+    overflow: scroll;
+    background-color: #1C1C1C;
+    overflow-x: hidden;
+    height: 50%;
     width: 60%;
     padding: 1%;
     margin: 0;
@@ -659,4 +784,55 @@ input[type=checkbox] {
 }
 .alignright {
 	float: right;
+}
+
+
+/*lextale*/
+
+.stim {
+    font-weight: lighter;
+    letter-spacing: 0.1vw;
+    text-align: center;
+    font-size: 2.0vw;
+    position: absolute;
+    margin: 0;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+}
+#stim_key_left {
+    left: 15%;
+    top: 30%;
+}
+#stim_key_right {
+    left: 85%;
+    top: 30%;
+}
+#stim_main {
+    display: none;
+    border: 1vw white solid;
+    height: 0;
+    width: 50%;
+    padding-bottom: 25%;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin: 0;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+#stim_stim {
+    height: 0;
+    width: 90%;
+    top: 48%;
+    left: 50%;
+    letter-spacing: 0.25vw;
+    text-align: center;
+    font-size: 2.5vw;
+    position: absolute;
+    margin: 0;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
