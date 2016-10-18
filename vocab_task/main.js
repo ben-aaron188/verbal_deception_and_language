@@ -4,7 +4,8 @@ function init_language_task1(ID, time) {
         if (listen === true) {
             listen = false;
             setTimeout(function() {
-                to_final_control1();
+                // to_final_control1();
+                to_outro();
             }, time);
         }
     });

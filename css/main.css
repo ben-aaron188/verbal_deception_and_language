@@ -382,7 +382,7 @@ h2 {
     position: absolute;
     text-align: left;
     font-size: 1.0vw;
-    top: 65%;
+    top: 60%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -405,15 +405,15 @@ h2 {
 }
 
 .text_input1 {
-    /*border: 0.2vw solid white;*/
+    border: 0.2vw solid white;
     height: 60%;
-    width: 30%;
+    width: 80%;
     margin: 0;
     position: absolute;
     text-align: left;
     font-size: 1.2vw;
     top: 50%;
-    left: 80%;
+    left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     padding-left: 1%;

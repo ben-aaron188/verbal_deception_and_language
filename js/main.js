@@ -13,6 +13,7 @@ $(document).ready(function() {
     getIP();
     $("#intro1").show();
     $("#next").attr('onclick', 'to_informed_consent()');
+    get_unid();
 });
 
 function to_informed_consent() {
@@ -23,7 +24,7 @@ function to_informed_consent() {
 function to_statement_evaluation() {
     $('body').prepend('<div id="statement_explanation">' +
         'Explanation</br>' +
-        '!!!!!!!!!!!!!!!!!' +
+        'GENERAL EXPLANATION' +
         '</div>'
     );
     simple_transition($("#informed_consent"), $("#statement_explanation"));
@@ -199,17 +200,23 @@ function to_main_instructions7() {
     if (check_multi_select() === true) {
         var items_for_rating;
         var table_rows;
+        var a;
         if (conditions.cb === 0) {
             items_for_rating = collect_selected('future');
         } else if (conditions.cb == 1) {
             items_for_rating = collect_selected('past');
         }
-        console.log(items_for_rating);
         $('body').prepend('<div id="main_instructions7" class="main_instructions_"></div>');
 
         $(items_for_rating).each(function(index, val) {
-            var a = generate_table_row(index, val);
-            $('#main_instructions7').append(a);
+            if (conditions.cb === 0) {
+                a = generate_table_row(index, val, 'future');
+                $('#main_instructions7').append(a);
+            } else if (conditions.cb == 1) {
+                a = generate_table_row(index, val, 'past');
+                $('#main_instructions7').append(a);
+            }
+
         });
 
         simple_transition($("#main_instructions6"), $("#main_instructions7"));
@@ -251,18 +258,17 @@ function to_text_input_instructions1() {
 }
 
 function to_statement_input1() {
-    alert(select_manipulation().sel_val);
-    // collect to object
-    // var instructive_deceptive;
-    // if (conditions.cb === 0) {
-    //     instructive_deceptive = select_manipulation('future');
-    // } else if (conditions.cb == 1) {
-    //     instructive_deceptive = select_manipulation('past');
-    // }
+    var instructive;
+    if (conditions.cb === 0) {
+        instructive = select_manipulation('future');
+    } else if (conditions.cb == 1) {
+        instructive = select_manipulation('past');
+    }
+    console.log(instructive);
 
-    // set input field
+    var input_field = '<textarea type="text" rows="10" cols="80" class="text_input1" id="statement1" placehoder="your answer"></textarea>';
 
-    $('body').prepend('<div id="statement_input1" class="main_instructions_">HERE COMES THE INPUT FIELD</div>');
+    $('body').prepend('<div id="statement_input1" class="main_instructions_">HERE COMES THE INPUT FIELD.' + input_field + '</div>');
     simple_transition($("#text_input_instructions_1"), $("#statement_input1"));
     $("#next").attr('onclick', 'to_main_instructions8()');
 
@@ -270,114 +276,118 @@ function to_statement_input1() {
 }
 
 function to_main_instructions8() {
-    var text;
-    var menu1;
-    var menu2;
-    if (conditions.cond_lang === 0) {
-        if (conditions.cb == 1) {
-            text = 'INSTRUCTIONS 8 NEDERLANDS</br>REPHRASE --> WHAT ARE YOU GOING TO DO THIS WEEKEND?</br>';
-            menu1 = '<div id="activity_future" class="text3">' +
-                'Welk van de volgende activiteiten ga je dit weekend doen?' +
-                '<select id="acitivity_future_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
-                '</select>' +
-                '</div>';
-            menu2 = '<div id="activity_future_non" class="text3">' +
-                'Welk van de volgende activiteiten ga je zeker niet doen dit weekend?' +
-                '<select id="acitivity_future_non_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
-                '</select>' +
-                '</div>';
-        } else if (conditions.cb === 0) {
-            text = 'INSTRUCTION 8 NEDERLANDS</br>REPHRASE --> WHAT DID YOU DO LAST WEEKEND?</br>';
-            menu1 = '<div id="activity_past" class="text3">' +
-                'Welk van de volgende activiteiten heb je afgelopen weekend gedaan?' +
-                '<select id="acitivity_past_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
-                '</select>' +
-                '</div>';
-            menu2 = '<div id="activity_past_non" class="text3">' +
-                'Welk van de volgende activiteiten heb je niet gedaan afgelopen weekend?' +
-                '<select id="acitivity_past_non_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
-                '</select>' +
-                '</div>';
+    if (validate_text($("#statement1"), 10, 'both') === true) {
+        var text;
+        var menu1;
+        var menu2;
+        if (conditions.cond_lang === 0) {
+            if (conditions.cb == 1) {
+                text = 'INSTRUCTIONS 8 NEDERLANDS</br>REPHRASE --> WHAT ARE YOU GOING TO DO THIS WEEKEND?</br>';
+                menu1 = '<div id="activity_future" class="text3">' +
+                    'Welk van de volgende activiteiten ga je dit weekend doen?' +
+                    '<select id="acitivity_future_sel" class="select_menu_2" multiple>' +
+                    '<option value="option1">Option1</option>' +
+                    '<option value="option2">Option2</option>' +
+                    '<option value="option3">Option3</option>' +
+                    '</select>' +
+                    '</div>';
+                menu2 = '<div id="activity_future_non" class="text3">' +
+                    'Welk van de volgende activiteiten ga je zeker niet doen dit weekend?' +
+                    '<select id="acitivity_future_non_sel" class="select_menu_2" multiple>' +
+                    '<option value="option1">Option1</option>' +
+                    '<option value="option2">Option2</option>' +
+                    '<option value="option3">Option3</option>' +
+                    '</select>' +
+                    '</div>';
+            } else if (conditions.cb === 0) {
+                text = 'INSTRUCTION 8 NEDERLANDS</br>REPHRASE --> WHAT DID YOU DO LAST WEEKEND?</br>';
+                menu1 = '<div id="activity_past" class="text3">' +
+                    'Welk van de volgende activiteiten heb je afgelopen weekend gedaan?' +
+                    '<select id="acitivity_past_sel" class="select_menu_2" multiple>' +
+                    '<option value="option1">Option1</option>' +
+                    '<option value="option2">Option2</option>' +
+                    '<option value="option3">Option3</option>' +
+                    '</select>' +
+                    '</div>';
+                menu2 = '<div id="activity_past_non" class="text3">' +
+                    'Welk van de volgende activiteiten heb je niet gedaan afgelopen weekend?' +
+                    '<select id="acitivity_past_non_sel" class="select_menu_2" multiple>' +
+                    '<option value="option1">Option1</option>' +
+                    '<option value="option2">Option2</option>' +
+                    '<option value="option3">Option3</option>' +
+                    '</select>' +
+                    '</div>';
+            }
+        } else if (conditions.cond_lang == 1) {
+            if (conditions.cb == 1) {
+                text = 'INSTRUCTIONS 8 ENGLISH</br>WHAT ARE YOU GOING TO DO THIS WEEKEND?</br>';
+                menu1 = '<div id="activity_future" class="text3">' +
+                    'Which of the following activities are going to do this weekend?' +
+                    '<select id="acitivity_future_sel" class="select_menu_2" multiple>' +
+                    '<option value="option1">Option1</option>' +
+                    '<option value="option2">Option2</option>' +
+                    '<option value="option3">Option3</option>' +
+                    '</select>' +
+                    '</div>';
+                menu2 = '<div id="activity_future_non" class="text3">' +
+                    'Which of the following activities are you definitely not going to do?' +
+                    '<select id="acitivity_future_non_sel" class="select_menu_2" multiple>' +
+                    '<option value="option1">Option1</option>' +
+                    '<option value="option2">Option2</option>' +
+                    '<option value="option3">Option3</option>' +
+                    '</select>' +
+                    '</div>';
+            } else if (conditions.cb === 0) {
+                text = 'INSTRUCTION 8 ENGLISH</br>WHAT DID YOU DO LAST WEEKEND?</br>';
+                menu1 = '<div id="activity_past" class="text3">' +
+                    'Which of the following acitivities did you do last weekend?' +
+                    '<select id="acitivity_past_sel" class="select_menu_2" multiple>' +
+                    '<option value="option1">Option1</option>' +
+                    '<option value="option2">Option2</option>' +
+                    '<option value="option3">Option3</option>' +
+                    '</select>' +
+                    '</div>';
+                menu2 = '<div id="activity_past_non" class="text3">' +
+                    'Which of the following activities did you not do last weekend?' +
+                    '<select id="acitivity_past_non_sel" class="select_menu_2" multiple>' +
+                    '<option value="option1">Option1</option>' +
+                    '<option value="option2">Option2</option>' +
+                    '<option value="option3">Option3</option>' +
+                    '</select>' +
+                    '</div>';
+            }
         }
-    } else if (conditions.cond_lang == 1) {
-        if (conditions.cb == 1) {
-            text = 'INSTRUCTIONS 8 ENGLISH</br>WHAT ARE YOU GOING TO DO THIS WEEKEND?</br>';
-            menu1 = '<div id="activity_future" class="text3">' +
-                'Which of the following activities are going to do this weekend?' +
-                '<select id="acitivity_future_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
-                '</select>' +
-                '</div>';
-            menu2 = '<div id="activity_future_non" class="text3">' +
-                'Which of the following activities are you definitely not going to do?' +
-                '<select id="acitivity_future_non_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
-                '</select>' +
-                '</div>';
-        } else if (conditions.cb === 0) {
-            text = 'INSTRUCTION 8 ENGLISH</br>WHAT DID YOU DO LAST WEEKEND?</br>';
-            menu1 = '<div id="activity_past" class="text3">' +
-                'Which of the following acitivities did you do last weekend?' +
-                '<select id="acitivity_past_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
-                '</select>' +
-                '</div>';
-            menu2 = '<div id="activity_past_non" class="text3">' +
-                'Which of the following activities did you not do last weekend?' +
-                '<select id="acitivity_past_non_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
-                '</select>' +
-                '</div>';
-        }
+        $('body').prepend('<div id="main_instructions8" class="main_instructions_">' + text + menu1 + menu2 + '</div>');
+        simple_transition($("#statement_input1"), $("#main_instructions8"));
+        $("#next").attr('onclick', 'to_main_instructions9()');
     }
-    $('body').prepend('<div id="main_instructions8" class="main_instructions_">' + text + menu1 + menu2 + '</div>');
-    simple_transition($("#statement_input1"), $("#main_instructions8"));
-    $("#next").attr('onclick', 'to_main_instructions9()');
 }
-
 
 function to_main_instructions9() {
     if (check_multi_select() === true) {
         var items_for_rating;
         var table_rows;
+        var a;
         if (conditions.cb == 1) {
             items_for_rating = collect_selected('future');
         } else if (conditions.cb === 0) {
             items_for_rating = collect_selected('past');
         }
-        console.log(items_for_rating);
         $('body').prepend('<div id="main_instructions9" class="main_instructions_"></div>');
 
         $(items_for_rating).each(function(index, val) {
-            var a = generate_table_row(index, val);
-            $('#main_instructions9').append(a);
+            if (conditions.cb == 1) {
+                a = generate_table_row(index, val, 'future');
+                $('#main_instructions9').append(a);
+            } else if (conditions.cb === 0) {
+                a = generate_table_row(index, val, 'past');
+                $('#main_instructions9').append(a);
+            }
         });
-
         simple_transition($("#main_instructions8"), $("#main_instructions9"));
         $("#next").attr('onclick', 'to_model_statement2()');
     }
 }
-
 
 function to_model_statement2() {
     if (check_slider($(".slider_io_output")) === true) {
@@ -412,61 +422,58 @@ function to_text_input_instructions2() {
 }
 
 function to_statement_input2() {
-    alert(select_manipulation().sel_val);
-    // collect to object
-    // var instructive_deceptive;
-    // if (conditions.cb === 0) {
-    //     instructive_deceptive = select_manipulation('future');
-    // } else if (conditions.cb == 1) {
-    //     instructive_deceptive = select_manipulation('past');
-    // }
+    var instructive;
+    if (conditions.cb == 1) {
+        instructive = select_manipulation('future');
+    } else if (conditions.cb === 0) {
+        instructive = select_manipulation('past');
+    }
+    console.log(instructive);
 
-    // set input field
+    var input_field = '<textarea type="text" rows="10" cols="80" class="text_input1" id="statement2" placehoder="your answer"></textarea>';
 
-    $('body').prepend('<div id="statement_input2" class="main_instructions_">HERE COMES THE INPUT FIELD</div>');
+    $('body').prepend('<div id="statement_input2" class="main_instructions_">HERE COMES THE INPUT FIELD.' + input_field + '</div>');
     simple_transition($("#text_input_instructions_2"), $("#statement_input2"));
     $("#next").attr('onclick', 'to_lextale()');
-
-    // check input length & meaningfulness
 }
 
 
 function to_lextale() {
-    var lextale_explanation;
-    var lextale_explanation_key_right;
-    var lextale_explanation_key_left;
-    if (conditions.cond_lang === 0) {
-        language = 'nl';
-        lextale_explanation = lextale_explanation_nl;
-        lextale_explanation_key_right = lextale_explanation_nl_key_right;
-        lextale_explanation_key_left = lextale_explanation_nl_key_left;
-    } else if (conditions.cond_lang == 1) {
-        language = 'en';
-        lextale_explanation = lextale_explanation_en;
-        lextale_explanation_key_right = lextale_explanation_en_key_right;
-        lextale_explanation_key_left = lextale_explanation_en_key_left;
+    if (validate_text($("#statement2"), 10, 'both') === true) {
+        var lextale_explanation;
+        var lextale_explanation_key_right;
+        var lextale_explanation_key_left;
+        if (conditions.cond_lang === 0) {
+            language = 'nl';
+            lextale_explanation = lextale_explanation_nl;
+            lextale_explanation_key_right = lextale_explanation_nl_key_right;
+            lextale_explanation_key_left = lextale_explanation_nl_key_left;
+        } else if (conditions.cond_lang == 1) {
+            language = 'en';
+            lextale_explanation = lextale_explanation_en;
+            lextale_explanation_key_right = lextale_explanation_en_key_right;
+            lextale_explanation_key_left = lextale_explanation_en_key_left;
+        }
+        var lextale_main_dom = '<div id="intro" class="text1" style="font-size: 1.2vw">' + lextale_explanation +
+            '</div>' +
+            '<p id="stim_key_left" class="stim">' + lextale_explanation_key_left +
+            '</p>' +
+            '<p id="stim_key_right" class="stim">' + lextale_explanation_key_right +
+            '</p>' +
+            '<div id="stim_main">' +
+            '<div id="stim_stim">' +
+            '</div>' +
+            '</div>' +
+            '<div id="outro">' +
+            '</div>';
+        $('body').prepend('<div id="lextale1" class="wrapper0">' + lextale_main_dom + '</div>');
+        simple_transition($("#statement_input2"), $("#lextale1"));
+        $("#next").hide();
+        init_main();
     }
-    var lextale_main_dom = '<div id="intro" class="text1" style="font-size: 1.0vw">' + lextale_explanation +
-        '</div>' +
-        '<p id="stim_key_left" class="stim">' + lextale_explanation_key_left +
-        '</p>' +
-        '<p id="stim_key_right" class="stim">' + lextale_explanation_key_right +
-        '</p>' +
-        '<div id="stim_main">' +
-        '<div id="stim_stim">' +
-        '</div>' +
-        '</div>' +
-        '<div id="outro">' +
-        '</div>';
-    $('body').prepend('<div id="lextale1" class="wrapper0">' + lextale_main_dom + '</div>');
-    simple_transition($("#statement_input2"), $("#lextale1"));
-    $("#next").hide();
-    init_main();
 }
 
 function to_vocabulary_task() {
-    alert('here comes the vocabulary task!');
-
     var vocabulary_task_explanation;
     if (conditions.cond_lang === 0) {
         vocabulary_task_explanation = vocabulary_task_explanation_nl;
@@ -474,27 +481,32 @@ function to_vocabulary_task() {
         vocabulary_task_explanation = vocabulary_task_explanation_en;
     }
 
-    var vocabulary_task_dom = '<div id="langtask1" class="wrapper0">' +
-        '<div class="text1_">' + vocabulary_task_explanation +
-        '<textarea class="textbox_" id="tbwordprod" rows="10" cols="80"></textarea>' +
-        '</div>' +
-        '</div>';
+    var vocabulary_task_dom = '<textarea class="textbox_" id="tbwordprod" rows="10" cols="80"></textarea>';
 
     simple_transition($("#lextale1"), $("#langtask1"));
     $("#next").hide();
-    $('body').prepend('<div id="langtask1" class="wrapper0">' + vocabulary_task_dom + '</div>');
+    $('body').prepend('<div id="langtask1" class="main_instructions_">' + vocabulary_task_explanation + vocabulary_task_dom + '</div>');
     init_language_task1($("#tbwordprod"), time_langtask1);
-    $("#next").attr('onclick', 'to_outro()');
+    // $("#next").attr('onclick', 'to_outro()');
 }
 
 function to_outro() {
-    if (check_fields($(".select_menu")) === true) {
-        simple_transition($("#demographics2"), $("#outro"));
-        $("#partcode").text(unid);
-        // $("#next").show();
-        $("#next").text('SEND');
-        $("#next").attr('onclick', 'send_to_server()');
-    }
+    var outro_dom = 'Your participation code: <span id=partcode style="color: red">9871NO</span></br></br>' +
+        '<span id="debr">Thank you for taking part in this study. NEW DEBRIEFING!!!!</span></br></br>' +
+        'In order to validate your participation, it is necessary that you provide your UvA Student number below in the left hand-field and confirm your participation code in the middle text field.' +
+        '<input type="text" id="crowdf" name="crowdf" class="select_menu" maxlength="40" size="16" style="text-align: center; left: 20%; top: 85%; height: 10%; width: 25%;" placeholder="YOUR UVA STUDENT NUMBER">' +
+        '<input type="text" id="unidin" name="unidin" class="select_menu" maxlength="6" size="16" style="text-align: center; left: 50%; top: 85%; height: 10%; width: 25%; color: red" placeholder="PARTICIPATION CODE">';
+
+    var credits_dom = '<div id="credits">' +
+        'University of Amsterdam // Bennett Kleinberg: <a href="mailto:b.a.r.kleinberg@uva.nl?Subject=Online%20Experiment" target="_top">b.a.r.kleinberg@uva.nl</a>' +
+        '</div>';
+
+    simple_transition($("#langtask1"), $("#outro"));
+    $('body').prepend('<div id="outro" class="main_instructions_">' + outro_dom + '</div>' + credits_dom);
+    $("#partcode").text(unid);
+    $("#next").show();
+    $("#next").text('SEND');
+    $("#next").attr('onclick', 'send_to_server()');
 }
 
 function get_data() {

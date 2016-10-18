@@ -149,19 +149,19 @@ function check_slider(classname) {
     });
     if (score != -1) {
         // language check
-        alert("Please move the sliders to indicate the frequenct of doing the activity and your certainty that you will do it.");
+        alert("Please move the sliders to indicate the frequency of doing the activity and your certainty that you will do it.");
         score = 0;
     } else {
         return true;
     }
 }
 
-function get_unid(val_score) {
-    if (val_score === 0) {
+function get_unid() {
+    // if (val_score === 0) {
         unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9);
-    } else {
-        unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + "_" + val_score;
-    }
+    // } else {
+//     unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + "_" +val_score;
+    // }
 }
 
 // source" http://stackoverflow.com/questions/5976289/stretch-text-to-fit-width-of-div
@@ -334,12 +334,12 @@ function get_cond() {
     return conds;
 }
 
-function select_manipulation() {
+function select_manipulation(temporality) {
     var selected_obj;
+    var selected_obj_;
     var candidate_objects;
     if (conditions.cond_ver === 0) {
-        candidate_objects = collect_non_selected('past');
-        // change placeholder!
+        candidate_objects = collect_non_selected(temporality);
         selected_obj = shuffle(candidate_objects)[0];
     } else if (conditions.cond_ver == 1) {
         var obj_array = [];
@@ -360,31 +360,43 @@ function select_manipulation() {
             };
             obj_array.push(single_obj);
         });
-        selected_obj = obj_array.reduce((max, single) => max.combined > single.combined ? max : single);
-        if (selected_obj.length > 1) {
-            selected_obj = shuffle(selected_obj)[0];
-        }
+        selected_obj_ = obj_array.reduce((max, single) => max.combined > single.combined ? max : single);
+        selected_obj = selected_obj_.sel_val;
     }
     return selected_obj;
 }
 
-function generate_table_row(number, item) {
-    var table_row = '<div id="p' + number + '" class="table_row_div">' +
-        '<span id="activity' + number + ' ">' + item + '</span>' +
-        '<span class="activity_span">' +
-        '<div class="slider_io">' +
-        '<span id="slider_instr">FREQUENCY?</span> ' +
-        '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
-        '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
-        '</div>' +
-        '</span>' +
-        '<span class="certainty_span">' +
-        '<div class="slider_io">' +
-        '<span id="slider_instr">CERTAINTY?</span> ' +
-        '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
-        '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
-        '</div>' +
-        '</span></div>';
+function generate_table_row(number, item, temporality) {
+    var table_row;
+    if (temporality == 'future') {
+        table_row = '<div id="p' + number + '" class="table_row_div">' +
+            '<span id="activity' + number + ' ">' + item + '</span>' +
+            '<span class="activity_span">' +
+            '<div class="slider_io">' +
+            '<span id="slider_instr">FREQUENCY?</span> ' +
+            '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+            '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+            '</div>' +
+            '</span>' +
+            '<span class="certainty_span">' +
+            '<div class="slider_io">' +
+            '<span id="slider_instr">CERTAINTY?</span> ' +
+            '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
+            '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+            '</div>' +
+            '</span></div>';
+    } else if (temporality == 'past') {
+        table_row = '<div id="p' + number + '" class="table_row_div">' +
+            '<span id="activity' + number + ' ">' + item + '</span>' +
+            '<span class="activity_span">' +
+            '<div class="slider_io">' +
+            '<span id="slider_instr">FREQUENCY?</span> ' +
+            '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+            '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+            '</div>' +
+            '</span>' +
+            '</div>';
+    }
     return table_row;
 }
 
