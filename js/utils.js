@@ -158,9 +158,9 @@ function check_slider(classname) {
 
 function get_unid() {
     // if (val_score === 0) {
-        unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9);
+    unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9);
     // } else {
-//     unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + "_" +val_score;
+    //     unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + "_" +val_score;
     // }
 }
 
@@ -271,7 +271,7 @@ function record_elapsed_end(ID) {
 function get_length(ID) {
     lengthtext = ID.val().toLowerCase().split(" ");
     id_length = lengthtext.length;
-    // return id_length;
+    return id_length;
 }
 
 function record_deletes(ID) {
@@ -317,7 +317,7 @@ function get_cond() {
     // 0: truthful
     // 1: deceptive
     var cb = 2;
-    if ($("#lang1_sel").val() != 'nl') {
+    if (selected_language != 'nl') {
         cond_lang = 1;
         cond_ver = randomdigit(0, 1);
         cb = randomdigit(0, 1);
@@ -384,7 +384,15 @@ function generate_table_row(number, item, temporality) {
             '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
             '</div>' +
-            '</span></div>';
+            '</span>' +
+            '<span class="planning_span">' +
+            '<div class="slider_io">' +
+            '<span id="slider_instr">PLANNING?</span> ' +
+            '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
+            '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+            '</div>' +
+            '</span>' +
+            '</div>';
     } else if (temporality == 'past') {
         table_row = '<div id="p' + number + '" class="table_row_div">' +
             '<span id="activity' + number + ' ">' + item + '</span>' +
@@ -400,16 +408,28 @@ function generate_table_row(number, item, temporality) {
     return table_row;
 }
 
-function collect_selected(temporality) {
+function collect_selected(temporality, state) {
     var selected_items = [];
     if (temporality == 'past') {
-        $("#activity_past option:selected").each(function() {
-            selected_items.push($(this).text());
-        });
+        if (state == 'do') {
+            $("#activity_past option:selected").each(function() {
+                selected_items.push($(this).text());
+            });
+        } else if (state == 'notdo') {
+            $("#activity_past_non option:selected").each(function() {
+                selected_items.push($(this).text());
+            });
+        }
     } else if (temporality == 'future') {
-        $("#activity_future option:selected").each(function() {
-            selected_items.push($(this).text());
-        });
+        if (state == 'do') {
+            $("#activity_future option:selected").each(function() {
+                selected_items.push($(this).text());
+            });
+        } else if (state == 'notdo') {
+            $("#activity_future_non option:selected").each(function() {
+                selected_items.push($(this).text());
+            });
+        }
     }
     return selected_items;
 }
@@ -446,3 +466,48 @@ var now = (function() {
     })();
     return performance.now();
 });
+
+function collect_statement(ID) {
+    var elapsed = end_timer();
+    var pagefocus = pagefocus_get_data();
+    var content = ID.val();
+    var length = get_length(ID);
+    var data = {
+        content: '',
+        elapsed: elapsed,
+        pagefocus: pagefocus,
+        length: length
+    };
+    return data;
+}
+
+function start_timer() {
+    t1 = now();
+}
+
+function end_timer() {
+    var t2 = now();
+    var elapsed = t2 - t1;
+    return elapsed;
+}
+
+function set_lang_nl(){
+  selected_language = 'nl';
+  to_informed_consent();
+}
+
+function set_lang_other(){
+  selected_language = 'other';
+  to_informed_consent();
+}
+
+function simple_transition_2(class_current_div, next_div) {
+    class_current_div.each(function() {
+        if ($(this).is(":visible")) {
+            $("#iframe_gmaps").hide();
+            $(this).hide(function() {
+                next_div.show();
+            });
+        }
+    });
+}
