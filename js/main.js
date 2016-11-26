@@ -277,24 +277,36 @@ function to_main_instructions7() {
         var items_for_rating;
         var table_rows;
         var a;
-        if (conditions.cb === 0) {
-            items_for_rating = collect_selected('future', 'do');
-        } else if (conditions.cb == 1) {
-            items_for_rating = collect_selected('past', 'do');
+        var text;
+        if (conditions.cond_lang === 0) {
+            if (conditions.cb === 0) {
+                items_for_rating = collect_selected('future', 'do');
+                text = slider_text_nextweekend_do_nl;
+            } else if (conditions.cb == 1) {
+                items_for_rating = collect_selected('past', 'do');
+                text = slider_text_pastweekend_do_nl;
+            }
+        } else if (conditions.cond_lang == 1) {
+            if (conditions.cb === 0) {
+                items_for_rating = collect_selected('future', 'do');
+                text = slider_text_nextweekend_do_en;
+            } else if (conditions.cb == 1) {
+                items_for_rating = collect_selected('past', 'do');
+                text = slider_text_pastweekend_do_en;
+            }
         }
-        $('body').prepend('<div id="main_instructions7" class="main_instructions__"></div>');
+
+        $('body').prepend('<div id="main_instructions7" class="main_instructions__">' + text + '</div>');
 
         $(items_for_rating).each(function(index, val) {
             if (conditions.cb === 0) {
-                a = generate_table_row(index, val, 'future');
+                a = generate_table_row(index, val, 'future', conditions.cond_lang);
                 $('#main_instructions7').append(a);
             } else if (conditions.cb == 1) {
-                a = generate_table_row(index, val, 'past');
+                a = generate_table_row(index, val, 'past', conditions.cond_lang);
                 $('#main_instructions7').append(a);
             }
-
         });
-
         simple_transition_2($(".main_instructions_"), $("#main_instructions7"));
         $("#next").attr('onclick', 'to_main_instructions7a()');
     }
@@ -305,19 +317,33 @@ function to_main_instructions7a() {
         var items_for_rating;
         var table_rows;
         var a;
-        if (conditions.cb === 0) {
-            items_for_rating = collect_selected('future', 'notdo');
-        } else if (conditions.cb == 1) {
-            items_for_rating = collect_selected('past', 'notdo');
+        var text;
+        if (conditions.cond_lang === 0) {
+            if (conditions.cb === 0) {
+                items_for_rating = collect_selected('future', 'notdo');
+                text = slider_text_nextweekend_notdo_nl;
+            } else if (conditions.cb == 1) {
+                items_for_rating = collect_selected('past', 'notdo');
+                text = slider_text_pastweekend_notdo_nl;
+            }
+
+        } else if (conditions.cond_lang == 1) {
+            if (conditions.cb === 0) {
+                items_for_rating = collect_selected('future', 'notdo');
+                text = slider_text_nextweekend_notdo_en;
+            } else if (conditions.cb == 1) {
+                items_for_rating = collect_selected('past', 'notdo');
+                text = slider_text_pastweekend_notdo_en;
+            }
         }
-        $('body').prepend('<div id="main_instructions7a" class="main_instructions_"></div>');
+        $('body').prepend('<div id="main_instructions7a" class="main_instructions_">' + text + '</div>');
 
         $(items_for_rating).each(function(index, val) {
             if (conditions.cb === 0) {
-                a = generate_table_row(index, val, 'future');
+                a = generate_table_row(index, val, 'future', conditions.cond_lang);
                 $('#main_instructions7a').append(a);
             } else if (conditions.cb == 1) {
-                a = generate_table_row(index, val, 'past');
+                a = generate_table_row(index, val, 'past', conditions.cond_lang);
                 $('#main_instructions7a').append(a);
             }
 
@@ -605,19 +631,33 @@ function to_main_instructions9() {
         var items_for_rating;
         var table_rows;
         var a;
-        if (conditions.cb == 1) {
-            items_for_rating = collect_selected('future', 'do');
-        } else if (conditions.cb === 0) {
-            items_for_rating = collect_selected('past', 'do');
+        var text;
+        if (conditions.cond_lang === 0) {
+            if (conditions.cb == 1) {
+                items_for_rating = collect_selected('future', 'do');
+                text = slider_text_nextweekend_do_nl;
+            } else if (conditions.cb === 0) {
+                items_for_rating = collect_selected('past', 'do');
+                text = slider_text_pastweekend_do_nl;
+            }
+        } else if (conditions.cond_lang == 1) {
+            if (conditions.cb == 1) {
+                items_for_rating = collect_selected('future', 'do');
+                text = slider_text_nextweekend_do_en;
+            } else if (conditions.cb === 0) {
+                items_for_rating = collect_selected('past', 'do');
+                text = slider_text_pastweekend_do_en;
+            }
         }
-        $('body').prepend('<div id="main_instructions9" class="main_instructions_"></div>');
+
+        $('body').prepend('<div id="main_instructions9" class="main_instructions_">' + text + '</div>');
 
         $(items_for_rating).each(function(index, val) {
             if (conditions.cb == 1) {
-                a = generate_table_row(index, val, 'future');
+                a = generate_table_row(index, val, 'future', conditions.cond_lang);
                 $('#main_instructions9').append(a);
             } else if (conditions.cb === 0) {
-                a = generate_table_row(index, val, 'past');
+                a = generate_table_row(index, val, 'past', conditions.cond_lang);
                 $('#main_instructions9').append(a);
             }
         });
@@ -630,19 +670,32 @@ function to_main_instructions10() {
     var items_for_rating;
     var table_rows;
     var a;
-    if (conditions.cb == 1) {
-        items_for_rating = collect_selected('future', 'notdo');
-    } else if (conditions.cb === 0) {
-        items_for_rating = collect_selected('past', 'notdo');
+    var text;
+    if (conditions.cond_lang === 0) {
+        if (conditions.cb == 1) {
+            items_for_rating = collect_selected('future', 'notdo');
+            text = slider_text_nextweekend_notdo_nl;
+        } else if (conditions.cb === 0) {
+            items_for_rating = collect_selected('past', 'notdo');
+            text = slider_text_pastweekend_notdo_nl;
+        }
+    } else if (conditions.cond_lang == 1) {
+        if (conditions.cb == 1) {
+            items_for_rating = collect_selected('future', 'notdo');
+            text = slider_text_nextweekend_notdo_en;
+        } else if (conditions.cb === 0) {
+            items_for_rating = collect_selected('past', 'notdo');
+            text = slider_text_pastweekend_notdo_en;
+        }
     }
-    $('body').prepend('<div id="main_instructions10" class="main_instructions_"></div>');
+    $('body').prepend('<div id="main_instructions10" class="main_instructions_">' + text + '</div>');
 
     $(items_for_rating).each(function(index, val) {
         if (conditions.cb == 1) {
-            a = generate_table_row(index, val, 'future');
+            a = generate_table_row(index, val, 'future', conditions.cond_lang);
             $('#main_instructions10').append(a);
         } else if (conditions.cb === 0) {
-            a = generate_table_row(index, val, 'past');
+            a = generate_table_row(index, val, 'past', conditions.cond_lang);
             $('#main_instructions10').append(a);
         }
     });
@@ -676,13 +729,13 @@ function to_text_input_instructions2() {
     if (conditions.cond_lang === 0) {
         if (conditions.cond_ver === 0) {
             text = instructions_truthful2_nl;
-        } else if (conditions.cond_ver === 0) {
+        } else if (conditions.cond_ver == 1) {
             text = instructions_deceptive2_nl;
         }
     } else if (conditions.cond_lang == 1) {
         if (conditions.cond_ver === 0) {
             text = instructions_truthful2_en;
-        } else if (conditions.cond_ver === 0) {
+        } else if (conditions.cond_ver == 1) {
             text = instructions_deceptive2_en;
         }
     }
@@ -693,7 +746,7 @@ function to_text_input_instructions2() {
         instructive = select_manipulation('past');
     }
     $('body').prepend('<div id="text_input_instructions_2" class="main_instructions_">' + text + '</div>');
-    simple_transition($("#main_instructions9"), $("#text_input_instructions_2"));
+    simple_transition($(".main_instructions_"), $("#text_input_instructions_2"));
     $("#next").attr('onclick', 'to_statement_input2()');
 }
 
