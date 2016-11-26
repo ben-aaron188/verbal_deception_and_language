@@ -6,13 +6,15 @@ var repetition_count = 0;
 var conditions;
 var timer = 3000;
 var time_langtask1 = 2000;
+var quiz_order = [0, 1, 2, 3];
+var min_char = 10;
 
 // task flow
 $(document).ready(function() {
     init_data();
     getIP();
     var text = introduction;
-    $('body').prepend('<div id="intro1" class="main_instructions">' + text + '</div>' + buttons1);
+    $('body').prepend('<div id="intro1" class="main_instructions_">' + text + '</div>' + buttons1);
     $("#intro1").show();
     $("#back").hide();
     $("#next").attr('onclick', 'to_informed_consent()').hide();
@@ -25,8 +27,8 @@ function to_informed_consent() {
     conditions = get_cond();
     $("#back").hide();
     var text = ic;
-    $('body').prepend('<div id="informed_consent" class="main_instructions">' + text + '</div>');
-    simple_transition_2($(".main_instructions"), $("#informed_consent"));
+    $('body').prepend('<div id="informed_consent" class="main_instructions_">' + text + '</div>');
+    simple_transition_2($(".main_instructions_"), $("#informed_consent"));
     $("#next").attr('onclick', 'to_main_instructions1()');
 }
 
@@ -37,8 +39,8 @@ function to_main_instructions1() {
     } else if (conditions.cond_lang == 1) {
         text = instructions_general1_en;
     }
-    $('body').prepend('<div id="main_instructions1" class="main_instructions">' + text + '</div>');
-    simple_transition_2($(".main_instructions"), $("#main_instructions1"));
+    $('body').prepend('<div id="main_instructions1" class="main_instructions_">' + text + '</div>');
+    simple_transition_2($(".main_instructions_"), $("#main_instructions1"));
     $("#next").attr('onclick', 'to_main_instructions2()');
 }
 
@@ -49,8 +51,8 @@ function to_main_instructions2() {
     } else if (conditions.cond_lang == 1) {
         text = instructions_general2_en;
     }
-    $('body').prepend('<div id="main_instructions2" class="main_instructions">' + text + '</div>');
-    simple_transition_2($(".main_instructions"), $("#main_instructions2"));
+    $('body').prepend('<div id="main_instructions2" class="main_instructions_">' + text + '</div>');
+    simple_transition_2($(".main_instructions_"), $("#main_instructions2"));
     $("#next").attr('onclick', 'to_demographics1()');
 }
 
@@ -150,17 +152,37 @@ function to_main_instructions6() {
             menu1 = '<div id="activity_future" class="text3">' +
                 'Welk van de volgende activiteiten ga je dit weekend doen?' +
                 '<select id="acitivity_future_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
+                '<option value="Sporten">Sporten</option>' +
+                '<option value="Netflix kijken">Netflix kijken</option>' +
+                '<option value="Uitgaan">Uitgaan</option>' +
+                '<option value="Eten met vrienden">Eten met vrienden</option>' +
+                '<option value="Familie bezoeken">Familie bezoeken</option>' +
+                '<option value="Winkelen">Winkelen</option>' +
+                '<option value="Een dagje uit">Een dagje uit</option>' +
+                '<option value="Naar de film">Naar de film</option>' +
+                '<option value="Naar een concert">Naar een concert</option>' +
+                '<option value="Naar een festival">Naar een festival</option>' +
+                '<option value="Werken">Werken</option>' +
+                '<option value="Studeren">Studeren</option>' +
+                '<option value="Niets doen">Niets doen</option>' +
                 '</select>' +
                 '</div>';
             menu2 = '<div id="activity_future_non" class="text3">' +
                 'Welk van de volgende activiteiten ga je zeker niet doen dit weekend?' +
                 '<select id="acitivity_future_non_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
+                '<option value="Sporten">Sporten</option>' +
+                '<option value="Netflix kijken">Netflix kijken</option>' +
+                '<option value="Uitgaan">Uitgaan</option>' +
+                '<option value="Eten met vrienden">Eten met vrienden</option>' +
+                '<option value="Familie bezoeken">Familie bezoeken</option>' +
+                '<option value="Winkelen">Winkelen</option>' +
+                '<option value="Een dagje uit">Een dagje uit</option>' +
+                '<option value="Naar de film">Naar de film</option>' +
+                '<option value="Naar een concert">Naar een concert</option>' +
+                '<option value="Naar een festival">Naar een festival</option>' +
+                '<option value="Werken">Werken</option>' +
+                '<option value="Studeren">Studeren</option>' +
+                '<option value="Niets doen">Niets doen</option>' +
                 '</select>' +
                 '</div>';
         } else if (conditions.cb == 1) {
@@ -168,17 +190,37 @@ function to_main_instructions6() {
             menu1 = '<div id="activity_past" class="text3">' +
                 'Welk van de volgende activiteiten heb je afgelopen weekend gedaan?' +
                 '<select id="acitivity_past_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
+                '<option value="Sporten">Sporten</option>' +
+                '<option value="Netflix kijken">Netflix kijken</option>' +
+                '<option value="Uitgaan">Uitgaan</option>' +
+                '<option value="Eten met vrienden">Eten met vrienden</option>' +
+                '<option value="Familie bezoeken">Familie bezoeken</option>' +
+                '<option value="Winkelen">Winkelen</option>' +
+                '<option value="Een dagje uit">Een dagje uit</option>' +
+                '<option value="Naar de film">Naar de film</option>' +
+                '<option value="Naar een concert">Naar een concert</option>' +
+                '<option value="Naar een festival">Naar een festival</option>' +
+                '<option value="Werken">Werken</option>' +
+                '<option value="Studeren">Studeren</option>' +
+                '<option value="Niets doen">Niets doen</option>' +
                 '</select>' +
                 '</div>';
             menu2 = '<div id="activity_past_non" class="text3">' +
                 'Welk van de volgende activiteiten heb je niet gedaan afgelopen weekend?' +
                 '<select id="acitivity_past_non_sel" class="select_menu_2" multiple>' +
-                '<option value="option1">Option1</option>' +
-                '<option value="option2">Option2</option>' +
-                '<option value="option3">Option3</option>' +
+                '<option value="Sporten">Sporten</option>' +
+                '<option value="Netflix kijken">Netflix kijken</option>' +
+                '<option value="Uitgaan">Uitgaan</option>' +
+                '<option value="Eten met vrienden">Eten met vrienden</option>' +
+                '<option value="Familie bezoeken">Familie bezoeken</option>' +
+                '<option value="Winkelen">Winkelen</option>' +
+                '<option value="Een dagje uit">Een dagje uit</option>' +
+                '<option value="Naar de film">Naar de film</option>' +
+                '<option value="Naar een concert">Naar een concert</option>' +
+                '<option value="Naar een festival">Naar een festival</option>' +
+                '<option value="Werken">Werken</option>' +
+                '<option value="Studeren">Studeren</option>' +
+                '<option value="Niets doen">Niets doen</option>' +
                 '</select>' +
                 '</div>';
         }
@@ -253,38 +295,41 @@ function to_main_instructions7() {
 
         });
 
-        simple_transition($("#main_instructions6"), $("#main_instructions7"));
+        simple_transition_2($(".main_instructions_"), $("#main_instructions7"));
         $("#next").attr('onclick', 'to_main_instructions7a()');
     }
 }
 
 function to_main_instructions7a() {
-    var items_for_rating;
-    var table_rows;
-    var a;
-    if (conditions.cb === 0) {
-        items_for_rating = collect_selected('future', 'notdo');
-    } else if (conditions.cb == 1) {
-        items_for_rating = collect_selected('past', 'notdo');
-    }
-    $('body').prepend('<div id="main_instructions7a" class="main_instructions_"></div>');
-
-    $(items_for_rating).each(function(index, val) {
+    if (check_slider($(".slider_io_output")) === true) {
+        var items_for_rating;
+        var table_rows;
+        var a;
         if (conditions.cb === 0) {
-            a = generate_table_row(index, val, 'future');
-            $('#main_instructions7a').append(a);
+            items_for_rating = collect_selected('future', 'notdo');
         } else if (conditions.cb == 1) {
-            a = generate_table_row(index, val, 'past');
-            $('#main_instructions7a').append(a);
+            items_for_rating = collect_selected('past', 'notdo');
         }
+        $('body').prepend('<div id="main_instructions7a" class="main_instructions_"></div>');
 
-    });
-    simple_transition($("#main_instructions7"), $("#main_instructions7a"));
-    $("#next").attr('onclick', 'to_model_statement1()');
+        $(items_for_rating).each(function(index, val) {
+            if (conditions.cb === 0) {
+                a = generate_table_row(index, val, 'future');
+                $('#main_instructions7a').append(a);
+            } else if (conditions.cb == 1) {
+                a = generate_table_row(index, val, 'past');
+                $('#main_instructions7a').append(a);
+            }
+
+        });
+        simple_transition_2($(".main_instructions__"), $("#main_instructions7a"));
+        $("#next").attr('onclick', 'to_model_statement1()');
+    }
 }
 
 function to_model_statement1() {
     if (check_slider($(".slider_io_output")) === true) {
+        quiz_order = shuffle(quiz_order);
         var text;
         var modelstatement;
         if (conditions.cond_lang === 0) {
@@ -295,32 +340,116 @@ function to_model_statement1() {
             modelstatement = modelstatement_en;
         }
         $('body').prepend('<div id="model_statement1" class="main_instructions_">' + text + modelstatement + '</div>');
-        simple_transition($("#main_instructions7"), $("#model_statement1"));
-        $("#next").attr('onclick', 'to_text_input_instructions1()').hide();
+        simple_transition_2($(".main_instructions_"), $("#model_statement1"));
+        $("#next").attr('onclick', 'to_quiz_1()').hide();
         setTimeout(function() {
             $("#next").show();
         }, timer);
     }
 }
 
-function to_text_input_instructions1() {
+function to_model_statement1_proxy() {
+    quiz_order = shuffle(quiz_order);
     var text;
+    var modelstatement;
     if (conditions.cond_lang === 0) {
-        if (conditions.cond_ver === 0) {
-            text = instructions_truthful1_nl;
-        } else if (conditions.cond_ver === 0) {
-            text = instructions_deceptive1_nl;
-        }
+        text = instructions_modelstatement_nl;
+        modelstatement = modelstatement_nl;
     } else if (conditions.cond_lang == 1) {
-        if (conditions.cond_ver === 0) {
-            text = instructions_truthful1_en;
-        } else if (conditions.cond_ver === 0) {
-            text = instructions_deceptive1_en;
+        text = instructions_modelstatement_en;
+        modelstatement = modelstatement_en;
+    }
+    $('body').prepend('<div id="model_statement1" class="main_instructions_">' + text + modelstatement + '</div>');
+    simple_transition_2($(".main_instructions_"), $("#model_statement1"));
+    $("#next").attr('onclick', 'to_quiz_1()').hide();
+    setTimeout(function() {
+        $("#next").show();
+    }, timer);
+}
+
+
+// QUIZ questions
+// !!!!!!
+function to_quiz_1() {
+    var param_id = 1;
+    var param_number = quiz_order[0];
+    var param_language = conditions.cond_lang;
+    var quiz_menu = make_quiz_question(param_id, param_number, param_language);
+    $('body').prepend('<div id="quiz_div_1" class="main_instructions_">' + quiz_menu + '</div>');
+    simple_transition_2($(".main_instructions_"), $("#quiz_div_1"));
+    $("#next").attr('onclick', 'to_quiz_2()');
+}
+
+function to_quiz_2() {
+    if (check_fields($(".select_menu_")) === true) {
+        if (check_quiz_answer(1, quiz_order[0], conditions.cond_lang) === true) {
+            var param_id = 2;
+            var param_number = quiz_order[1];
+            var param_language = conditions.cond_lang;
+            var quiz_menu = make_quiz_question(param_id, param_number, param_language);
+            $('body').prepend('<div id="quiz_div_2" class="main_instructions_">' + quiz_menu + '</div>');
+            simple_transition_2($(".main_instructions_"), $("#quiz_div_2"));
+            $("#next").attr('onclick', 'to_quiz_3()');
         }
     }
-    $('body').prepend('<div id="text_input_instructions_1" class="main_instructions_">' + text + '</div>');
-    simple_transition($("#model_statement1"), $("#text_input_instructions_1"));
-    $("#next").attr('onclick', 'to_statement_input1()');
+}
+
+function to_quiz_3() {
+    if (check_fields($(".select_menu_")) === true) {
+        if (check_quiz_answer(2, quiz_order[1], conditions.cond_lang) === true) {
+            var param_id = 3;
+            var param_number = quiz_order[2];
+            var param_language = conditions.cond_lang;
+            var quiz_menu = make_quiz_question(param_id, param_number, param_language);
+            $('body').prepend('<div id="quiz_div_3" class="main_instructions_">' + quiz_menu + '</div>');
+            simple_transition_2($(".main_instructions_"), $("#quiz_div_3"));
+            $("#next").attr('onclick', 'to_quiz_4()');
+        }
+    }
+}
+
+function to_quiz_4() {
+    if (check_fields($(".select_menu_")) === true) {
+        if (check_quiz_answer(3, quiz_order[2], conditions.cond_lang) === true) {
+            var param_id = 4;
+            var param_number = quiz_order[3];
+            var param_language = conditions.cond_lang;
+            var quiz_menu = make_quiz_question(param_id, param_number, param_language);
+            $('body').prepend('<div id="quiz_div_4" class="main_instructions_">' + quiz_menu + '</div>');
+            simple_transition_2($(".main_instructions_"), $("#quiz_div_4"));
+            $("#next").attr('onclick', 'to_text_input_instructions1()');
+        }
+    }
+}
+
+function to_text_input_instructions1() {
+    if (check_fields($(".select_menu_")) === true) {
+        if (check_quiz_answer(4, quiz_order[3], conditions.cond_lang) === true) {
+            var text;
+            if (conditions.cond_lang === 0) {
+                if (conditions.cond_ver === 0) {
+                    text = instructions_truthful1_nl;
+                } else if (conditions.cond_ver == 1) {
+                    text = instructions_deceptive1_nl;
+                }
+            } else if (conditions.cond_lang == 1) {
+                if (conditions.cond_ver === 0) {
+                    text = instructions_truthful1_en;
+                } else if (conditions.cond_ver == 1) {
+                    text = instructions_deceptive1_en;
+                }
+            }
+            var instructive;
+            if (conditions.cb === 0) {
+                instructive = select_manipulation('future');
+            } else if (conditions.cb == 1) {
+                instructive = select_manipulation('past');
+            }
+            $('body').prepend('<div id="text_input_instructions_1" class="main_instructions_">' + text + '</div>');
+            simple_transition($(".main_instructions_"), $("#text_input_instructions_1"));
+            $("#next").attr('onclick', 'to_statement_input1()');
+        }
+    }
 }
 
 function to_statement_input1() {
@@ -343,7 +472,7 @@ function to_statement_input1() {
 }
 
 function to_main_instructions8() {
-    if (validate_text($("#statement1"), 10, 'both') === true) {
+    if (validate_text($("#statement1"), min_char, 'both', conditions.cond_lang) === true) {
         statement1_main = collect_statement($("#statement1"));
         var text;
         var menu1;
@@ -354,17 +483,37 @@ function to_main_instructions8() {
                 menu1 = '<div id="activity_future" class="text3">' +
                     'Welk van de volgende activiteiten ga je dit weekend doen?' +
                     '<select id="acitivity_future_sel" class="select_menu_2" multiple>' +
-                    '<option value="option1">Option1</option>' +
-                    '<option value="option2">Option2</option>' +
-                    '<option value="option3">Option3</option>' +
+                    '<option value="Sporten">Sporten</option>' +
+                    '<option value="Netflix kijken">Netflix kijken</option>' +
+                    '<option value="Uitgaan">Uitgaan</option>' +
+                    '<option value="Eten met vrienden">Eten met vrienden</option>' +
+                    '<option value="Familie bezoeken">Familie bezoeken</option>' +
+                    '<option value="Winkelen">Winkelen</option>' +
+                    '<option value="Een dagje uit">Een dagje uit</option>' +
+                    '<option value="Naar de film">Naar de film</option>' +
+                    '<option value="Naar een concert">Naar een concert</option>' +
+                    '<option value="Naar een festival">Naar een festival</option>' +
+                    '<option value="Werken">Werken</option>' +
+                    '<option value="Studeren">Studeren</option>' +
+                    '<option value="Niets doen">Niets doen</option>' +
                     '</select>' +
                     '</div>';
                 menu2 = '<div id="activity_future_non" class="text3">' +
                     'Welk van de volgende activiteiten ga je zeker niet doen dit weekend?' +
                     '<select id="acitivity_future_non_sel" class="select_menu_2" multiple>' +
-                    '<option value="option1">Option1</option>' +
-                    '<option value="option2">Option2</option>' +
-                    '<option value="option3">Option3</option>' +
+                    '<option value="Sporten">Sporten</option>' +
+                    '<option value="Netflix kijken">Netflix kijken</option>' +
+                    '<option value="Uitgaan">Uitgaan</option>' +
+                    '<option value="Eten met vrienden">Eten met vrienden</option>' +
+                    '<option value="Familie bezoeken">Familie bezoeken</option>' +
+                    '<option value="Winkelen">Winkelen</option>' +
+                    '<option value="Een dagje uit">Een dagje uit</option>' +
+                    '<option value="Naar de film">Naar de film</option>' +
+                    '<option value="Naar een concert">Naar een concert</option>' +
+                    '<option value="Naar een festival">Naar een festival</option>' +
+                    '<option value="Werken">Werken</option>' +
+                    '<option value="Studeren">Studeren</option>' +
+                    '<option value="Niets doen">Niets doen</option>' +
                     '</select>' +
                     '</div>';
             } else if (conditions.cb === 0) {
@@ -372,17 +521,37 @@ function to_main_instructions8() {
                 menu1 = '<div id="activity_past" class="text3">' +
                     'Welk van de volgende activiteiten heb je afgelopen weekend gedaan?' +
                     '<select id="acitivity_past_sel" class="select_menu_2" multiple>' +
-                    '<option value="option1">Option1</option>' +
-                    '<option value="option2">Option2</option>' +
-                    '<option value="option3">Option3</option>' +
+                    '<option value="Sporten">Sporten</option>' +
+                    '<option value="Netflix kijken">Netflix kijken</option>' +
+                    '<option value="Uitgaan">Uitgaan</option>' +
+                    '<option value="Eten met vrienden">Eten met vrienden</option>' +
+                    '<option value="Familie bezoeken">Familie bezoeken</option>' +
+                    '<option value="Winkelen">Winkelen</option>' +
+                    '<option value="Een dagje uit">Een dagje uit</option>' +
+                    '<option value="Naar de film">Naar de film</option>' +
+                    '<option value="Naar een concert">Naar een concert</option>' +
+                    '<option value="Naar een festival">Naar een festival</option>' +
+                    '<option value="Werken">Werken</option>' +
+                    '<option value="Studeren">Studeren</option>' +
+                    '<option value="Niets doen">Niets doen</option>' +
                     '</select>' +
                     '</div>';
                 menu2 = '<div id="activity_past_non" class="text3">' +
                     'Welk van de volgende activiteiten heb je niet gedaan afgelopen weekend?' +
                     '<select id="acitivity_past_non_sel" class="select_menu_2" multiple>' +
-                    '<option value="option1">Option1</option>' +
-                    '<option value="option2">Option2</option>' +
-                    '<option value="option3">Option3</option>' +
+                    '<option value="Sporten">Sporten</option>' +
+                    '<option value="Netflix kijken">Netflix kijken</option>' +
+                    '<option value="Uitgaan">Uitgaan</option>' +
+                    '<option value="Eten met vrienden">Eten met vrienden</option>' +
+                    '<option value="Familie bezoeken">Familie bezoeken</option>' +
+                    '<option value="Winkelen">Winkelen</option>' +
+                    '<option value="Een dagje uit">Een dagje uit</option>' +
+                    '<option value="Naar de film">Naar de film</option>' +
+                    '<option value="Naar een concert">Naar een concert</option>' +
+                    '<option value="Naar een festival">Naar een festival</option>' +
+                    '<option value="Werken">Werken</option>' +
+                    '<option value="Studeren">Studeren</option>' +
+                    '<option value="Niets doen">Niets doen</option>' +
                     '</select>' +
                     '</div>';
             }
@@ -458,29 +627,27 @@ function to_main_instructions9() {
 }
 
 function to_main_instructions10() {
-    if (check_multi_select() === true) {
-        var items_for_rating;
-        var table_rows;
-        var a;
-        if (conditions.cb == 1) {
-            items_for_rating = collect_selected('future', 'notdo');
-        } else if (conditions.cb === 0) {
-            items_for_rating = collect_selected('past', 'notdo');
-        }
-        $('body').prepend('<div id="main_instructions10" class="main_instructions_"></div>');
-
-        $(items_for_rating).each(function(index, val) {
-            if (conditions.cb == 1) {
-                a = generate_table_row(index, val, 'future');
-                $('#main_instructions10').append(a);
-            } else if (conditions.cb === 0) {
-                a = generate_table_row(index, val, 'past');
-                $('#main_instructions10').append(a);
-            }
-        });
-        simple_transition($("#main_instructions9"), $("#main_instructions10"));
-        $("#next").attr('onclick', 'to_text_input_instructions2()');
+    var items_for_rating;
+    var table_rows;
+    var a;
+    if (conditions.cb == 1) {
+        items_for_rating = collect_selected('future', 'notdo');
+    } else if (conditions.cb === 0) {
+        items_for_rating = collect_selected('past', 'notdo');
     }
+    $('body').prepend('<div id="main_instructions10" class="main_instructions_"></div>');
+
+    $(items_for_rating).each(function(index, val) {
+        if (conditions.cb == 1) {
+            a = generate_table_row(index, val, 'future');
+            $('#main_instructions10').append(a);
+        } else if (conditions.cb === 0) {
+            a = generate_table_row(index, val, 'past');
+            $('#main_instructions10').append(a);
+        }
+    });
+    simple_transition($("#main_instructions9"), $("#main_instructions10"));
+    $("#next").attr('onclick', 'to_text_input_instructions2()');
 }
 
 
@@ -519,6 +686,12 @@ function to_text_input_instructions2() {
             text = instructions_deceptive2_en;
         }
     }
+    var instructive;
+    if (conditions.cb == 1) {
+        instructive = select_manipulation('future');
+    } else if (conditions.cb === 0) {
+        instructive = select_manipulation('past');
+    }
     $('body').prepend('<div id="text_input_instructions_2" class="main_instructions_">' + text + '</div>');
     simple_transition($("#main_instructions9"), $("#text_input_instructions_2"));
     $("#next").attr('onclick', 'to_statement_input2()');
@@ -542,7 +715,7 @@ function to_statement_input2() {
 
 
 function to_lextale() {
-    if (validate_text($("#statement2"), 10, 'both') === true) {
+    if (validate_text($("#statement2"), min_char, 'both', conditions.cond_lang) === true) {
         statement2_main = collect_statement($("#statement2"));
         var lextale_explanation;
         var lextale_explanation_key_right;

@@ -148,8 +148,13 @@ function check_slider(classname) {
         }
     });
     if (score != -1) {
-        // language check
-        alert("Please move the sliders to indicate the frequency of doing the activity and your certainty that you will do it.");
+        var alert_msg;
+        if (conditions.cond_lang === 0) {
+            alert_msg = "Beweeg alsjeblieft de sliders om jouw keuzes aan te geven.";
+        } else if (conditions.cond_lang == 1) {
+            alert_msg = "Please move the sliders to indicate your choices.";
+        }
+        alert(alert_msg);
         score = 0;
     } else {
         return true;
@@ -191,24 +196,24 @@ $.fn.stretch_text = function() {
 };
 
 // new function from previous study
-function validate_text(ID, desiredLength, test_kind) {
+function validate_text(ID, desiredLength, test_kind, language) {
     // text_validation = false;
     if (test_kind == 'both') {
-        if (check_text(ID, desiredLength) === true) {
-            if (check_input(ID) === true) {
+        if (check_text(ID, desiredLength, language) === true) {
+            if (check_input(ID, language) === true) {
                 text_validation = true;
                 // alert('text validated');
                 return true;
             }
         }
     } else if (test_kind == 'length') {
-        if (check_text(ID, desiredLength) === true) {
+        if (check_text(ID, desiredLength, language) === true) {
             text_validation = true;
             // alert('text validated');
             return true;
         }
     } else if (test_kind == 'content') {
-        if (check_input(ID) === true) {
+        if (check_input(ID, language) === true) {
             text_validation = true;
             // alert('text validated');
             return true;
@@ -216,10 +221,18 @@ function validate_text(ID, desiredLength, test_kind) {
     }
 }
 
-function check_input(ID) {
-    keywords = ["the", "to", "in", "at", "with", "by", "of", "a", "an", "from", "on", "there", "here", "I", "you", "they", "we", "us", "is", "it"];
-    tester_array = [];
-    tester2 = 0;
+function check_input(ID, language) {
+    var keywords;
+    var tester_array = [];
+    var tester2 = 0;
+    var alert_msg;
+    if (language === 0) {
+        keywords = ["the", "to", "in", "at", "with", "by", "of", "a", "an", "from", "on", "there", "here", "I", "you", "they", "we", "us", "is", "it"];
+        alert_msg = "Gebruik echt Nederlands in jouw verhaal alsjeblieft. Je anders kunt niet doorgaan en dit experiment wordt ongeldig zonder serieuze deelname.";
+    } else if (language == 1) {
+        keywords = ["the", "to", "in", "at", "with", "by", "of", "a", "an", "from", "on", "there", "here", "I", "you", "they", "we", "us", "is", "it"];
+        alert_msg = "Please use real English words and sentences in your answer. You will not be able to proceed otherwise. We cannot validate your participation without serious participation.";
+    }
     textin = ID.val().toLowerCase().split(" ");
     $.each(keywords, function(index, val) {
         tester = $.inArray(val, textin);
@@ -232,16 +245,22 @@ function check_input(ID) {
     });
     checksum_tester = sum(tester_array);
     if ((checksum_tester / textin.length) < 0.025) {
-        alert("Please use real English words and sentences in your answer. You will not be able to proceed otherwise. We cannot validate your participation without serious participation.");
+        alert(alert_msg);
     } else {
         return true;
     }
 }
 
-function check_text(ID, desiredLength) {
+function check_text(ID, desiredLength, language) {
+  var alert_msg;
+  if (language === 0) {
+      alert_msg = "Schrijf alsjeblieft ten minste " + desiredLength + " tekens om deze vraag te beantwoorden.";
+  } else if (language == 1) {
+      alert_msg = "Please use at least " + desiredLength + " characters to answer this questions.";
+  }
     var raw = ID.val().toLowerCase().replace(/ /g, '');
     if (raw.length < desiredLength) {
-        alert("Please use at least " + desiredLength + " characters to answer this questions.");
+        alert(alert_msg);
     } else {
         return true;
     }
@@ -298,6 +317,13 @@ function set_frequency_slider_value(number) {
     var output = "#frequency_output_" + number;
     $(output).val($(input).val() + '%');
 }
+
+function set_planning_slider_value(number) {
+    var input = "#activity" + number + "_planning";
+    var output = "#planning_output_" + number;
+    $(output).val($(input).val() + '%');
+}
+
 
 function activate_stretch() {
     $('.stretch').each(function() {
@@ -388,8 +414,8 @@ function generate_table_row(number, item, temporality) {
             '<span class="planning_span">' +
             '<div class="slider_io">' +
             '<span id="slider_instr">PLANNING?</span> ' +
-            '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
-            '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+            '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
+            '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
             '</div>' +
             '</span>' +
             '</div>';
@@ -491,14 +517,14 @@ function end_timer() {
     return elapsed;
 }
 
-function set_lang_nl(){
-  selected_language = 'nl';
-  to_informed_consent();
+function set_lang_nl() {
+    selected_language = 'nl';
+    to_informed_consent();
 }
 
-function set_lang_other(){
-  selected_language = 'other';
-  to_informed_consent();
+function set_lang_other() {
+    selected_language = 'other';
+    to_informed_consent();
 }
 
 function simple_transition_2(class_current_div, next_div) {
@@ -510,4 +536,60 @@ function simple_transition_2(class_current_div, next_div) {
             });
         }
     });
+}
+
+function make_quiz_question(id, number, language) {
+    var selected_question;
+    if (language === 0) {
+        selected_question = quiz_nl[number];
+    } else if (language == 1) {
+        selected_question = quiz_en[number];
+    }
+    var menu = '<div id="quiz_' + id + '" class="quiz">' +
+        selected_question.quiz_question +
+        // 'Which of the following activities did you not do last weekend?' +
+        '<select id="quiz_select_' + id + '" class="select_menu_">' +
+        '<option value="option1">' + selected_question.quiz_options.option1 + '</option>' +
+        '<option value="option2">' + selected_question.quiz_options.option2 + '</option>' +
+        '<option value="option3">' + selected_question.quiz_options.option3 + '</option>' +
+        '<option value="option4">' + selected_question.quiz_options.option4 + '</option>' +
+        '</select>' +
+        '</div>';
+    return menu;
+}
+
+function check_quiz_answer(id, number, language) {
+    var selected_question;
+    var alert_msg;
+    if (language === 0) {
+        selected_question = quiz_nl[number];
+    } else if (language == 1) {
+        selected_question = quiz_en[number];
+    }
+    var selected_choice;
+    switch (id) {
+        case 1:
+            selected_choice = $("#quiz_select_1 option:selected").text();
+            break;
+        case 2:
+            selected_choice = $("#quiz_select_2 option:selected").text();
+            break;
+        case 3:
+            selected_choice = $("#quiz_select_3 option:selected").text();
+            break;
+        case 4:
+            selected_choice = $("#quiz_select_4 option:selected").text();
+            break;
+    }
+    if (selected_choice == selected_question.quiz_correct) {
+        return true;
+    } else {
+        if (language === 0) {
+            alert_msg = "Dit antwoord is niet correct. Lees het voorbeeld verhaal opnieuw zodat je alle vragen hierover goed kunt beantwoorden.";
+        } else if (language == 1) {
+            alert_msg = "This answer is not correct. Please read the model statement again so that you can answer all question about it.";
+        }
+        alert(alert_msg);
+        to_model_statement1_proxy();
+    }
 }

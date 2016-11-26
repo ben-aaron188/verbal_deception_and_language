@@ -174,7 +174,7 @@ h2 {
   text-align: left;
   font-size: 1.1vw;
   top: 50%;
-  left: 30%;
+  left: 20%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
   padding-left: 1%;
@@ -196,7 +196,7 @@ h2 {
   padding-right: 1%;
   padding-top: 1%;
 }
-.certainty_span{
+.planning_span{
   height: 35%;
   width: 30%;
   margin: 0;
@@ -312,29 +312,30 @@ h2 {
 }
 .select_menu_ {
     letter-spacing: 0.01vw;
-    height: 10%;
-    width: 50%;
+    max-height: 50%;
+    width: 60%;
     margin: 0;
     position: absolute;
     text-align: left;
-    font-size: 0.9vw;
-    top: 80%;
+    font-size: 1.3vw;
+    top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     padding-left: 1%;
     padding-right: 1%;
     padding-top: 1%;
-    display: none;
+    /*display: none;*/
 }
 .select_menu_2 {
     letter-spacing: 0.01vw;
-    max-height: 50%;
+    /*max-height: 65%;*/
+    height: 50%;
     width: 60%;
     margin: 0;
     position: absolute;
     text-align: left;
-    font-size: 1.0vw;
+    font-size: 1.1vw;
     top: 60%;
     left: 50%;
     margin-right: -50%;
@@ -889,4 +890,21 @@ input[type=checkbox] {
 #lang_button_other{
   top: 70%;
   left: 65%;
+}
+.quiz {
+    border: 0.3vw solid #FFBF00;
+    letter-spacing: 0.01vw;
+    height: 60%;
+    width: 70%;
+    margin: 0;
+    position: absolute;
+    text-align: left;
+    font-size: 1.5vw;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
 }
