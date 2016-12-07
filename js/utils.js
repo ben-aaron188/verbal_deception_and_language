@@ -1,7 +1,7 @@
 var slider_moved_array = [];
 
 function check_fields(classname) {
-    class_values = [];
+    var class_values = [];
     score = 0;
     classname.each(function() {
         if ($(this).is(":visible")) {
@@ -22,12 +22,12 @@ function check_fields(classname) {
 }
 
 function check_multi_select() {
-    class_values = [];
+    var class_values = [];
     score = 0;
     $(".select_menu_2").each(function() {
         if ($(this).is(":visible")) {
-            $(".select_menu_2 option:selected").each(function() {
-                class_values.push($(this).text().length);
+            $(".select_menu_2 :selected").each(function(i, val) {
+                class_values[i] = $(val).text().length;
                 score = $.inArray(0, class_values);
             });
         }
@@ -38,6 +38,41 @@ function check_multi_select() {
     } else {
         return true;
     }
+}
+
+// source: http://js-algorithms.tutorialhorizon.com/2016/01/25/find-duplicates-in-an-array/
+function find_duplicates_in_array() {
+    var class_values = [];
+    $(".select_menu_2").each(function() {
+        if ($(this).is(":visible")) {
+            $(".select_menu_2 :selected").each(function(i, val) {
+                class_values[i] = $(val).text();
+            });
+        }
+    });
+    var result = [];
+    class_values.forEach(function(element, index) {
+        // Find if there is a duplicate or not
+        if (class_values.indexOf(element, index + 1) > -1) {
+            // Find if the element is already in the result array or not
+            if (result.indexOf(element) === -1) {
+                result.push(element);
+            }
+        }
+    });
+    if (result.length === 0) {
+        return true;
+    } else {
+        // return true;
+        var alert_msg;
+        if (conditions.cond_lang === 0) {
+            alert_msg = "Je kunt niet voor een activiteit aangeven dat je het wel en tegelijkertijd niet gaat doen komend weekend. Kies opnieuw en less de instructies zorgvuldig.";
+        } else if (conditions.cond_lang == 1) {
+            alert_msg = "You cannot indicate for the same activity that you will and will not do it next weekend. Please choose again and read the instructions carefully.";
+        }
+        alert(alert_msg);
+    }
+    // return result.length;
 }
 
 
@@ -169,7 +204,7 @@ function get_unid() {
     // }
 }
 
-// source" http://stackoverflow.com/questions/5976289/stretch-text-to-fit-width-of-div
+// source: http://stackoverflow.com/questions/5976289/stretch-text-to-fit-width-of-div
 $.fn.stretch_text = function() {
     var elmt = $(this),
         cont_width = elmt.width(),
@@ -345,12 +380,16 @@ function get_cond() {
     var cb = 2;
     if (selected_language != 'nl') {
         cond_lang = 1;
-        cond_ver = randomdigit(0, 1);
-        cb = randomdigit(0, 1);
+        // cond_ver = randomdigit(0, 1);
+        cond_ver = 1;
+        // cb = randomdigit(0, 1);
+        cb = 0;
     } else {
         cond_lang = randomdigit(0, 1);
-        cond_ver = randomdigit(0, 1);
-        cb = randomdigit(0, 1);
+        // cond_ver = randomdigit(0, 1);
+        cond_ver = 1;
+        // cb = randomdigit(0, 1);
+        cb = 0;
     }
     var conds = {
         'cond_lang': cond_lang,
@@ -360,10 +399,18 @@ function get_cond() {
     return conds;
 }
 
-function select_manipulation(temporality) {
+function select_manipulation(temporality, language) {
     var selected_obj;
     var selected_obj_;
+    var selected_obj__;
     var candidate_objects;
+    var choices;
+    var matches;
+    if (language === 0) {
+        choices = choices_nl;
+    } else if (language == 1) {
+        choices = choices_en;
+    }
     if (conditions.cond_ver === 0) {
         candidate_objects = collect_non_selected(temporality);
         selected_obj = shuffle(candidate_objects)[0];
@@ -373,6 +420,7 @@ function select_manipulation(temporality) {
         var sel_val;
         var sel_freq;
         var sel_cert;
+        // check that only the non-selected ones appear
         $(".table_row_div").each(function(index, val) {
             sel_val = $(this).children().eq(0).text();
             sel_freq = $(this).children().eq(1).children().children().eq(1).val();
@@ -386,16 +434,23 @@ function select_manipulation(temporality) {
             };
             obj_array.push(single_obj);
         });
+        // check if overlap
         selected_obj_ = obj_array.reduce((max, single) => max.combined > single.combined ? max : single);
-        selected_obj = selected_obj_.sel_val;
+        selected_obj__ = selected_obj_.sel_val;
+        matches = choices.filter(function(val, index, array) {
+            return val.option_normal == selected_obj__;
+        });
+        selected_obj = matches[0].option_specific;
     }
     return selected_obj;
+    // return matches[0];
 }
 
-function generate_table_row(number, item, temporality, language) {
+function generate_table_row(number, item, temporality, language, state) {
     var table_row;
     if (language === 0) {
         if (temporality == 'future') {
+          if(state == 'do'){
             table_row = '<div id="p' + number + '" class="table_row_div">' +
                 '<span id="activity' + number + ' ">' + item + '</span>' +
                 '<span class="activity_span">' +
@@ -403,6 +458,7 @@ function generate_table_row(number, item, temporality, language) {
                 '<span id="slider_instr">Hoe vaak heb je dit eerder gedaan?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
                 '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(nooit) -  -  -  (heel vaak)</div> ' +
                 '</div>' +
                 '</span>' +
                 '<span class="certainty_span">' +
@@ -410,6 +466,7 @@ function generate_table_row(number, item, temporality, language) {
                 '<span id="slider_instr">Hoe zeker ben je dat je dit gaat doen?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
                 '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
                 '</div>' +
                 '</span>' +
                 '<span class="planning_span">' +
@@ -417,9 +474,39 @@ function generate_table_row(number, item, temporality, language) {
                 '<span id="slider_instr">Hoe goed heb je dit al gepland?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
                 '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
                 '</div>' +
                 '</span>' +
                 '</div>';
+          } else if(state == 'notdo'){
+            table_row = '<div id="p' + number + '" class="table_row_div">' +
+                '<span id="activity' + number + ' ">' + item + '</span>' +
+                '<span class="activity_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Hoe vaak heb je dit eerder wel gedaan?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(nooit) -  -  -  (heel vaak)</div> ' +
+                '</div>' +
+                '</span>' +
+                '<span class="certainty_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Hoe zeker ben je dat je dit niet gaat doen?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
+                '</div>' +
+                '</span>' +
+                // '<span class="planning_span">' +
+                // '<div class="slider_io">' +
+                // '<span id="slider_instr">Hoe goed heb je dit al gepland?</span> ' +
+                // '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
+                // '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
+                // '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
+                // '</div>' +
+                // '</span>' +
+                '</div>';
+          }
         } else if (temporality == 'past') {
             table_row = '<div id="p' + number + '" class="table_row_div">' +
                 '<span id="activity' + number + ' ">' + item + '</span>' +
@@ -428,12 +515,14 @@ function generate_table_row(number, item, temporality, language) {
                 '<span id="slider_instr">Hoe vaak heb je dit eerder gedaan?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
                 '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(nooit) -  -  -  (heel vaak)</div> ' +
                 '</div>' +
                 '</span>' +
                 '</div>';
         }
     } else if (language == 1) {
         if (temporality == 'future') {
+          if(state == 'do'){
             table_row = '<div id="p' + number + '" class="table_row_div">' +
                 '<span id="activity' + number + ' ">' + item + '</span>' +
                 '<span class="activity_span">' +
@@ -441,6 +530,7 @@ function generate_table_row(number, item, temporality, language) {
                 '<span id="slider_instr">How often have you done this in the past?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
                 '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
                 '</div>' +
                 '</span>' +
                 '<span class="certainty_span">' +
@@ -448,6 +538,7 @@ function generate_table_row(number, item, temporality, language) {
                 '<span id="slider_instr">How certain are you that you will do this?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
                 '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
                 '</div>' +
                 '</span>' +
                 '<span class="planning_span">' +
@@ -455,9 +546,39 @@ function generate_table_row(number, item, temporality, language) {
                 '<span id="slider_instr">How well have you planned this already?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
                 '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
                 '</div>' +
                 '</span>' +
                 '</div>';
+          } else if(state == 'notdo'){
+            table_row = '<div id="p' + number + '" class="table_row_div">' +
+                '<span id="activity' + number + ' ">' + item + '</span>' +
+                '<span class="activity_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">How often have you done this in the past?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
+                '</div>' +
+                '</span>' +
+                '<span class="certainty_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">How certain are you that you will not do this?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
+                '</div>' +
+                '</span>' +
+                // '<span class="planning_span">' +
+                // '<div class="slider_io">' +
+                // '<span id="slider_instr">How well have you planned this already?</span> ' +
+                // '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
+                // '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
+                // '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
+                // '</div>' +
+                // '</span>' +
+                '</div>';
+          }
         } else if (temporality == 'past') {
             table_row = '<div id="p' + number + '" class="table_row_div">' +
                 '<span id="activity' + number + ' ">' + item + '</span>' +
@@ -466,12 +587,12 @@ function generate_table_row(number, item, temporality, language) {
                 '<span id="slider_instr">How often have you done this in the past?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
                 '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
                 '</div>' +
                 '</span>' +
                 '</div>';
         }
     }
-
     return table_row;
 }
 
@@ -479,22 +600,22 @@ function collect_selected(temporality, state) {
     var selected_items = [];
     if (temporality == 'past') {
         if (state == 'do') {
-            $("#activity_past option:selected").each(function() {
-                selected_items.push($(this).text());
+            $("#activity_past :selected").each(function(i, val) {
+                selected_items[i] = $(val).text();
             });
         } else if (state == 'notdo') {
-            $("#activity_past_non option:selected").each(function() {
-                selected_items.push($(this).text());
+            $("#activity_past_non :selected").each(function(i, val) {
+                selected_items[i] = $(val).text();
             });
         }
     } else if (temporality == 'future') {
         if (state == 'do') {
-            $("#activity_future option:selected").each(function() {
-                selected_items.push($(this).text());
+            $("#activity_future :selected").each(function(i, val) {
+                selected_items[i] = $(val).text();
             });
         } else if (state == 'notdo') {
-            $("#activity_future_non option:selected").each(function() {
-                selected_items.push($(this).text());
+            $("#activity_future_non :selected").each(function(i, val) {
+                selected_items[i] = $(val).text();
             });
         }
     }
@@ -540,7 +661,7 @@ function collect_statement(ID) {
     var content = ID.val();
     var length = get_length(ID);
     var data = {
-        content: '',
+        content: content,
         elapsed: elapsed,
         pagefocus: pagefocus,
         length: length

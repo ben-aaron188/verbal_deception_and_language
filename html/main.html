@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> -->
     <script src="../js/jquery-1.12.2.min.js"></script>
-    <script src="../js/main.js" type="text/javascript"></script>
+    <script src="../js/main.js?version=2" type="text/javascript"></script>
     <script src="../js/utils.js" type="text/javascript"></script>
     <script src="../js/detect_transl.min.js" type="text/javascript"></script>
     <script src="../js/jquery.mb.browser.min.js" type="text/javascript"></script>
@@ -14,6 +14,7 @@
     <script src="../data/model_statement.js" type="text/javascript"></script>
     <script src="../data/explanation.js" type="text/javascript"></script>
     <script src="../data/quiz.js" type="text/javascript"></script>
+    <script src="../data/choices.js" type="text/javascript"></script>
     <script src="../js/pagefocus.min.js" type="text/javascript"></script>
     <script src="../lextale/main.js" type="text/javascript"></script>
     <script src="../lextale/utils.js" type="text/javascript"></script>
@@ -45,33 +46,33 @@
         <div id="gender" class="text2" style="left: 20%; top: 35%">
             What is your gender?
             <select id="gender_sel" class="select_menu">
-                <option value="">- Choose one -</option>
-                <option value="1">Male</option>
-                <option value="2">Female</option>
+                <option value="">- Kies één optie -</option>
+                <option value="1">Man</option>
+                <option value="2">Vrouw</option>
             </select>
         </div>
 
         <div id="age" class="text2" style="left: 50%; top: 35%">
-            What is your age?
+            Wat is je leeftijd?
             <input type="text" id="age_sel" class="select_menu" maxlength="2" size="8" style="text-align: center">
         </div>
 
         <div id="education" class="text2" style="left: 20%; top: 65%">
-            What is your education?
+            What is je hoogst genoten opleiding?
             <select id="education_sel" class="select_menu">
-                <option value="">- choose one -</option>
-                <option value="1">Elementary School</option>
-                <option value="2">High School</option>
-                <option value="3">Professional Training</option>
-                <option value="4">College</option>
-                <option value="5">University</option>
+                <option value="">- Kies één optie -</option>
+                <option value="1">Basisschool</option>
+                <option value="2">Middelbare school</option>
+                <option value="3">Beroepsopleiding</option>
+                <option value="4">HBO</option>
+                <option value="5">Universiteit</option>
             </select>
         </div>
 
         <div id="origin" class="text2" style="left: 50%; top: 65%">
-            Land van afkomst </br>
+            Land van herkomst </br>
             <select id="origin_sel" class="select_menu">
-                <option value="">- kies een -</option>
+                <option value="">- Kies één optie -</option>
                 <option value="Afganistan">Afghanistan</option>
                 <option value="Albania">Albani&#235;</option>
                 <option value="Algeria">Algerije</option>
@@ -323,230 +324,331 @@
         </div>
 
         <div id="bilingual" class="text2" style="left: 80%; top: 35%">
-            Were you raised in more than one native language?
+            Ben je opgevoed met meer dan één moedertaal?
             <select id="bilingual_sel" class="select_menu">
-                <option value="">- Choose one -</option>
-                <option value="1">Yes</option>
-                <option value="2">No</option>
+                <option value="">- Kies één optie -</option>
+                <option value="1">Ja</option>
+                <option value="2">Nee</option>
             </select>
         </div>
 
     </div>
 
+
+
     <div id="demographics2_nl" class="wrapper0">
         <div id="lang1" class="text2" style="left: 35%; top: 35%">
-            What is your (first) native language?
+            Wat is je (eerste) moedertaal?
             <select id="lang1_sel" class="select_menu">
-                <option value="">- Choose one -</option>
+                <option value="">- Kies één optie -</option>
+                <option value="oro">Afaan Oromo</option>
                 <option value="aka">Akan</option>
-                <option value="amh">Amharic</option>
-                <option value="ara">Arabic</option>
-                <option value="ass">Assamese</option>
+                <option value="alb">Albanees</option>
+                <option value="amh">Amhaars</option>
+                <option value="ara">Arabisch</option>
+                <option value="arg">Aragonees</option>
+                <option value="arm">Armeens</option>
+                <option value="aro">Aroemeens</option>
+                <option value="ass">Assamees</option>
+                <option value="ast">Asturisch</option>
                 <option value="awa">Awadhi</option>
-                <option value="aze">Azerbaijani</option>
-                <option value="bal">Balochi</option>
-                <option value="bel">Belarussian</option>
-                <option value="ben">Bengali</option>
+                <option value="aze">Azerbeidzjaans</option>
+                <option value="bas">Baskisch</option>
+                <option value="bal">Beloetsji</option>
+                <option value="ben">Bengaals</option>
+                <option value="ber">Berber</option>
                 <option value="bho">Bhojpuri</option>
-                <option value="bur">Burmese</option>
-                <option value="can">Cantonese</option>
+                <option value="bur">Birmees</option>
+                <option value="bos">Bosnisch</option>
+                <option value="bre">Bretons</option>
+                <option value="bul">Bulgaars</option>
+                <option value="khm">Cambodjaans (Khmer)</option>
+                <option value="cat">Catalaans</option>
                 <option value="ceb">Cebuano</option>
-                <option value="che">Chewa</option>
                 <option value="chh">Chhattisgarhi</option>
-                <option value="chi">Chittagonian</option>
-                <option value="cze">Czech</option>
-                <option value="dec">Deccan</option>
-                <option value="dhu">Dhundhari</option>
-                <option value="nl">Dutch</option>
-                <option value="eng">English</option>
-                <option value="fre">French</option>
+                <option value="chi">Chittagonisch</option>
+                <option value="cor">Cornish</option>
+                <option value="cos">Corsicaans</option>
+                <option value="dec">Dakhini (Deccani)</option>
+                <option value="dan">Deens</option>
+                <option value="dhu">Dhundari</option>
+                <option value="ger">Duits</option>
+                <option value="als">Elzassisch</option>
+                <option value="eng">Engels</option>
+                <option value="est">Estisch</option>
+                <option value="fin">Fins</option>
+                <option value="frp">Francoprovencaals</option>
+                <option value="fre">Frans</option>
+                <option value="fri">Fries</option>
+                <option value="frl">Friulisch</option>
                 <option value="ful">Fula</option>
-                <option value="gan">Gan</option>
-                <option value="ger">German</option>
-                <option value="gre">Greek</option>
+                <option value="gal">Galicisch</option>
+                <option value="gan">Ganyu</option>
+                <option value="gre">Grieks</option>
                 <option value="guk">Gujarati</option>
-                <option value="hai">Haitian Creole</option>
+                <option value="hai">Haïtiaans Creools (Patua)</option>
                 <option value="hak">Hakka</option>
                 <option value="har">Haryanvi</option>
                 <option value="hau">Hausa</option>
-                <option value="hil">Hiligaynon</option>
+                <option value="hil">Hiligaynon (Ilonggo)</option>
                 <option value="hin">Hindi</option>
                 <option value="hmo">Hmong</option>
-                <option value="hun">Hungarian</option>
+                <option value="hun">Hongaars</option>
+                <option value="iri">Iers</option>
                 <option value="igb">Igbo</option>
                 <option value="ilo">Ilokano</option>
-                <option value="ita">Italian</option>
-                <option value="jap">Japanese</option>
-                <option value="jav">Javanese</option>
+                <option value="ita">Italiaans</option>
+                <option value="jap">Japans</option>
+                <option value="jav">Javaans</option>
                 <option value="jin">Jin</option>
                 <option value="kan">Kannada</option>
-                <option value="kaz">Kazakh</option>
-                <option value="khm">Khmer</option>
+                <option value="kar">Karaims</option>
+                <option value="kas">Kasjoebisch</option>
+                <option value="kaz">Kazachs</option>
                 <option value="kin">Kinyarwanda</option>
                 <option value="kir">Kirundi</option>
-                <option value="kor">Korean</option>
-                <option value="kur">Kurdish</option>
-                <option value="lao">Lao</option>
-                <option value="mad">Madurese</option>
+                <option value="kur">Koerdisch</option>
+                <option value="kon">Konkani</option>
+                <option value="kor">Koreaans</option>
+                <option value="cro">Kroatisch</option>
+                <option value="lad">Ladinisch</option>
+                <option value="lat">Letgaals</option>
+                <option value="lav">Lets</option>
+                <option value="liv">Lijfs</option>
+                <option value="lim">Limburgs</option>
+                <option value="lit">Litouws</option>
+                <option value="lux">Luxemburgs</option>
+                <option value="mac">Macedonisch</option>
+                <option value="mad">Madoerees</option>
                 <option value="mag">Magahi</option>
                 <option value="mai">Maithili</option>
-                <option value="mal">Malagasy</option>
-                <option value="ind">Malay/Indonesian</option>
+                <option value="mal">Malagasi</option>
                 <option value="may">Malayalam</option>
-                <option value="man">Mandarin</option>
+                <option value="ind">Maleis/Indonesisch</option>
+                <option value="mal">Maltees</option>
+                <option value="man">Mandarijn</option>
+                <option value="max">Manx Gaelisch</option>
                 <option value="mar">Marathi</option>
                 <option value="maw">Marwari</option>
+                <option value="mir">Mirandees</option>
                 <option value="mib">Min Bei</option>
                 <option value="mid">Min Dong</option>
                 <option value="min">Min Nan</option>
-                <option value="mos">Mossi</option>
-                <option value="nep">Nepali</option>
-                <option value="ori">Oriya</option>
-                <option value="oro">Oromo</option>
+                <option value="mos">More (Mossi)</option>
+                <option value="nl">Nederlands</option>
+                <option value="nep">Nepalees</option>
+                <option value="che">Nyanja (Chewa)</option>
+                <option value="occ">Occitaans</option>
+                <option value="odi">Odia (Oriya)</option>
+                <option value="uyg">Oeigoers</option>
+                <option value="ukr">Oekraïens</option>
+                <option value="uzb">Oezbeeks</option>
                 <option value="pas">Pashto</option>
-                <option value="per">Persian</option>
-                <option value="pol">Polish</option>
-                <option value="por">Portuguese</option>
+                <option value="per">Perzisch</option>
+                <option value="pol">Pools</option>
+                <option value="por">Portugees</option>
                 <option value="pun">Punjabi</option>
                 <option value="que">Quechua</option>
-                <option value="rom">Romanian</option>
-                <option value="rus">Russian</option>
+                <option value="rom">Roemeens</option>
+                <option value="ruy">Roetheens</option>
+                <option value="rus">Russisch</option>
+                <option value="sam">Samisch</option>
+                <option value="sao">Samogitisch</option>
                 <option value="sar">Saraiki</option>
-                <option value="ser">Serbo-Croatian</option>
+                <option value="sad">Sardijns</option>
+                <option value="sco">Schots-Gaelish</option>
+                <option value="ser">Servisch</option>
                 <option value="sho">Shona</option>
                 <option value="sin">Sindhi</option>
-                <option value="sih">Sinhalese</option>
-                <option value="som">Somali</option>
-                <option value="spa">Spanish</option>
-                <option value="sun">Sundanese</option>
+                <option value="sih">Singalees</option>
+                <option value="slv">Sloveens</option>
+                <option value="slo">Slowaaks</option>
+                <option value="sun">Soendanees</option>
+                <option value="som">Somalisch</option>
+                <option value="sor">Sorbisch</option>
+                <option value="spa">Spaans</option>
                 <option value="swa">Swahili</option>
-                <option value="swe">Swedish</option>
                 <option value="syl">Sylheti</option>
                 <option value="tag">Tagalog</option>
                 <option value="tam">Tamil</option>
+                <option value="tat">Tataars</option>
                 <option value="tel">Telugu</option>
-                <option value="tha">Thai</option>
-                <option value="tur">Turkish</option>
-                <option value="ukr">Ukrainian</option>
+                <option value="tha">Thais</option>
+                <option value="cze">Tsjechisch</option>
+                <option value="tuk">Turkmeens</option>
+                <option value="tur">Turks</option>
                 <option value="urd">Urdu</option>
-                <option value="uyg">Uyghur</option>
-                <option value="uzb">Uzbek</option>
-                <option value="vie">Vietnamese</option>
+                <option value="vie">Vietnamees</option>
+                <option value="wel">Welsh</option>
+                <option value="bel">Wit-Russisch</option>
                 <option value="wu">Wu</option>
                 <option value="xho">Xhosa</option>
                 <option value="xia">Xiang</option>
                 <option value="yor">Yoruba</option>
+                <option value="yue">Yue (Kantonees)</option>
                 <option value="zhu">Zhuang</option>
-                <option value="zul">Zulu</option>
-                <option value="oth">Not on the list</option>
+                <option value="zul">Zoeloe</option>
+                <option value="swe">Zweeds</option>
+                <option value="oth">Niet in deze lijst</option>
             </select>
         </div>
 
+
+
         <div id="lang2" class="text2" style="left: 65%; top: 35%">
-            What is your second native language?
+            Wat is je tweede moedertaal?
             <select id="lang2_sel" class="select_menu">
-                <option value="">- Choose one -</option>
+                <option value="">- Kies één optie -</option>
+                <option value="oro">Afaan Oromo</option>
                 <option value="aka">Akan</option>
-                <option value="amh">Amharic</option>
-                <option value="ara">Arabic</option>
-                <option value="ass">Assamese</option>
+                <option value="alb">Albanees</option>
+                <option value="amh">Amhaars</option>
+                <option value="ara">Arabisch</option>
+                <option value="arg">Aragonees</option>
+                <option value="arm">Armeens</option>
+                <option value="aro">Aroemeens</option>
+                <option value="ass">Assamees</option>
+                <option value="ast">Asturisch</option>
                 <option value="awa">Awadhi</option>
-                <option value="aze">Azerbaijani</option>
-                <option value="bal">Balochi</option>
-                <option value="bel">Belarussian</option>
-                <option value="ben">Bengali</option>
+                <option value="aze">Azerbeidzjaans</option>
+                <option value="bas">Baskisch</option>
+                <option value="bal">Beloetsji</option>
+                <option value="ben">Bengaals</option>
+                <option value="ber">Berber</option>
                 <option value="bho">Bhojpuri</option>
-                <option value="bur">Burmese</option>
-                <option value="can">Cantonese</option>
+                <option value="bur">Birmees</option>
+                <option value="bos">Bosnisch</option>
+                <option value="bre">Bretons</option>
+                <option value="bul">Bulgaars</option>
+                <option value="khm">Cambodjaans (Khmer)</option>
+                <option value="cat">Catalaans</option>
                 <option value="ceb">Cebuano</option>
-                <option value="che">Chewa</option>
                 <option value="chh">Chhattisgarhi</option>
-                <option value="chi">Chittagonian</option>
-                <option value="cze">Czech</option>
-                <option value="dec">Deccan</option>
-                <option value="dhu">Dhundhari</option>
-                <option value="nl">Dutch</option>
-                <option value="eng">English</option>
-                <option value="fre">French</option>
+                <option value="chi">Chittagonisch</option>
+                <option value="cor">Cornish</option>
+                <option value="cos">Corsicaans</option>
+                <option value="dec">Dakhini (Deccani)</option>
+                <option value="dan">Deens</option>
+                <option value="dhu">Dhundari</option>
+                <option value="ger">Duits</option>
+                <option value="als">Elzassisch</option>
+                <option value="eng">Engels</option>
+                <option value="est">Estisch</option>
+                <option value="fin">Fins</option>
+                <option value="frp">Francoprovencaals</option>
+                <option value="fre">Frans</option>
+                <option value="fri">Fries</option>
+                <option value="frl">Friulisch</option>
                 <option value="ful">Fula</option>
-                <option value="gan">Gan</option>
-                <option value="ger">German</option>
-                <option value="gre">Greek</option>
+                <option value="gal">Galicisch</option>
+                <option value="gan">Ganyu</option>
+                <option value="gre">Grieks</option>
                 <option value="guk">Gujarati</option>
-                <option value="hai">Haitian Creole</option>
+                <option value="hai">Haïtiaans Creools (Patua)</option>
                 <option value="hak">Hakka</option>
                 <option value="har">Haryanvi</option>
                 <option value="hau">Hausa</option>
-                <option value="hil">Hiligaynon</option>
+                <option value="hil">Hiligaynon (Ilonggo)</option>
                 <option value="hin">Hindi</option>
                 <option value="hmo">Hmong</option>
-                <option value="hun">Hungarian</option>
+                <option value="hun">Hongaars</option>
+                <option value="iri">Iers</option>
                 <option value="igb">Igbo</option>
                 <option value="ilo">Ilokano</option>
-                <option value="ita">Italian</option>
-                <option value="jap">Japanese</option>
-                <option value="jav">Javanese</option>
+                <option value="ita">Italiaans</option>
+                <option value="jap">Japans</option>
+                <option value="jav">Javaans</option>
                 <option value="jin">Jin</option>
                 <option value="kan">Kannada</option>
-                <option value="kaz">Kazakh</option>
-                <option value="khm">Khmer</option>
+                <option value="kar">Karaims</option>
+                <option value="kas">Kasjoebisch</option>
+                <option value="kaz">Kazachs</option>
                 <option value="kin">Kinyarwanda</option>
                 <option value="kir">Kirundi</option>
-                <option value="kor">Korean</option>
-                <option value="kur">Kurdish</option>
-                <option value="lao">Lao</option>
-                <option value="mad">Madurese</option>
+                <option value="kur">Koerdisch</option>
+                <option value="kon">Konkani</option>
+                <option value="kor">Koreaans</option>
+                <option value="cro">Kroatisch</option>
+                <option value="lad">Ladinisch</option>
+                <option value="lat">Letgaals</option>
+                <option value="lav">Lets</option>
+                <option value="liv">Lijfs</option>
+                <option value="lim">Limburgs</option>
+                <option value="lit">Litouws</option>
+                <option value="lux">Luxemburgs</option>
+                <option value="mac">Macedonisch</option>
+                <option value="mad">Madoerees</option>
                 <option value="mag">Magahi</option>
                 <option value="mai">Maithili</option>
-                <option value="mal">Malagasy</option>
-                <option value="ind">Malay/Indonesian</option>
+                <option value="mal">Malagasi</option>
                 <option value="may">Malayalam</option>
-                <option value="man">Mandarin</option>
+                <option value="ind">Maleis/Indonesisch</option>
+                <option value="mal">Maltees</option>
+                <option value="man">Mandarijn</option>
+                <option value="max">Manx Gaelisch</option>
                 <option value="mar">Marathi</option>
                 <option value="maw">Marwari</option>
+                <option value="mir">Mirandees</option>
                 <option value="mib">Min Bei</option>
                 <option value="mid">Min Dong</option>
                 <option value="min">Min Nan</option>
-                <option value="mos">Mossi</option>
-                <option value="nep">Nepali</option>
-                <option value="ori">Oriya</option>
-                <option value="oro">Oromo</option>
+                <option value="mos">More (Mossi)</option>
+                <option value="nl">Nederlands</option>
+                <option value="nep">Nepalees</option>
+                <option value="che">Nyanja (Chewa)</option>
+                <option value="occ">Occitaans</option>
+                <option value="odi">Odia (Oriya)</option>
+                <option value="uyg">Oeigoers</option>
+                <option value="ukr">Oekraïens</option>
+                <option value="uzb">Oezbeeks</option>
                 <option value="pas">Pashto</option>
-                <option value="per">Persian</option>
-                <option value="pol">Polish</option>
-                <option value="por">Portuguese</option>
+                <option value="per">Perzisch</option>
+                <option value="pol">Pools</option>
+                <option value="por">Portugees</option>
                 <option value="pun">Punjabi</option>
                 <option value="que">Quechua</option>
-                <option value="rom">Romanian</option>
-                <option value="rus">Russian</option>
+                <option value="rom">Roemeens</option>
+                <option value="ruy">Roetheens</option>
+                <option value="rus">Russisch</option>
+                <option value="sam">Samisch</option>
+                <option value="sao">Samogitisch</option>
                 <option value="sar">Saraiki</option>
-                <option value="ser">Serbo-Croatian</option>
+                <option value="sad">Sardijns</option>
+                <option value="sco">Schots-Gaelish</option>
+                <option value="ser">Servisch</option>
                 <option value="sho">Shona</option>
                 <option value="sin">Sindhi</option>
-                <option value="sih">Sinhalese</option>
-                <option value="som">Somali</option>
-                <option value="spa">Spanish</option>
-                <option value="sun">Sundanese</option>
+                <option value="sih">Singalees</option>
+                <option value="slv">Sloveens</option>
+                <option value="slo">Slowaaks</option>
+                <option value="sun">Soendanees</option>
+                <option value="som">Somalisch</option>
+                <option value="sor">Sorbisch</option>
+                <option value="spa">Spaans</option>
                 <option value="swa">Swahili</option>
-                <option value="swe">Swedish</option>
                 <option value="syl">Sylheti</option>
                 <option value="tag">Tagalog</option>
                 <option value="tam">Tamil</option>
+                <option value="tat">Tataars</option>
                 <option value="tel">Telugu</option>
-                <option value="tha">Thai</option>
-                <option value="tur">Turkish</option>
-                <option value="ukr">Ukrainian</option>
+                <option value="tha">Thais</option>
+                <option value="cze">Tsjechisch</option>
+                <option value="tuk">Turkmeens</option>
+                <option value="tur">Turks</option>
                 <option value="urd">Urdu</option>
-                <option value="uyg">Uyghur</option>
-                <option value="uzb">Uzbek</option>
-                <option value="vie">Vietnamese</option>
+                <option value="vie">Vietnamees</option>
+                <option value="wel">Welsh</option>
+                <option value="bel">Wit-Russisch</option>
                 <option value="wu">Wu</option>
                 <option value="xho">Xhosa</option>
                 <option value="xia">Xiang</option>
                 <option value="yor">Yoruba</option>
+                <option value="yue">Yue (Kantonees)</option>
                 <option value="zhu">Zhuang</option>
-                <option value="zul">Zulu</option>
-                <option value="oth">Not on the list</option>
+                <option value="zul">Zoeloe</option>
+                <option value="swe">Zweeds</option>
+                <option value="oth">Niet in deze lijst</option>
+
             </select>
         </div>
     </div>
@@ -844,75 +946,112 @@
 
     </div>
 
+
+
     <div id="demographics2_en" class="wrapper0">
         <div id="lang1" class="text2" style="left: 35%; top: 35%">
             What is your (first) native language?
             <select id="lang1_sel" class="select_menu">
                 <option value="">- Choose one -</option>
                 <option value="aka">Akan</option>
+                <option value="alb">Albanian</option>
+                <option value="als">Alsatian</option>
                 <option value="amh">Amharic</option>
                 <option value="ara">Arabic</option>
+                <option value="arg">Aragonese</option>
+                <option value="arm">Armenian</option>
+                <option value="aro">Aromenian</option>
                 <option value="ass">Assamese</option>
+                <option value="ast">Asturian</option>
                 <option value="awa">Awadhi</option>
                 <option value="aze">Azerbaijani</option>
                 <option value="bal">Balochi</option>
-                <option value="bel">Belarussian</option>
+                <option value="bas">Basque</option>
+                <option value="bel">Belarusian</option>
                 <option value="ben">Bengali</option>
+                <option value="ber">Berber</option>
                 <option value="bho">Bhojpuri</option>
+                <option value="bos">Bosnian</option>
+                <option value="bre">Breton</option>
+                <option value="bul">Bulgarian</option>
                 <option value="bur">Burmese</option>
-                <option value="can">Cantonese</option>
+                <option value="cat">Catalan</option>
                 <option value="ceb">Cebuano</option>
                 <option value="che">Chewa</option>
                 <option value="chh">Chhattisgarhi</option>
                 <option value="chi">Chittagonian</option>
+                <option value="cor">Cornish</option>
+                <option value="cos">Corsican</option>
+                <option value="cro">Croatian</option>
                 <option value="cze">Czech</option>
+                <option value="dan">Danish</option>
                 <option value="dec">Deccan</option>
-                <option value="dhu">Dhundhari</option>
+                <option value="dhu">Dhundari</option>
                 <option value="nl">Dutch</option>
                 <option value="eng">English</option>
+                <option value="est">Estonian</option>
+                <option value="fin">Finnish</option>
+                <option value="frp">Franco-Provencal</option>
                 <option value="fre">French</option>
+                <option value="fri">Frisian</option>
+                <option value="frl">Friulian</option>
                 <option value="ful">Fula</option>
-                <option value="gan">Gan</option>
+                <option value="gan">Gan Chinese</option>
                 <option value="ger">German</option>
                 <option value="gre">Greek</option>
                 <option value="guk">Gujarati</option>
-                <option value="hai">Haitian Creole</option>
+                <option value="hai">Haitian Creole (Patua)</option>
                 <option value="hak">Hakka</option>
                 <option value="har">Haryanvi</option>
                 <option value="hau">Hausa</option>
-                <option value="hil">Hiligaynon</option>
+                <option value="hil">Hiligaynon (Ilonggo)</option>
                 <option value="hin">Hindi</option>
                 <option value="hmo">Hmong</option>
                 <option value="hun">Hungarian</option>
                 <option value="igb">Igbo</option>
                 <option value="ilo">Ilokano</option>
+                <option value="iri">Irish</option>
                 <option value="ita">Italian</option>
                 <option value="jap">Japanese</option>
                 <option value="jav">Javanese</option>
                 <option value="jin">Jin</option>
                 <option value="kan">Kannada</option>
+                <option value="kar">Karaim</option>
+                <option value="kas">Kashubian</option>
                 <option value="kaz">Kazakh</option>
                 <option value="khm">Khmer</option>
                 <option value="kin">Kinyarwanda</option>
                 <option value="kir">Kirundi</option>
+                <option value="kon">Konkani</option>
                 <option value="kor">Korean</option>
                 <option value="kur">Kurdish</option>
-                <option value="lao">Lao</option>
+                <option value="lad">Ladin</option>
+                <option value="lat">Latgalian</option>
+                <option value="lav">Latvian</option>
+                <option value="lim">Limburgish</option>
+                <option value="lit">Lithuanian</option>
+                <option value="liv">Livonian</option>
+                <option value="lux">Luxembourgish</option>
+                <option value="mac">Macedonian</option>
                 <option value="mad">Madurese</option>
                 <option value="mag">Magahi</option>
                 <option value="mai">Maithili</option>
                 <option value="mal">Malagasy</option>
                 <option value="ind">Malay/Indonesian</option>
                 <option value="may">Malayalam</option>
+                <option value="mal">Maltese</option>
                 <option value="man">Mandarin</option>
+                <option value="max">Manx Gaelic</option>
                 <option value="mar">Marathi</option>
                 <option value="maw">Marwari</option>
+                <option value="mir">Mirandese</option>
                 <option value="mib">Min Bei</option>
                 <option value="mid">Min Dong</option>
                 <option value="min">Min Nan</option>
                 <option value="mos">Mossi</option>
                 <option value="nep">Nepali</option>
-                <option value="ori">Oriya</option>
+                <option value="occ">Occitan</option>
+                <option value="odi">Odia (Oriya)</option>
                 <option value="oro">Oromo</option>
                 <option value="pas">Pashto</option>
                 <option value="per">Persian</option>
@@ -922,12 +1061,20 @@
                 <option value="que">Quechua</option>
                 <option value="rom">Romanian</option>
                 <option value="rus">Russian</option>
+                <option value="ruy">Rusyn</option>
+                <option value="sam">Sami</option>
+                <option value="sao">Samogitian</option>
                 <option value="sar">Saraiki</option>
-                <option value="ser">Serbo-Croatian</option>
+                <option value="sad">Sardinian</option>
+                <option value="sco">Scottish Gaelic</option>
+                <option value="ser">Serbian</option>
                 <option value="sho">Shona</option>
                 <option value="sin">Sindhi</option>
                 <option value="sih">Sinhalese</option>
+                <option value="slo">Slovak</option>
+                <option value="slv">Slovenian</option>
                 <option value="som">Somali</option>
+                <option value="sor">Sorbian</option>
                 <option value="spa">Spanish</option>
                 <option value="sun">Sundanese</option>
                 <option value="swa">Swahili</option>
@@ -935,18 +1082,22 @@
                 <option value="syl">Sylheti</option>
                 <option value="tag">Tagalog</option>
                 <option value="tam">Tamil</option>
+                <option value="tat">Tatar</option>
                 <option value="tel">Telugu</option>
                 <option value="tha">Thai</option>
                 <option value="tur">Turkish</option>
+                <option value="tuk">Turkmen</option>
                 <option value="ukr">Ukrainian</option>
                 <option value="urd">Urdu</option>
                 <option value="uyg">Uyghur</option>
                 <option value="uzb">Uzbek</option>
                 <option value="vie">Vietnamese</option>
+                <option value="wel">Welsh</option>
                 <option value="wu">Wu</option>
                 <option value="xho">Xhosa</option>
                 <option value="xia">Xiang</option>
                 <option value="yor">Yoruba</option>
+                <option value="yue">Yue</option>
                 <option value="zhu">Zhuang</option>
                 <option value="zul">Zulu</option>
                 <option value="oth">Not on the list</option>
@@ -958,69 +1109,104 @@
             <select id="lang2_sel" class="select_menu">
                 <option value="">- Choose one -</option>
                 <option value="aka">Akan</option>
+                <option value="alb">Albanian</option>
+                <option value="als">Alsatian</option>
                 <option value="amh">Amharic</option>
                 <option value="ara">Arabic</option>
+                <option value="arg">Aragonese</option>
+                <option value="arm">Armenian</option>
+                <option value="aro">Aromenian</option>
                 <option value="ass">Assamese</option>
+                <option value="ast">Asturian</option>
                 <option value="awa">Awadhi</option>
                 <option value="aze">Azerbaijani</option>
                 <option value="bal">Balochi</option>
-                <option value="bel">Belarussian</option>
+                <option value="bas">Basque</option>
+                <option value="bel">Belarusian</option>
                 <option value="ben">Bengali</option>
+                <option value="ber">Berber</option>
                 <option value="bho">Bhojpuri</option>
+                <option value="bos">Bosnian</option>
+                <option value="bre">Breton</option>
+                <option value="bul">Bulgarian</option>
                 <option value="bur">Burmese</option>
-                <option value="can">Cantonese</option>
+                <option value="cat">Catalan</option>
                 <option value="ceb">Cebuano</option>
                 <option value="che">Chewa</option>
                 <option value="chh">Chhattisgarhi</option>
                 <option value="chi">Chittagonian</option>
+                <option value="cor">Cornish</option>
+                <option value="cos">Corsican</option>
+                <option value="cro">Croatian</option>
                 <option value="cze">Czech</option>
+                <option value="dan">Danish</option>
                 <option value="dec">Deccan</option>
-                <option value="dhu">Dhundhari</option>
+                <option value="dhu">Dhundari</option>
                 <option value="nl">Dutch</option>
                 <option value="eng">English</option>
+                <option value="est">Estonian</option>
+                <option value="fin">Finnish</option>
+                <option value="frp">Franco-Provencal</option>
                 <option value="fre">French</option>
+                <option value="fri">Frisian</option>
+                <option value="frl">Friulian</option>
                 <option value="ful">Fula</option>
-                <option value="gan">Gan</option>
+                <option value="gan">Gan Chinese</option>
                 <option value="ger">German</option>
                 <option value="gre">Greek</option>
                 <option value="guk">Gujarati</option>
-                <option value="hai">Haitian Creole</option>
+                <option value="hai">Haitian Creole (Patua)</option>
                 <option value="hak">Hakka</option>
                 <option value="har">Haryanvi</option>
                 <option value="hau">Hausa</option>
-                <option value="hil">Hiligaynon</option>
+                <option value="hil">Hiligaynon (Ilonggo)</option>
                 <option value="hin">Hindi</option>
                 <option value="hmo">Hmong</option>
                 <option value="hun">Hungarian</option>
                 <option value="igb">Igbo</option>
                 <option value="ilo">Ilokano</option>
+                <option value="iri">Irish</option>
                 <option value="ita">Italian</option>
                 <option value="jap">Japanese</option>
                 <option value="jav">Javanese</option>
                 <option value="jin">Jin</option>
                 <option value="kan">Kannada</option>
+                <option value="kar">Karaim</option>
+                <option value="kas">Kashubian</option>
                 <option value="kaz">Kazakh</option>
                 <option value="khm">Khmer</option>
                 <option value="kin">Kinyarwanda</option>
                 <option value="kir">Kirundi</option>
+                <option value="kon">Konkani</option>
                 <option value="kor">Korean</option>
                 <option value="kur">Kurdish</option>
-                <option value="lao">Lao</option>
+                <option value="lad">Ladin</option>
+                <option value="lat">Latgalian</option>
+                <option value="lav">Latvian</option>
+                <option value="lim">Limburgish</option>
+                <option value="lit">Lithuanian</option>
+                <option value="liv">Livonian</option>
+                <option value="lux">Luxembourgish</option>
+                <option value="mac">Macedonian</option>
                 <option value="mad">Madurese</option>
                 <option value="mag">Magahi</option>
                 <option value="mai">Maithili</option>
                 <option value="mal">Malagasy</option>
                 <option value="ind">Malay/Indonesian</option>
                 <option value="may">Malayalam</option>
+                <option value="mal">Maltese</option>
                 <option value="man">Mandarin</option>
+                <option value="max">Manx Gaelic</option>
                 <option value="mar">Marathi</option>
                 <option value="maw">Marwari</option>
+                <option value="mir">Mirandese</option>
                 <option value="mib">Min Bei</option>
                 <option value="mid">Min Dong</option>
                 <option value="min">Min Nan</option>
                 <option value="mos">Mossi</option>
                 <option value="nep">Nepali</option>
-                <option value="ori">Oriya</option>
+                <option value="occ">Occitan</option>
+                <option value="odi">Odia (Oriya)</option>
                 <option value="oro">Oromo</option>
                 <option value="pas">Pashto</option>
                 <option value="per">Persian</option>
@@ -1030,12 +1216,20 @@
                 <option value="que">Quechua</option>
                 <option value="rom">Romanian</option>
                 <option value="rus">Russian</option>
+                <option value="ruy">Rusyn</option>
+                <option value="sam">Sami</option>
+                <option value="sao">Samogitian</option>
                 <option value="sar">Saraiki</option>
-                <option value="ser">Serbo-Croatian</option>
+                <option value="sad">Sardinian</option>
+                <option value="sco">Scottish Gaelic</option>
+                <option value="ser">Serbian</option>
                 <option value="sho">Shona</option>
                 <option value="sin">Sindhi</option>
                 <option value="sih">Sinhalese</option>
+                <option value="slo">Slovak</option>
+                <option value="slv">Slovenian</option>
                 <option value="som">Somali</option>
+                <option value="sor">Sorbian</option>
                 <option value="spa">Spanish</option>
                 <option value="sun">Sundanese</option>
                 <option value="swa">Swahili</option>
@@ -1043,18 +1237,22 @@
                 <option value="syl">Sylheti</option>
                 <option value="tag">Tagalog</option>
                 <option value="tam">Tamil</option>
+                <option value="tat">Tatar</option>
                 <option value="tel">Telugu</option>
                 <option value="tha">Thai</option>
                 <option value="tur">Turkish</option>
+                <option value="tuk">Turkmen</option>
                 <option value="ukr">Ukrainian</option>
                 <option value="urd">Urdu</option>
                 <option value="uyg">Uyghur</option>
                 <option value="uzb">Uzbek</option>
                 <option value="vie">Vietnamese</option>
+                <option value="wel">Welsh</option>
                 <option value="wu">Wu</option>
                 <option value="xho">Xhosa</option>
                 <option value="xia">Xiang</option>
                 <option value="yor">Yoruba</option>
+                <option value="yue">Yue</option>
                 <option value="zhu">Zhuang</option>
                 <option value="zul">Zulu</option>
                 <option value="oth">Not on the list</option>
