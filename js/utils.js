@@ -99,7 +99,7 @@ function check_choice(classname) {
 
 
 function has_second_language() {
-    if ($("#bilingual_sel").val() == "1") {
+    if ($("#bilingual_sel_en").val() == "1" || $("#bilingual_sel_nl").val() == "1") {
         return true;
     } else {
         return false;
@@ -494,7 +494,7 @@ function generate_table_row(number, item, temporality, language, state) {
                 '<span id="slider_instr">Hoe zeker ben je dat je dit niet gaat doen?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
                 '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
-                '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet zeker) -  -  -  (heel erg zeker)</div> ' +
                 '</div>' +
                 '</span>' +
                 // '<span class="planning_span">' +

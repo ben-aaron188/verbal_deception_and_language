@@ -34,15 +34,12 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 #back {
     left: 10%;
 }
-
 #next {
     left: 90%;
 }
-
 .text1 {
     border: 0.5vw solid #FFBF00;
     font-weight: lighter;

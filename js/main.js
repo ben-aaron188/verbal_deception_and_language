@@ -4,7 +4,8 @@ var data_statement1;
 var unid;
 var repetition_count = 0;
 var conditions;
-var timer = 3000;
+var timer_ms1 = 3000; //180000
+var timer_ms2 = 3000; //60000
 var time_langtask1 = 2000;
 var quiz_order = [0, 1, 2, 3];
 var min_char = 10;
@@ -39,9 +40,11 @@ function to_main_instructions1() {
     } else if (conditions.cond_lang == 1) {
         text = instructions_general1_en;
     }
+    $("#back").show();
     $('body').prepend('<div id="main_instructions1" class="main_instructions_">' + text + '</div>');
     simple_transition_2($(".main_instructions_"), $("#main_instructions1"));
     $("#next").attr('onclick', 'to_main_instructions2()');
+    $("#back").attr('onclick', 'to_informed_consent()');
 }
 
 function to_main_instructions2() {
@@ -54,30 +57,39 @@ function to_main_instructions2() {
     $('body').prepend('<div id="main_instructions2" class="main_instructions_">' + text + '</div>');
     simple_transition_2($(".main_instructions_"), $("#main_instructions2"));
     $("#next").attr('onclick', 'to_demographics1()');
+    $("#back").attr('onclick', 'to_main_instructions1()');
 }
 
 function to_demographics1() {
     if (conditions.cond_lang === 0) {
         simple_transition($("#main_instructions2"), $("#demographics1_nl"));
+        $("#demographics1_en").hide();
     } else if (conditions.cond_lang == 1) {
         simple_transition($("#main_instructions2"), $("#demographics1_en"));
+        $("#demographics1_nl").hide();
     }
     $("#next").attr('onclick', 'to_demographics2()');
+    $("#back").attr('onclick', 'to_main_instructions2()');
     define_keys($("#age_sel"), 'number', 2);
 }
 
 function to_demographics2() {
     if (check_fields($(".select_menu")) === true) {
         if (has_second_language() === false) {
-            $("#lang2").css('display', 'none');
+            // $("#lang2").css('display', 'none');
+            $("#lang2_en").hide();
+            $("#lang2_nl").hide();
         }
         if (conditions.cond_lang === 0) {
             simple_transition($("#demographics1_nl"), $("#demographics2_nl"));
+            $("#demographics2_en").hide();
         } else if (conditions.cond_lang == 1) {
             simple_transition($("#demographics1_en"), $("#demographics2_en"));
+            $("#demographics2_nl").hide();
         }
         simple_transition($("#demographics1"), $("#demographics2"));
         $("#next").attr('onclick', 'to_main_instructions6()');
+        $("#back").attr('onclick', 'to_demographics1()');
     }
 }
 
@@ -210,6 +222,7 @@ function to_main_instructions6() {
         simple_transition($("#demographics2_en"), $("#main_instructions6"));
     }
     $("#next").attr('onclick', 'to_main_instructions7()');
+    $("#back").attr('onclick', 'to_demographics2()');
 }
 
 function to_main_instructions7() {
@@ -251,6 +264,7 @@ function to_main_instructions7() {
             activate_stretch();
             simple_transition_2($(".main_instructions_"), $("#main_instructions7"));
             $("#next").attr('onclick', 'to_main_instructions7a()');
+            $("#back").attr('onclick', 'to_main_instructions6()');
         }
     }
 }
@@ -293,6 +307,7 @@ function to_main_instructions7a() {
         activate_stretch();
         simple_transition_2($(".main_instructions__"), $("#main_instructions7a"));
         $("#next").attr('onclick', 'to_model_statement1()');
+        $("#back").attr('onclick', 'to_main_instructions7()');
     }
 }
 
@@ -313,7 +328,7 @@ function to_model_statement1() {
         $("#next").attr('onclick', 'to_quiz_1()').hide();
         setTimeout(function() {
             $("#next").show();
-        }, timer);
+        }, timer_ms1);
     }
 }
 
@@ -333,7 +348,7 @@ function to_model_statement1_proxy() {
     $("#next").attr('onclick', 'to_quiz_1()').hide();
     setTimeout(function() {
         $("#next").show();
-    }, timer);
+    }, timer_ms2);
 }
 
 
@@ -808,6 +823,12 @@ function to_outro() {
 }
 
 function get_data() {
+    var bilingual_bool;
+    if (conditions.cond_lang === 0) {
+        bilingual_bool = $("#bilingual_sel_nl").val();
+    } else if (conditions.cond_lang == 1) {
+        bilingual_bool = $("#bilingual_sel_en").val();
+    }
     data.ip = clientip;
     data.browsername = $.browser.name;
     data.browserversion = $.browser.version;
@@ -820,7 +841,7 @@ function get_data() {
     data.age = $("#age_sel").val();
     data.education = $("#education_sel").val();
     data.origin = $("#origin_sel").val();
-    data.bilingual_sel = $("#bilingual_sel").val();
+    data.bilingual_sel = bilingual_bool;
     data.lang1_sel = $("#lang1_sel").val();
     data.lang2_sel = $("#lang2_sel").val();
     data.cond_lang = conditions.cond_lang;
