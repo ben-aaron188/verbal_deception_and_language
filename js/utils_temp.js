@@ -66,7 +66,7 @@ function find_duplicates_in_array() {
         // return true;
         var alert_msg;
         if (conditions.cond_lang === 0) {
-            alert_msg = "Je kunt niet voor een activiteit aangeven dat je deze wel en tegelijkertijd niet gaat doen komend weekend. Kies opnieuw en lees de instructies zorgvuldig.";
+            alert_msg = "Je kunt niet voor een activiteit aangeven dat je het wel en tegelijkertijd niet gaat doen komend weekend. Kies opnieuw en less de instructies zorgvuldig.";
         } else if (conditions.cond_lang == 1) {
             alert_msg = "You cannot indicate for the same activity that you will and will not do it next weekend. Please choose again and read the instructions carefully.";
         }
@@ -99,7 +99,7 @@ function check_choice(classname) {
 
 
 function has_second_language() {
-    if ($("#bilingual_sel").val() == "1") {
+    if ($("#bilingual_sel_en").val() == "1" || $("#bilingual_sel_nl").val() == "1") {
         return true;
     } else {
         return false;
@@ -185,7 +185,7 @@ function check_slider(classname) {
     if (score != -1) {
         var alert_msg;
         if (conditions.cond_lang === 0) {
-            alert_msg = "Beweeg alsjeblieft de sliders om je keuzes aan te geven.";
+            alert_msg = "Beweeg alsjeblieft de sliders om jouw keuzes aan te geven.";
         } else if (conditions.cond_lang == 1) {
             alert_msg = "Please move the sliders to indicate your choices.";
         }
@@ -262,8 +262,8 @@ function check_input(ID, language) {
     var tester2 = 0;
     var alert_msg;
     if (language === 0) {
-        keywords = ["de", "het", "in", "voor", "met", "door", "of", "een", "aan", "van", "op", "daar", "hier", "ik", "je", "ze", "we", "ons", "is"];
-        alert_msg = "Gebruik alsjeblieft echte, Nederlandse woorden en zinnen bij het schrijven van je antwoord. Als je niet serieus antwoordt, kunnen we je deelname niet valideren.";
+        keywords = ["the", "to", "in", "at", "with", "by", "of", "a", "an", "from", "on", "there", "here", "I", "you", "they", "we", "us", "is", "it"];
+        alert_msg = "Gebruik echt Nederlands in jouw verhaal alsjeblieft. Je anders kunt niet doorgaan en dit experiment wordt ongeldig zonder serieuze deelname.";
     } else if (language == 1) {
         keywords = ["the", "to", "in", "at", "with", "by", "of", "a", "an", "from", "on", "there", "here", "I", "you", "they", "we", "us", "is", "it"];
         alert_msg = "Please use real English words and sentences in your answer. You will not be able to proceed otherwise. We cannot validate your participation without serious participation.";
@@ -450,135 +450,135 @@ function generate_table_row(number, item, temporality, language, state) {
     var table_row;
     if (language === 0) {
         if (temporality == 'future') {
-            if (state == 'do') {
-                table_row = '<div id="p' + number + '" class="table_row_div">' +
-                    '<span id="activity' + number + ' ">' + item + '</span>' +
-                    '<span class="activity_span">' +
-                    '<div class="slider_io">' +
-                    '<span id="slider_instr">Hoe vaak heb je dit in het verleden gedaan?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
-                    '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
-                    '<div class="slider_io_output_labels stretch">(nog nooit) -  -  -  (heel vaak)</div> ' +
-                    '</div>' +
-                    '</span>' +
-                    '<span class="certainty_span">' +
-                    '<div class="slider_io">' +
-                    '<span id="slider_instr">Hoe zeker ben je dat je dit gaat doen?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
-                    '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
-                    '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
-                    '</div>' +
-                    '</span>' +
-                    '<span class="planning_span">' +
-                    '<div class="slider_io">' +
-                    '<span id="slider_instr">Hoe goed heb je dit al gepland?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
-                    '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
-                    '<div class="slider_io_output_labels stretch">(helemaal niet gepland) -  -  -  (heel goed gepland)</div> ' +
-                    '</div>' +
-                    '</span>' +
-                    '</div>';
-            } else if (state == 'notdo') {
-                table_row = '<div id="p' + number + '" class="table_row_div">' +
-                    '<span id="activity' + number + ' ">' + item + '</span>' +
-                    '<span class="activity_span">' +
-                    '<div class="slider_io">' +
-                    '<span id="slider_instr">Hoe vaak heb je dit in het verleden wel gedaan?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
-                    '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
-                    '<div class="slider_io_output_labels stretch">(nog nooit) -  -  -  (heel vaak)</div> ' +
-                    '</div>' +
-                    '</span>' +
-                    '<span class="certainty_span">' +
-                    '<div class="slider_io">' +
-                    '<span id="slider_instr">Hoe zeker ben je dat je dit niet gaat doen?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
-                    '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
-                    '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
-                    '</div>' +
-                    '</span>' +
-                    // '<span class="planning_span">' +
-                    // '<div class="slider_io">' +
-                    // '<span id="slider_instr">Hoe goed heb je dit al gepland?</span> ' +
-                    // '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
-                    // '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
-                    // '<div class="slider_io_output_labels stretch">(helemaal niet gepland) -  -  -  (heel goed gepland)</div> ' +
-                    // '</div>' +
-                    // '</span>' +
-                    '</div>';
-            }
+          if(state == 'do'){
+            table_row = '<div id="p' + number + '" class="table_row_div">' +
+                '<span id="activity' + number + ' ">' + item + '</span>' +
+                '<span class="activity_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Hoe vaak heb je dit eerder gedaan?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(nooit) -  -  -  (heel vaak)</div> ' +
+                '</div>' +
+                '</span>' +
+                '<span class="certainty_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Hoe zeker ben je dat je dit gaat doen?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
+                '</div>' +
+                '</span>' +
+                '<span class="planning_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Hoe goed heb je dit al gepland?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
+                '</div>' +
+                '</span>' +
+                '</div>';
+          } else if(state == 'notdo'){
+            table_row = '<div id="p' + number + '" class="table_row_div">' +
+                '<span id="activity' + number + ' ">' + item + '</span>' +
+                '<span class="activity_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Hoe vaak heb je dit eerder wel gedaan?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(nooit) -  -  -  (heel vaak)</div> ' +
+                '</div>' +
+                '</span>' +
+                '<span class="certainty_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Hoe zeker ben je dat je dit niet gaat doen?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet zeker) -  -  -  (heel erg zeker)</div> ' +
+                '</div>' +
+                '</span>' +
+                // '<span class="planning_span">' +
+                // '<div class="slider_io">' +
+                // '<span id="slider_instr">Hoe goed heb je dit al gepland?</span> ' +
+                // '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
+                // '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
+                // '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
+                // '</div>' +
+                // '</span>' +
+                '</div>';
+          }
         } else if (temporality == 'past') {
             table_row = '<div id="p' + number + '" class="table_row_div">' +
                 '<span id="activity' + number + ' ">' + item + '</span>' +
                 '<span class="activity_span">' +
                 '<div class="slider_io">' +
-                '<span id="slider_instr">Hoe vaak heb je dit in het verleden gedaan?</span> ' +
+                '<span id="slider_instr">Hoe vaak heb je dit eerder gedaan?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
                 '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
-                '<div class="slider_io_output_labels stretch">(nog nooit) -  -  -  (heel vaak)</div> ' +
+                '<div class="slider_io_output_labels stretch">(nooit) -  -  -  (heel vaak)</div> ' +
                 '</div>' +
                 '</span>' +
                 '</div>';
         }
     } else if (language == 1) {
         if (temporality == 'future') {
-            if (state == 'do') {
-                table_row = '<div id="p' + number + '" class="table_row_div">' +
-                    '<span id="activity' + number + ' ">' + item + '</span>' +
-                    '<span class="activity_span">' +
-                    '<div class="slider_io">' +
-                    '<span id="slider_instr">How often have you done this in the past?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
-                    '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
-                    '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
-                    '</div>' +
-                    '</span>' +
-                    '<span class="certainty_span">' +
-                    '<div class="slider_io">' +
-                    '<span id="slider_instr">How certain are you that you will do this?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
-                    '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
-                    '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
-                    '</div>' +
-                    '</span>' +
-                    '<span class="planning_span">' +
-                    '<div class="slider_io">' +
-                    '<span id="slider_instr">How well have you planned this already?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
-                    '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
-                    '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
-                    '</div>' +
-                    '</span>' +
-                    '</div>';
-            } else if (state == 'notdo') {
-                table_row = '<div id="p' + number + '" class="table_row_div">' +
-                    '<span id="activity' + number + ' ">' + item + '</span>' +
-                    '<span class="activity_span">' +
-                    '<div class="slider_io">' +
-                    '<span id="slider_instr">How often have you done this in the past?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
-                    '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
-                    '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
-                    '</div>' +
-                    '</span>' +
-                    '<span class="certainty_span">' +
-                    '<div class="slider_io">' +
-                    '<span id="slider_instr">How certain are you that you will not do this?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
-                    '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
-                    '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
-                    '</div>' +
-                    '</span>' +
-                    // '<span class="planning_span">' +
-                    // '<div class="slider_io">' +
-                    // '<span id="slider_instr">How well have you planned this already?</span> ' +
-                    // '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
-                    // '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
-                    // '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
-                    // '</div>' +
-                    // '</span>' +
-                    '</div>';
-            }
+          if(state == 'do'){
+            table_row = '<div id="p' + number + '" class="table_row_div">' +
+                '<span id="activity' + number + ' ">' + item + '</span>' +
+                '<span class="activity_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">How often have you done this in the past?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
+                '</div>' +
+                '</span>' +
+                '<span class="certainty_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">How certain are you that you will do this?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
+                '</div>' +
+                '</span>' +
+                '<span class="planning_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">How well have you planned this already?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
+                '</div>' +
+                '</span>' +
+                '</div>';
+          } else if(state == 'notdo'){
+            table_row = '<div id="p' + number + '" class="table_row_div">' +
+                '<span id="activity' + number + ' ">' + item + '</span>' +
+                '<span class="activity_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">How often have you done this in the past?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
+                '</div>' +
+                '</span>' +
+                '<span class="certainty_span">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">How certain are you that you will not do this?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
+                '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
+                '</div>' +
+                '</span>' +
+                // '<span class="planning_span">' +
+                // '<div class="slider_io">' +
+                // '<span id="slider_instr">How well have you planned this already?</span> ' +
+                // '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
+                // '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
+                // '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
+                // '</div>' +
+                // '</span>' +
+                '</div>';
+          }
         } else if (temporality == 'past') {
             table_row = '<div id="p' + number + '" class="table_row_div">' +
                 '<span id="activity' + number + ' ">' + item + '</span>' +
@@ -751,7 +751,7 @@ function check_quiz_answer(id, number, language) {
         return true;
     } else {
         if (language === 0) {
-            alert_msg = "Dit antwoord is niet correct. Lees het voorbeeldverhaal opnieuw zodat je alle vragen hierover goed kunt beantwoorden.";
+            alert_msg = "Dit antwoord is niet correct. Lees het voorbeeld verhaal opnieuw zodat je alle vragen hierover goed kunt beantwoorden.";
         } else if (language == 1) {
             alert_msg = "This answer is not correct. Please read the model statement again so that you can answer all question about it.";
         }

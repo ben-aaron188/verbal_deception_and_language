@@ -89,7 +89,7 @@ function to_demographics2() {
         }
         simple_transition($("#demographics1"), $("#demographics2"));
         $("#next").attr('onclick', 'to_main_instructions6()');
-        $("#back").attr('onclick', 'to_demographics1()');
+        // $("#back").attr('onclick', 'to_demographics1()');
     }
 }
 
@@ -222,7 +222,7 @@ function to_main_instructions6() {
         simple_transition($("#demographics2_en"), $("#main_instructions6"));
     }
     $("#next").attr('onclick', 'to_main_instructions7()');
-    $("#back").attr('onclick', 'to_demographics2()');
+    // $("#back").attr('onclick', 'to_demographics2()');
 }
 
 function to_main_instructions7() {
