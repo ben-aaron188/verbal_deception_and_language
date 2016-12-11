@@ -69,8 +69,9 @@ function to_demographics1() {
         $("#demographics1_nl").hide();
     }
     $("#next").attr('onclick', 'to_demographics2()');
-    $("#back").attr('onclick', 'to_main_instructions2()');
-    define_keys($("#age_sel"), 'number', 2);
+    $("#back").attr('onclick', 'to_main_instructions2()').hide();
+    define_keys($("#age_sel_nl"), 'number', 2);
+    define_keys($("#age_sel_en"), 'number', 2);
 }
 
 function to_demographics2() {
@@ -264,7 +265,7 @@ function to_main_instructions7() {
             activate_stretch();
             simple_transition_2($(".main_instructions_"), $("#main_instructions7"));
             $("#next").attr('onclick', 'to_main_instructions7a()');
-            $("#back").attr('onclick', 'to_main_instructions6()');
+            $("#back").attr('onclick', 'to_main_instructions6()').show();
         }
     }
 }
@@ -824,10 +825,13 @@ function to_outro() {
 
 function get_data() {
     var bilingual_bool;
+    var age_sel;
     if (conditions.cond_lang === 0) {
         bilingual_bool = $("#bilingual_sel_nl").val();
+        age_sel = $("#age_sel_nl").val();
     } else if (conditions.cond_lang == 1) {
         bilingual_bool = $("#bilingual_sel_en").val();
+        age_sel = $("#age_sel_en").val();
     }
     data.ip = clientip;
     data.browsername = $.browser.name;
@@ -838,7 +842,7 @@ function get_data() {
     data.unidin = $("#unidin").val();
     data.crowdf = $("#crowdf").val();
     data.gender = $("#gender_sel").val();
-    data.age = $("#age_sel").val();
+    data.age = age_sel;
     data.education = $("#education_sel").val();
     data.origin = $("#origin_sel").val();
     data.bilingual_sel = bilingual_bool;

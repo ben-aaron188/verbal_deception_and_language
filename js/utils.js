@@ -412,7 +412,7 @@ function select_manipulation(temporality, language) {
         choices = choices_en;
     }
     if (conditions.cond_ver === 0) {
-        candidate_objects = collect_non_selected(temporality);
+        candidate_objects = collect_non_selected(temporality, 'do');
         selected_obj = shuffle(candidate_objects)[0];
     } else if (conditions.cond_ver == 1) {
         var obj_array = [];
@@ -435,7 +435,11 @@ function select_manipulation(temporality, language) {
             obj_array.push(single_obj);
         });
         // check if overlap
-        selected_obj_ = obj_array.reduce((max, single) => max.combined > single.combined ? max : single);
+        var activities_do = collect_selected(temporality, 'do');
+        var obj_array_ = obj_array.filter(function(val, index, array) {
+            return activities_do.indexOf(val.sel_val) < 0;
+        });
+        selected_obj_ = obj_array_.reduce((max, single) => max.combined > single.combined ? max : single);
         selected_obj__ = selected_obj_.sel_val;
         matches = choices.filter(function(val, index, array) {
             return val.option_normal == selected_obj__;
@@ -622,20 +626,36 @@ function collect_selected(temporality, state) {
     return selected_items;
 }
 
-function collect_non_selected(temporality) {
+function collect_non_selected(temporality, state) {
     var selected_items = [];
     if (temporality == 'past') {
-        $("#activity_past option").each(function() {
-            if (!$(this).is(':selected')) {
-                selected_items.push($(this).text());
-            }
-        });
+        if (state == 'do') {
+            $("#activity_past option").each(function() {
+                if (!$(this).is(':selected')) {
+                    selected_items.push($(this).text());
+                }
+            });
+        } else if (state == 'notdo') {
+            $("#activity_past_non option").each(function() {
+                if (!$(this).is(':selected')) {
+                    selected_items.push($(this).text());
+                }
+            });
+        }
     } else if (temporality == 'future') {
-        $("#activity_future option").each(function() {
-            if (!$(this).is(':selected')) {
-                selected_items.push($(this).text());
-            }
-        });
+        if (state == 'do') {
+            $("#activity_future option").each(function() {
+                if (!$(this).is(':selected')) {
+                    selected_items.push($(this).text());
+                }
+            });
+        } else if (state == 'notdo') {
+            $("#activity_future_non option").each(function() {
+                if (!$(this).is(':selected')) {
+                    selected_items.push($(this).text());
+                }
+            });
+        }
     }
     return selected_items;
 }
