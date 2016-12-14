@@ -485,7 +485,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '</div>';
             } else if (state == 'notdo') {
                 table_row = '<div id="p' + number + '" class="table_row_div">' +
-                    '<span id="activity' + number + ' ">' + item + '</span>' +
+                    '<span id="activity' + number + ' " style="text-transform: uppercase">' + item + '</span>' +
                     '<span class="activity_span">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">Hoe vaak heb je dit in het verleden wel gedaan?</span> ' +
@@ -514,7 +514,7 @@ function generate_table_row(number, item, temporality, language, state) {
             }
         } else if (temporality == 'past') {
             table_row = '<div id="p' + number + '" class="table_row_div">' +
-                '<span id="activity' + number + ' ">' + item + '</span>' +
+                '<span id="activity' + number + ' " style="text-transform: uppercase">' + item + '</span>' +
                 '<span class="activity_span">' +
                 '<div class="slider_io">' +
                 '<span id="slider_instr">Hoe vaak heb je dit in het verleden gedaan?</span> ' +
@@ -529,7 +529,7 @@ function generate_table_row(number, item, temporality, language, state) {
         if (temporality == 'future') {
             if (state == 'do') {
                 table_row = '<div id="p' + number + '" class="table_row_div">' +
-                    '<span id="activity' + number + ' ">' + item + '</span>' +
+                    '<span id="activity' + number + ' " style="text-transform: uppercase">' + item + '</span>' +
                     '<span class="activity_span">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">How often have you done this in the past?</span> ' +
@@ -557,7 +557,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '</div>';
             } else if (state == 'notdo') {
                 table_row = '<div id="p' + number + '" class="table_row_div">' +
-                    '<span id="activity' + number + ' ">' + item + '</span>' +
+                    '<span id="activity' + number + ' " style="text-transform: uppercase">' + item + '</span>' +
                     '<span class="activity_span">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">How often have you done this in the past?</span> ' +
@@ -586,7 +586,7 @@ function generate_table_row(number, item, temporality, language, state) {
             }
         } else if (temporality == 'past') {
             table_row = '<div id="p' + number + '" class="table_row_div">' +
-                '<span id="activity' + number + ' ">' + item + '</span>' +
+                '<span id="activity' + number + ' " style="text-transform: uppercase">' + item + '</span>' +
                 '<span class="activity_span">' +
                 '<div class="slider_io">' +
                 '<span id="slider_instr">How often have you done this in the past?</span> ' +

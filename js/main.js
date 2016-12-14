@@ -425,7 +425,7 @@ function to_pre_input_reminder(){
   }
   var instruction_span = '<span id="instructive_span2">' + instructive + '</span>';
   $('body').prepend('<div id="pre_input_instructions" class="main_instructions_">' + text + instruction_span + '</div>');
-  simple_transition($(".main_instructions_"), $("#pre_input_instructions"));
+  simple_transition_2($(".main_instructions_"), $("#pre_input_instructions"));
   $("#next").attr('onclick', 'to_statement_input1()');
 }
 }
@@ -454,7 +454,7 @@ function to_statement_input1() {
     start_timer();
     simple_transition_2($(".main_instructions_"), $("#statement_input1"));
     // $("#next").attr('onclick', 'to_main_instructions8()');
-    $("#next").attr('onclick', 'to_lextale()');
+    $("#next").attr('onclick', 'to_demographics1()');
     // check input length & meaningfulness
 }
 
