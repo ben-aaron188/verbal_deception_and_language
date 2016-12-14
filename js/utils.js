@@ -99,7 +99,7 @@ function check_choice(classname) {
 
 
 function has_second_language() {
-    if ($("#bilingual_sel").val() == "1") {
+    if ($("#bilingual_sel_nl").val() == "1" || $("#bilingual_sel_en").val() == "1") {
         return true;
     } else {
         return false;
@@ -380,14 +380,14 @@ function get_cond() {
     var cb = 2;
     if (selected_language != 'nl') {
         cond_lang = 1;
-        // cond_ver = randomdigit(0, 1);
-        cond_ver = 1;
+        cond_ver = randomdigit(0, 1);
+        // cond_ver = 1;
         // cb = randomdigit(0, 1);
         cb = 0;
     } else {
         cond_lang = randomdigit(0, 1);
-        // cond_ver = randomdigit(0, 1);
-        cond_ver = 1;
+        cond_ver = randomdigit(0, 1);
+        // cond_ver = 1;
         // cb = randomdigit(0, 1);
         cb = 0;
     }
@@ -412,7 +412,8 @@ function select_manipulation(temporality, language) {
         choices = choices_en;
     }
     if (conditions.cond_ver === 0) {
-        candidate_objects = collect_non_selected(temporality, 'do');
+        // candidate_objects = collect_non_selected(temporality, 'do');
+        candidate_objects = collect_selected(temporality, 'do');
         selected_obj = shuffle(candidate_objects)[0];
     } else if (conditions.cond_ver == 1) {
         var obj_array = [];
@@ -456,7 +457,7 @@ function generate_table_row(number, item, temporality, language, state) {
         if (temporality == 'future') {
             if (state == 'do') {
                 table_row = '<div id="p' + number + '" class="table_row_div">' +
-                    '<span id="activity' + number + ' ">' + item + '</span>' +
+                    '<span id="activity' + number + ' " style="text-transform: uppercase">' + item + '</span>' +
                     '<span class="activity_span">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">Hoe vaak heb je dit in het verleden gedaan?</span> ' +
@@ -495,7 +496,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '</span>' +
                     '<span class="certainty_span">' +
                     '<div class="slider_io">' +
-                    '<span id="slider_instr">Hoe zeker ben je dat je dit niet gaat doen?</span> ' +
+                    '<span id="slider_instr">Hoe zeker ben je dat je dit niet gaat doen komend weekend?</span> ' +
                     '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
                     '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
@@ -567,7 +568,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '</span>' +
                     '<span class="certainty_span">' +
                     '<div class="slider_io">' +
-                    '<span id="slider_instr">How certain are you that you will not do this?</span> ' +
+                    '<span id="slider_instr">How certain are you that you will not do this activity next weekend?</span> ' +
                     '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
                     '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +

@@ -106,7 +106,7 @@ var choices_en = [{
     option_specific: "Going out for a drink with your friends in Amsterdam",
 }, {
     option_normal: "Work out",
-    option_specific: "Work out with your sport team",
+    option_specific: "Work out with your sports team",
 }, {
     option_normal: "Watching Netflix",
     option_specific: "Watching Netflix with your roommate",
