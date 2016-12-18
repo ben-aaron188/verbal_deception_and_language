@@ -21,6 +21,57 @@ function check_fields(classname) {
     }
 }
 
+// $(".select_menu_2").each(function() {
+//     if ($(this).is(":visible")) {
+//       // console.log($(this));
+//       // $(this).each(function() {
+//       $("option:selected", this).each(function() {
+//           if ($(this).is(':selected')) {
+//             console.log($(this).text());
+//               // selected_items.push($(this).text());
+//           }
+//       });
+//         // $(".select_menu_2 :selected").each(function(i, val) {
+//         //     class_values[i] = $(val).text().length;
+//         //     score = $.inArray(0, class_values);
+//         // });
+//     }
+// });
+
+
+// needs refinement to generic ids (see above)
+function check_multi_select_2(language) {
+    var alert_msg;
+    if (language === 0) {
+        alert_msg = 'Kies ten minste een optie in elk keuze menu.';
+    } else if (language == 1) {
+        alert_msg = 'Select at least one option in each menu.';
+    }
+    var class_values_1 = [];
+    var class_values_2 = [];
+    var score_1 = 0;
+    var score_2 = 0;
+    $(".select_menu_2").each(function() {
+        if ($(this).is(":visible")) {
+            $("#activity_future_sel :selected").each(function(i, val) {
+                class_values_1[i] = $(val).text().length;
+                score_1 = $.inArray(0, class_values_1);
+            });
+            $("#activity_future_non_sel :selected").each(function(i, val) {
+                class_values_2[i] = $(val).text().length;
+                score_2 = $.inArray(0, class_values_2);
+            });
+        }
+    });
+    if (score_1 > -1 || score_2 > -1) {
+        alert(alert_msg);
+        score = 0;
+    } else {
+        return true;
+    }
+}
+
+
 function check_multi_select() {
     var class_values = [];
     score = 0;
@@ -41,26 +92,45 @@ function check_multi_select() {
 }
 
 // source: http://js-algorithms.tutorialhorizon.com/2016/01/25/find-duplicates-in-an-array/
+// + http://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array
 function find_duplicates_in_array() {
-    var class_values = [];
+    var class_values_1 = [];
+    var class_values_2 = [];
     $(".select_menu_2").each(function() {
         if ($(this).is(":visible")) {
-            $(".select_menu_2 :selected").each(function(i, val) {
-                class_values[i] = $(val).text();
+            $("#activity_future_sel :selected").each(function(i, val) {
+                class_values_1[i] = $(val).text();
+            });
+            $("#activity_future_non_sel :selected").each(function(i, val) {
+                class_values_2[i] = $(val).text();
             });
         }
     });
-    var result = [];
-    class_values.forEach(function(element, index) {
-        // Find if there is a duplicate or not
-        if (class_values.indexOf(element, index + 1) > -1) {
-            // Find if the element is already in the result array or not
-            if (result.indexOf(element) === -1) {
-                result.push(element);
-            }
-        }
-    });
-    if (result.length === 0) {
+    var class_values_1_unique = class_values_1.unique();
+    var class_values_2_unique = class_values_2.unique();
+    var class_values = class_values_1_unique.concat(class_values_2_unique);
+    var class_values_unique = class_values.unique();
+    // class_values.length == class_values_unique.length;
+    // $(".select_menu_2").each(function() {
+    //     if ($(this).is(":visible")) {
+    //         $(".select_menu_2 :selected").each(function(i, val) {
+    //             class_values[i] = $(val).text();
+    //         });
+    //     }
+    // });
+    // var result = [];
+    // class_values.forEach(function(element, index) {
+    //     // Find if there is a duplicate or not
+    //     if (class_values.indexOf(element, index + 1) > -1) {
+    //         // Find if the element is already in the result array or not
+    //         if (result.indexOf(element) === -1) {
+    //             result.push(element);
+    //         }
+    //     }
+    // });
+    // if (result.length === 0) {
+    //     return true;
+    if (class_values.length == class_values_unique.length) {
         return true;
     } else {
         // return true;
@@ -75,6 +145,12 @@ function find_duplicates_in_array() {
     // return result.length;
 }
 
+
+// var values_a_unique = $.unique(a);
+// var values_b_unique = $.unique(b);
+// var all_values = values_a_unique.concat(values_b_unique);
+// var class_values_proxy = class_values;
+// var class_values_unique = $.unique(class_values);
 
 function check_choice(classname) {
     class_values = [];
@@ -486,7 +562,7 @@ function generate_table_row(number, item, temporality, language, state) {
             } else if (state == 'notdo') {
                 table_row = '<div id="p' + number + '" class="table_row_div">' +
                     '<span id="activity' + number + ' " style="text-transform: uppercase">' + item + '</span>' +
-                    '<span class="activity_span">' +
+                    '<span class="activity_span" style="left: 33%;">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">Hoe vaak heb je dit in het verleden wel gedaan?</span> ' +
                     '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
@@ -494,7 +570,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '<div class="slider_io_output_labels stretch">(nog nooit) -  -  -  (heel vaak)</div> ' +
                     '</div>' +
                     '</span>' +
-                    '<span class="certainty_span">' +
+                    '<span class="certainty_span"  style="left: 66%;">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">Hoe zeker ben je dat je dit niet gaat doen komend weekend?</span> ' +
                     '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
@@ -780,3 +856,21 @@ function check_quiz_answer(id, number, language) {
         to_model_statement1_proxy();
     }
 }
+
+// source: http://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array
+Array.prototype.contains = function(v) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] === v) return true;
+    }
+    return false;
+};
+
+Array.prototype.unique = function() {
+    var arr = [];
+    for (var i = 0; i < this.length; i++) {
+        if (!arr.contains(this[i])) {
+            arr.push(this[i]);
+        }
+    }
+    return arr;
+};
