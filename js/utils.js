@@ -107,6 +107,7 @@ function find_duplicates_in_array() {
         }
     });
     var class_values_1_unique = class_values_1.unique();
+    n_activities_future = class_values_1_unique.length;
     var class_values_2_unique = class_values_2.unique();
     var class_values = class_values_1_unique.concat(class_values_2_unique);
     var class_values_unique = class_values.unique();
@@ -404,10 +405,10 @@ function get_length(ID) {
     return id_length;
 }
 
-function record_deletes(ID) {
+function record_deletes() {
     var listen = true;
     deletions_arr = [];
-    ID.keydown(function(e) {
+    $("#statement1").keydown(function(e) {
         if (listen === true) {
             var code = e.keyCode || e.which;
             if (code == 8) {
@@ -435,6 +436,12 @@ function set_planning_slider_value(number) {
     $(output).val($(input).val() + '%');
 }
 
+function set_manipulation_check_slider_value() {
+    var input = "#manipulation_check_val";
+    var output = "#manipulation_check_output";
+    $(output).val($(input).val() + '%');
+}
+
 
 function activate_stretch() {
     $('.stretch').each(function() {
@@ -457,13 +464,13 @@ function get_cond() {
     if (selected_language != 'nl') {
         cond_lang = 1;
         cond_ver = randomdigit(0, 1);
-        // cond_ver = 1;
+        // cond_ver = 0;
         // cb = randomdigit(0, 1);
         cb = 0;
     } else {
         cond_lang = randomdigit(0, 1);
         cond_ver = randomdigit(0, 1);
-        // cond_ver = 1;
+        // cond_ver = 0;
         // cb = randomdigit(0, 1);
         cb = 0;
     }
@@ -491,6 +498,7 @@ function select_manipulation(temporality, language) {
         // candidate_objects = collect_non_selected(temporality, 'do');
         candidate_objects = collect_selected(temporality, 'do');
         selected_obj = shuffle(candidate_objects)[0];
+        selected_activities = candidate_objects;
     } else if (conditions.cond_ver == 1) {
         var obj_array = [];
         var single_obj = {};
@@ -511,6 +519,7 @@ function select_manipulation(temporality, language) {
             };
             obj_array.push(single_obj);
         });
+        selected_activities = obj_array;
         // check if overlap
         var activities_do = collect_selected(temporality, 'do');
         var obj_array_ = obj_array.filter(function(val, index, array) {
@@ -572,7 +581,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '</span>' +
                     '<span class="certainty_span"  style="left: 66%;">' +
                     '<div class="slider_io">' +
-                    '<span id="slider_instr">Hoe zeker ben je dat je dit niet gaat doen komend weekend?</span> ' +
+                    '<span id="slider_instr">Hoe zeker ben je dat je dit <u>niet</u> gaat doen komend weekend?</span> ' +
                     '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
                     '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (helemaal wel)</div> ' +
@@ -634,7 +643,7 @@ function generate_table_row(number, item, temporality, language, state) {
             } else if (state == 'notdo') {
                 table_row = '<div id="p' + number + '" class="table_row_div">' +
                     '<span id="activity' + number + ' " style="text-transform: uppercase">' + item + '</span>' +
-                    '<span class="activity_span">' +
+                    '<span class="activity_span" style="left: 33%;">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">How often have you done this in the past?</span> ' +
                     '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
@@ -642,9 +651,9 @@ function generate_table_row(number, item, temporality, language, state) {
                     '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
                     '</div>' +
                     '</span>' +
-                    '<span class="certainty_span">' +
+                    '<span class="certainty_span" style="left: 66%;">' +
                     '<div class="slider_io">' +
-                    '<span id="slider_instr">How certain are you that you will not do this activity next weekend?</span> ' +
+                    '<span id="slider_instr">How certain are you that you will <u>not</u> do this activity next weekend?</span> ' +
                     '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
                     '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
@@ -757,11 +766,13 @@ function collect_statement(ID) {
     var pagefocus = pagefocus_get_data();
     var content = ID.val();
     var length = get_length(ID);
+    var deletes = recorded_deletes;
     var data = {
         content: content,
         elapsed: elapsed,
         pagefocus: pagefocus,
-        length: length
+        length: length,
+        deletes: deletes
     };
     return data;
 }

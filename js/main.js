@@ -200,6 +200,7 @@ function to_main_instructions7() {
     if (check_multi_select_2(conditions.cond_lang) === true) {
         if (find_duplicates_in_array() === true) {
             var items_for_rating;
+            var items_for_rating_3;
             var table_rows;
             var a;
             var text;
@@ -222,8 +223,13 @@ function to_main_instructions7() {
             }
 
             $('body').prepend('<div id="main_instructions7" class="main_instructions__">' + text + '</div>');
-
-            $(items_for_rating).each(function(index, val) {
+            if (items_for_rating.length > 2) {
+                var items_for_rating_3_proxy = shuffle(items_for_rating);
+                items_for_rating_3 = items_for_rating_3_proxy.slice(0, 3);
+            } else {
+                items_for_rating_3 = items_for_rating;
+            }
+            $(items_for_rating_3).each(function(index, val) {
                 if (conditions.cb === 0) {
                     a = generate_table_row(index, val, 'future', conditions.cond_lang, 'do');
                     $('#main_instructions7').append(a);
@@ -242,45 +248,50 @@ function to_main_instructions7() {
 
 function to_main_instructions7_proxy() {
     // if (check_multi_select_2(conditions.cond_lang) === true) {
-        if (find_duplicates_in_array() === true) {
-            var items_for_rating;
-            var table_rows;
-            var a;
-            var text;
-            if (conditions.cond_lang === 0) {
-                if (conditions.cb === 0) {
-                    items_for_rating = collect_selected('future', 'do');
-                    text = slider_text_nextweekend_do_nl;
-                } else if (conditions.cb == 1) {
-                    items_for_rating = collect_selected('past', 'do');
-                    text = slider_text_pastweekend_do_nl;
-                }
-            } else if (conditions.cond_lang == 1) {
-                if (conditions.cb === 0) {
-                    items_for_rating = collect_selected('future', 'do');
-                    text = slider_text_nextweekend_do_en;
-                } else if (conditions.cb == 1) {
-                    items_for_rating = collect_selected('past', 'do');
-                    text = slider_text_pastweekend_do_en;
-                }
+    if (find_duplicates_in_array() === true) {
+        var items_for_rating;
+        var items_for_rating_3;
+        var table_rows;
+        var a;
+        var text;
+        if (conditions.cond_lang === 0) {
+            if (conditions.cb === 0) {
+                items_for_rating = collect_selected('future', 'do');
+                text = slider_text_nextweekend_do_nl;
+            } else if (conditions.cb == 1) {
+                items_for_rating = collect_selected('past', 'do');
+                text = slider_text_pastweekend_do_nl;
             }
-
-            $('body').prepend('<div id="main_instructions7" class="main_instructions__">' + text + '</div>');
-
-            $(items_for_rating).each(function(index, val) {
-                if (conditions.cb === 0) {
-                    a = generate_table_row(index, val, 'future', conditions.cond_lang, 'do');
-                    $('#main_instructions7').append(a);
-                } else if (conditions.cb == 1) {
-                    a = generate_table_row(index, val, 'past', conditions.cond_lang, 'do');
-                    $('#main_instructions7').append(a);
-                }
-            });
-            activate_stretch();
-            simple_transition_2($(".main_instructions__"), $("#main_instructions7"));
-            $("#next").attr('onclick', 'to_main_instructions7a()');
-            $("#back").attr('onclick', 'to_main_instructions6_proxy()').show();
+        } else if (conditions.cond_lang == 1) {
+            if (conditions.cb === 0) {
+                items_for_rating = collect_selected('future', 'do');
+                text = slider_text_nextweekend_do_en;
+            } else if (conditions.cb == 1) {
+                items_for_rating = collect_selected('past', 'do');
+                text = slider_text_pastweekend_do_en;
+            }
         }
+        $('body').prepend('<div id="main_instructions7" class="main_instructions__">' + text + '</div>');
+        if (items_for_rating.length > 2) {
+            var items_for_rating_3_proxy = shuffle(items_for_rating);
+            items_for_rating_3 = items_for_rating_3_proxy.slice(0, 3);
+        } else {
+            items_for_rating_3 = items_for_rating;
+        }
+        $(items_for_rating_3).each(function(index, val) {
+            if (conditions.cb === 0) {
+                a = generate_table_row(index, val, 'future', conditions.cond_lang, 'do');
+                $('#main_instructions7').append(a);
+            } else if (conditions.cb == 1) {
+                a = generate_table_row(index, val, 'past', conditions.cond_lang, 'do');
+                $('#main_instructions7').append(a);
+            }
+        });
+        activate_stretch();
+        simple_transition_2($(".main_instructions__"), $("#main_instructions7"));
+        $("#next").attr('onclick', 'to_main_instructions7a()');
+        $("#back").attr('onclick', 'to_main_instructions6_proxy()').show();
+    }
     // }
 }
 
@@ -288,6 +299,7 @@ function to_main_instructions7_proxy() {
 function to_main_instructions7a() {
     if (check_slider($(".slider_io_output")) === true) {
         var items_for_rating;
+        var items_for_rating_3;
         var table_rows;
         var a;
         var text;
@@ -309,9 +321,15 @@ function to_main_instructions7a() {
                 text = slider_text_pastweekend_notdo_en;
             }
         }
+        if (items_for_rating.length > 2) {
+            var items_for_rating_3_proxy = shuffle(items_for_rating);
+            items_for_rating_3 = items_for_rating_3_proxy.slice(0, 3);
+        } else {
+            items_for_rating_3 = items_for_rating;
+        }
         $('body').prepend('<div id="main_instructions7a" class="main_instructions__">' + text + '</div>');
 
-        $(items_for_rating).each(function(index, val) {
+        $(items_for_rating_3).each(function(index, val) {
             if (conditions.cb === 0) {
                 a = generate_table_row(index, val, 'future', conditions.cond_lang, 'notdo');
                 $('#main_instructions7a').append(a);
@@ -330,57 +348,57 @@ function to_main_instructions7a() {
 
 function to_text_input_instructions1() {
     if (check_slider($(".slider_io_output")) === true) {
-            var text;
-            if (conditions.cond_lang === 0) {
-                if (conditions.cond_ver === 0) {
-                    text = instructions_truthful_future_nl;
-                } else if (conditions.cond_ver == 1) {
-                    text = instructions_deceptive_future_nl;
-                }
-            } else if (conditions.cond_lang == 1) {
-                if (conditions.cond_ver === 0) {
-                    text = instructions_truthful_future_en;
-                } else if (conditions.cond_ver == 1) {
-                    text = instructions_deceptive_future_en;
-                }
+        var text;
+        if (conditions.cond_lang === 0) {
+            if (conditions.cond_ver === 0) {
+                text = instructions_truthful_future_nl;
+            } else if (conditions.cond_ver == 1) {
+                text = instructions_deceptive_future_nl;
             }
-            // !!// check: always gives specific option
-            instructive = '';
-            if (conditions.cb === 0) {
-                instructive = select_manipulation('future', conditions.cond_lang);
-            } else if (conditions.cb == 1) {
-                instructive = select_manipulation('past', conditions.cond_lang);
+        } else if (conditions.cond_lang == 1) {
+            if (conditions.cond_ver === 0) {
+                text = instructions_truthful_future_en;
+            } else if (conditions.cond_ver == 1) {
+                text = instructions_deceptive_future_en;
             }
-            // if (conditions.cond_ver === 0) {
-            //     instructive_final = instructive.option_normal;
-            // } else if (conditions.cond_ver == 1) {
-            //     instructive_final = instructive.option_specific;
-            // }
-            var instruction_span = '<span id="instructive_span">' + instructive + '</span>';
-            $('body').prepend('<div id="text_input_instructions_1" class="main_instructions_">' + text + instruction_span + '</div>');
-            simple_transition_2($(".main_instructions__"), $("#text_input_instructions_1"));
-            // $("#next").attr('onclick', 'to_statement_input1()');
-            $("#next").attr('onclick', 'to_model_statement1()');
+        }
+        // !!// check: always gives specific option
+        instructive = '';
+        if (conditions.cb === 0) {
+            instructive = select_manipulation('future', conditions.cond_lang);
+        } else if (conditions.cb == 1) {
+            instructive = select_manipulation('past', conditions.cond_lang);
+        }
+        // if (conditions.cond_ver === 0) {
+        //     instructive_final = instructive.option_normal;
+        // } else if (conditions.cond_ver == 1) {
+        //     instructive_final = instructive.option_specific;
+        // }
+        var instruction_span = '<span id="instructive_span">' + instructive + '</span>';
+        $('body').prepend('<div id="text_input_instructions_1" class="main_instructions_">' + text + instruction_span + '</div>');
+        simple_transition_2($(".main_instructions__"), $("#text_input_instructions_1"));
+        // $("#next").attr('onclick', 'to_statement_input1()');
+        $("#next").attr('onclick', 'to_model_statement1()');
     }
 }
 
 function to_model_statement1() {
-        quiz_order = shuffle(quiz_order);
-        var text;
-        var modelstatement;
-        if (conditions.cond_lang === 0) {
-            text = instructions_modelstatement_nl;
-            modelstatement = modelstatement_nl;
-        } else if (conditions.cond_lang == 1) {
-            text = instructions_modelstatement_en;
-            modelstatement = modelstatement_en;
-        }
-        $('body').prepend('<div id="model_statement1" class="main_instructions_">' + text + modelstatement + '</div>');
-        simple_transition_2($(".main_instructions_"), $("#model_statement1"));
-        $("#next").attr('onclick', 'to_quiz_1()').hide();
-        setTimeout(function() {
-            $("#next").show();
-        }, timer_ms1);
+    quiz_order = shuffle(quiz_order);
+    var text;
+    var modelstatement;
+    if (conditions.cond_lang === 0) {
+        text = instructions_modelstatement_nl;
+        modelstatement = modelstatement_nl;
+    } else if (conditions.cond_lang == 1) {
+        text = instructions_modelstatement_en;
+        modelstatement = modelstatement_en;
+    }
+    $('body').prepend('<div id="model_statement1" class="main_instructions_">' + text + modelstatement + '</div>');
+    simple_transition_2($(".main_instructions_"), $("#model_statement1"));
+    $("#next").attr('onclick', 'to_quiz_1()').hide();
+    setTimeout(function() {
+        $("#next").show();
+    }, timer_ms1);
 }
 
 function to_model_statement1_proxy() {
@@ -459,27 +477,27 @@ function to_quiz_4() {
     }
 }
 
-function to_pre_input_reminder(){
-  if (check_quiz_answer(4, quiz_order[3], conditions.cond_lang) === true) {
-  var text;
-  if (conditions.cond_lang === 0) {
-      if (conditions.cond_ver === 0) {
-          text = pre_input_truthful_nl;
-      } else if (conditions.cond_ver == 1) {
-          text = pre_input_deceptive_nl;
-      }
-  } else if (conditions.cond_lang == 1) {
-      if (conditions.cond_ver === 0) {
-          text = pre_input_truthful_en;
-      } else if (conditions.cond_ver == 1) {
-          text = pre_input_deceptive_en;
-      }
-  }
-  var instruction_span = '<span id="instructive_span2">' + instructive + '</span>';
-  $('body').prepend('<div id="pre_input_instructions" class="main_instructions_">' + text + instruction_span + '</div>');
-  simple_transition_2($(".main_instructions_"), $("#pre_input_instructions"));
-  $("#next").attr('onclick', 'to_statement_input1()');
-}
+function to_pre_input_reminder() {
+    if (check_quiz_answer(4, quiz_order[3], conditions.cond_lang) === true) {
+        var text;
+        if (conditions.cond_lang === 0) {
+            if (conditions.cond_ver === 0) {
+                text = pre_input_truthful_nl;
+            } else if (conditions.cond_ver == 1) {
+                text = pre_input_deceptive_nl;
+            }
+        } else if (conditions.cond_lang == 1) {
+            if (conditions.cond_ver === 0) {
+                text = pre_input_truthful_en;
+            } else if (conditions.cond_ver == 1) {
+                text = pre_input_deceptive_en;
+            }
+        }
+        var instruction_span = '<span id="instructive_span2">' + instructive + '</span>';
+        $('body').prepend('<div id="pre_input_instructions" class="main_instructions_">' + text + instruction_span + '</div>');
+        simple_transition_2($(".main_instructions_"), $("#pre_input_instructions"));
+        $("#next").attr('onclick', 'to_statement_input1()');
+    }
 }
 
 function to_statement_input1() {
@@ -504,22 +522,57 @@ function to_statement_input1() {
 
     $('body').prepend('<div id="statement_input1" class="main_instructions_">' + text + input_field + '</div>');
     start_timer();
+    record_deletes();
     simple_transition_2($(".main_instructions_"), $("#statement_input1"));
     // $("#next").attr('onclick', 'to_main_instructions8()');
-    $("#next").attr('onclick', 'to_demographics1()');
+    $("#next").attr('onclick', 'to_manipulation_check()');
     // check input length & meaningfulness
 }
 
-function to_demographics1() {
+function to_manipulation_check() {
     if (validate_text($("#statement1"), min_char, 'both', conditions.cond_lang) === true) {
-      var transition_text;
+        var text;
+        var slider;
         if (conditions.cond_lang === 0) {
-          transition_text = transition_nl;
-            simple_transition($("#statement_input1"), $("#demographics1_nl"));
+            text = manipulation_check_nl;
+            slider = '<span class="manipulation_check_span" style="left: 50%;">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Hoe waarachtig was jouw verhaal?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="manipulation_check_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check_slider_value()">' +
+                '<output class="slider_io_output" id="manipulation_check_output">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet waar) -  -  -  (helemaal wel waar)</div> ' +
+                '</div>' +
+                '</span>';
+        } else if (conditions.cond_lang == 1) {
+            text = manipulation_check_en;
+            slider = '<span class="manipulation_check_span" style="left: 50%;">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">How truthful was your statement?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="manipulation_check_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check_slider_value()">' +
+                '<output class="slider_io_output" id="manipulation_check_output">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (completely)</div> ' +
+                '</div>' +
+                '</span>';
+        }
+        $('body').prepend('<div id="manipulation_check" class="main_instructions_">' + text + slider + '</div>');
+        activate_stretch();
+        simple_transition_2($(".main_instructions_"), $("#manipulation_check"));
+        $("#next").attr('onclick', 'to_demographics1()');
+    }
+}
+
+
+function to_demographics1() {
+    if (check_slider($(".slider_io_output")) === true) {
+        recorded_deletes = deletions_arr.length;
+        var transition_text;
+        if (conditions.cond_lang === 0) {
+            transition_text = transition_nl;
+            simple_transition($("#manipulation_check"), $("#demographics1_nl"));
             $("#demographics1_en").hide();
         } else if (conditions.cond_lang == 1) {
-          transition_text = transition_en;
-            simple_transition($("#statement_input1"), $("#demographics1_en"));
+            transition_text = transition_en;
+            simple_transition($("#manipulation_check"), $("#demographics1_en"));
             $("#demographics1_nl").hide();
         }
         $("<h2></h2>").text(transition_text).appendTo($('body'));
@@ -532,7 +585,7 @@ function to_demographics1() {
 
 function to_demographics2() {
     if (check_fields($(".select_menu")) === true) {
-      $("h2").remove();
+        $("h2").remove();
         if (has_second_language() === false) {
             // $("#lang2").css('display', 'none');
             $("#lang2_en").hide();
@@ -605,7 +658,7 @@ function to_vocabulary_task() {
     simple_transition($("#lextale1"), $("#langtask1"));
     $("#next").hide();
     $('body').prepend('<div id="langtask1" class="main_instructions_">' + vocabulary_task_explanation + vocabulary_task_dom + '</div>');
-    init_language_task1($("#tbwordprod"), time_langtask1);
+    init_language_task1_2($("#tbwordprod"), time_langtask1);
     // $("#next").attr('onclick', 'to_outro()');
 }
 
@@ -629,13 +682,28 @@ function to_outro() {
 
 function get_data() {
     var bilingual_bool;
-    var age_sel;
+    var age;
+    var gender;
+    var origin;
+    var education;
+    var lang1;
+    var lang2;
     if (conditions.cond_lang === 0) {
         bilingual_bool = $("#bilingual_sel_nl").val();
-        age_sel = $("#age_sel_nl").val();
+        age = $("#age_sel_nl").val();
+        gender = $("#gender_sel_nl").val();
+        origin = $("#origin_sel_nl").val();
+        education = $("#education_sel_nl").val();
+        lang1 = $("#lang1_sel_nl").val();
+        lang2 = $("#lang2_sel_nl").val();
     } else if (conditions.cond_lang == 1) {
         bilingual_bool = $("#bilingual_sel_en").val();
-        age_sel = $("#age_sel_en").val();
+        age = $("#age_sel_en").val();
+        gender = $("#gender_sel_en").val();
+        origin = $("#origin_sel_en").val();
+        education = $("#education_sel_en").val();
+        lang1 = $("#lang1_sel_en").val();
+        lang2 = $("#lang2_sel_en").val();
     }
     data.ip = clientip;
     data.browsername = $.browser.name;
@@ -645,26 +713,28 @@ function get_data() {
     data.unid = unid;
     data.unidin = $("#unidin").val();
     data.crowdf = $("#crowdf").val();
-    data.gender = $("#gender_sel").val();
-    data.age = age_sel;
-    data.education = $("#education_sel").val();
-    data.origin = $("#origin_sel").val();
+    data.gender = gender;
+    data.age = age;
+    data.education = education;
+    data.origin = origin;
     data.bilingual_sel = bilingual_bool;
-    data.lang1_sel = $("#lang1_sel").val();
-    data.lang2_sel = $("#lang2_sel").val();
+    data.lang1_sel = lang1;
+    data.lang2_sel = lang2;
     data.cond_lang = conditions.cond_lang;
     data.cond_ver = conditions.cond_ver;
     data.cb = conditions.cb;
 
-    data.activity_past = 'xxx';
-    data.n_activities_past = '12345';
-    data.activity_past_freq = '12345';
-    data.activity_past_cert = '12345';
+    data.manipulation_check = $("#manipulation_check_val").val();
 
-    data.activity_future = 'xxx';
-    data.n_activities_future = '12345';
-    data.activity_future_freq = '12345';
-    data.activity_future_cert = '12345';
+    // data.activity_past = instructive;
+    // data.n_activities_past = '12345';
+    // data.activity_past_freq = '12345';
+    // data.activity_past_cert = '12345';
+
+    data.activity_future = instructive;
+    data.n_activities_future = n_activities_future;
+
+    data.selected_activities = selected_activities;
 
     data.statement1_content = statement1_main.content;
     data.statement1_defoucus = statement1_main.pagefocus.defocus;
@@ -672,13 +742,7 @@ function get_data() {
     data.statement1_defocusduration = statement1_main.pagefocus.durationsum;
     data.statement1_length = statement1_main.length;
     data.statement1_elapsed = statement1_main.elapsed;
-
-    // data.statement2_content = statement2_main.content;
-    // data.statement2_defoucus = statement2_main.pagefocus.defocus;
-    // data.statement2_refoucus = statement2_main.pagefocus.refocus;
-    // data.statement2_defocusduration = statement2_main.pagefocus.durationsum;
-    // data.statement2_length = statement2_main.length;
-    // data.statement2_elapsed = statement2_main.elapsed;
+    data.statement1_deletes = statement1_main.deletes;
 
     console.log(data);
 }
