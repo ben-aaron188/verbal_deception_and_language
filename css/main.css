@@ -346,6 +346,25 @@ h2 {
     padding-top: 1%;
 }
 
+.select_menu_x {
+    border: 0.2vw solid white;
+    letter-spacing: 0.01vw;
+    height: 20%;
+    width: 60%;
+    margin: 0;
+    position: absolute;
+    text-align: left;
+    font-size: 1.0vw;
+    top: 60%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+}
+
+
 .select_menu_ {
     letter-spacing: 0.01vw;
     max-height: 50%;

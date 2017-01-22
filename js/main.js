@@ -773,6 +773,8 @@ function get_data() {
     data.cond_ver = conditions.cond_ver;
     data.time = conditions.time;
 
+    data.user_email = $("#emailaddress").val();
+
     data.pp_name_store = param_pp_name;
     data.pp_id_store = param_pp_id;
     data.user_id_store = param_user_id;

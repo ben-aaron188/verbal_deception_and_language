@@ -69,14 +69,16 @@ var outro_nl = 'Je deelnemerscode: <span id=partcode style="color: red">9871NO</
     'Om kans te maken op de 40 euro kan je hier je emailadres achterlaten. Nadat we alle data hebben verzameld, zullen de winnaars per email bericht ontvangen' +
     'Als je vragen hebt over dit onderzoek, kun je contact met ons opnemen via <a href="mailto:verbaldeceptiondetection@gmail.com?Subject=Online%20Experiment" target="_top">verbaldeceptiondetection@gmail.com</a>' +
     '<input type="text" id="crowdf" name="crowdf" class="select_menu" maxlength="40" size="16" style="text-align: center; left: 20%; top: 85%; height: 10%; width: 25%;" placeholder="JE UVA STUDENTNUMMER">' +
-    '<input type="text" id="unidin" name="unidin" class="select_menu" maxlength="6" size="16" style="text-align: center; left: 50%; top: 85%; height: 10%; width: 25%; color: red" placeholder="JE DEELNEMERSCODE">';
+    '<input type="text" id="unidin" name="unidin" class="select_menu" maxlength="6" size="16" style="text-align: center; left: 50%; top: 85%; height: 10%; width: 25%; color: red" placeholder="JE DEELNEMERSCODE">'+
+    '<input type="text" id="emailaddress" name="emailaddress" class="select_menu_x" maxlength="60" size="16" style="text-align: center; left: 70%; top: 85%; height: 10%; width: 25%; color: red" placeholder="JE EMAIL">';
 var outro_en = 'Your participation code: <span id=partcode style="color: red">9871NO</span></br></br>' +
     '<span id="debr">' + debriefing_en + '</span></br></br>' +
     'In order to validate your participation, it is necessary that you provide your UvA Student number below in the left hand-field and confirm your participation code in the middle text field. ' +
     'To win the 40 euros, you can leave your email address in the below. After we finished the data collection, the winners will receive an email.' +
     'If you have any questions about this study, please contact us via <a href="mailto:verbaldeceptiondetection@gmail.com?Subject=Online%20Experiment" target="_top">verbaldeceptiondetection@gmail.com</a>' +
     '<input type="text" id="crowdf" name="crowdf" class="select_menu" maxlength="40" size="16" style="text-align: center; left: 20%; top: 85%; height: 10%; width: 25%;" placeholder="YOUR UVA STUDENT NUMBER">' +
-    '<input type="text" id="unidin" name="unidin" class="select_menu" maxlength="6" size="16" style="text-align: center; left: 50%; top: 85%; height: 10%; width: 25%; color: red" placeholder="YOUR PARTICIPATION CODE">';
+    '<input type="text" id="unidin" name="unidin" class="select_menu" maxlength="6" size="16" style="text-align: center; left: 50%; top: 85%; height: 10%; width: 25%; color: red" placeholder="YOUR PARTICIPATION CODE">' +
+    '<input type="text" id="emailaddress" name="emailaddress" class="select_menu_x" maxlength="60" size="16" style="text-align: center; left: 70%; top: 85%; height: 10%; width: 25%; color: red" placeholder="YOUR EMAIL ADDRESS">';
 
 // credits
 var credits = '<div id="credits">' +
