@@ -162,6 +162,7 @@ h2 {
 
 .table_row_div {
     border-bottom: 0.1vw solid #FFBF00;
+    border-top: 0.1vw solid #FFBF00;
     height: 40%;
     width: 95%;
     margin: 0;
@@ -223,6 +224,22 @@ h2 {
     padding-left: 1%;
     padding-right: 1%;
     padding-top: 1%;
+}
+
+.manipulation_check_span{
+  height: 40%;
+  width: 70%;
+  margin: 0;
+  position: absolute;
+  text-align: left;
+  font-size: 1.1vw;
+  top: 60%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-top: 1%;
 }
 
 #activity_future, #activity_past {
