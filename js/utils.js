@@ -1,4 +1,7 @@
 var slider_moved_array = [];
+var length_prompt = 0;
+var language_prompt = 0;
+var ms_prompt = 0;
 
 function check_fields(classname) {
     var class_values = [];
@@ -373,8 +376,9 @@ function check_input(ID, language) {
         tester_array.push(tester2);
     });
     checksum_tester = sum(tester_array);
-    if ((checksum_tester / textin.length) < 0.025) {
+    if ((checksum_tester / textin.length) < 0.01) {
         alert(alert_msg);
+        language_prompt++;
     } else {
         return true;
     }
@@ -390,6 +394,7 @@ function check_text(ID, desiredLength, language) {
     var raw = ID.val().toLowerCase().replace(/ /g, '');
     if (raw.length < desiredLength) {
         alert(alert_msg);
+        length_prompt++;
     } else {
         return true;
     }
@@ -514,10 +519,18 @@ function get_cond() {
 function select_manipulation(temporality, language) {
     var selected_obj;
     var selected_obj_;
+    var selected_obj_x;
     var selected_obj__;
     var candidate_objects;
     var choices;
     var matches;
+    var obj_array = [];
+    var single_obj = {};
+    var sel_val = -1;
+    var sel_freq = -1;
+    var sel_cert = -1;
+    var activities_do;
+    var obj_array_;
     if (language === 0) {
         choices = choices_nl;
     } else if (language == 1) {
@@ -527,13 +540,9 @@ function select_manipulation(temporality, language) {
         // candidate_objects = collect_non_selected(temporality, 'do');
         candidate_objects = collect_selected(temporality, 'do');
         selected_obj = shuffle(candidate_objects)[0];
-        selected_activities = candidate_objects;
-    } else if (conditions.cond_ver == 1) {
-        var obj_array = [];
-        var single_obj = {};
-        var sel_val;
-        var sel_freq;
-        var sel_cert;
+        // selected_activities = candidate_objects;
+
+        // check for debug
         // check that only the non-selected ones appear
         $(".table_row_div").each(function(index, val) {
             sel_val = $(this).children().eq(0).text();
@@ -550,20 +559,53 @@ function select_manipulation(temporality, language) {
         });
         selected_activities = obj_array;
         // check if overlap
-        var activities_do = collect_selected(temporality, 'do');
-        var obj_array_ = obj_array.filter(function(val, index, array) {
+        activities_do = collect_selected(temporality, 'do');
+        obj_array_ = obj_array.filter(function(val, index, array) {
             return activities_do.indexOf(val.sel_val) < 0;
         });
-        selected_obj_ = obj_array_.reduce((max, single) => max.combined > single.combined ? max : single);
+
+    } else if (conditions.cond_ver == 1) {
+        // check that only the non-selected ones appear
+        $(".table_row_div").each(function(index, val) {
+            sel_val = $(this).children().eq(0).text();
+            sel_freq = $(this).children().eq(1).children().children().eq(1).val();
+            sel_cert = $(this).children().eq(2).children().children().eq(1).val();
+            single_obj = {
+                'sel_val': sel_val,
+                'sel_freq': sel_freq - 0,
+                'sel_cert': sel_cert - 0,
+                'sel_freq_inv': 100 - sel_freq,
+                'combined': (sel_cert - 0) + (100 - sel_freq)
+            };
+            obj_array.push(single_obj);
+        });
+        selected_activities = obj_array;
+        // check if overlap
+        activities_do = collect_selected(temporality, 'do');
+        obj_array_ = obj_array.filter(function(val, index, array) {
+            return activities_do.indexOf(val.sel_val) < 0;
+        });
+        // selected_obj_ = obj_array_.reduce((max, single) => max.combined > single.combined ? max : single);
+        selected_obj_ = obj_array_.reduce(function(max, single) {
+            if (max.combined > single.combined) {
+                return max;
+            } else {
+                return single;
+            }
+        });
+        // console.log(selected_obj_);
+        // console.log(selected_obj_x);
         selected_obj__ = selected_obj_.sel_val;
         matches = choices.filter(function(val, index, array) {
             return val.option_normal == selected_obj__;
         });
         selected_obj = matches[0].option_specific;
     }
+    console.log(selected_obj);
     return selected_obj;
     // return matches[0];
 }
+
 
 function generate_table_row(number, item, temporality, language, state) {
     var table_row;
@@ -893,6 +935,7 @@ function check_quiz_answer(id, number, language) {
             alert_msg = "This answer is not correct. Please read the model statement again so that you can answer all question about it.";
         }
         alert(alert_msg);
+        ms_prompt++;
         to_model_statement1_proxy();
     }
 }

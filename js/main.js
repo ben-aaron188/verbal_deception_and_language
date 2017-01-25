@@ -377,7 +377,7 @@ function to_text_input_instructions1() {
         var instruction_span = '<span id="instructive_span">' + instructive + '</span>';
         $('body').prepend('<div id="text_input_instructions_1" class="main_instructions_">' + text + instruction_span + '</div>');
         simple_transition_2($(".main_instructions__"), $("#text_input_instructions_1"));
-        // $("#next").attr('onclick', 'to_statement_input1()');
+        $("#back").hide();
         $("#next").attr('onclick', 'to_model_statement1()');
     }
 }
@@ -431,6 +431,7 @@ function to_quiz_1() {
     $('body').prepend('<div id="quiz_div_1" class="main_instructions_">' + quiz_menu + '</div>');
     simple_transition_2($(".main_instructions_"), $("#quiz_div_1"));
     $("#next").attr('onclick', 'to_quiz_2()');
+    $("#back").hide();
 }
 
 function to_quiz_2() {
@@ -503,30 +504,20 @@ function to_pre_input_reminder() {
 function to_statement_input1() {
     var text;
     if (conditions.cond_lang === 0) {
-        // if (conditions.cb === 0) {
-        //     instructive = select_manipulation('future', conditions.cond_lang);
-        // } else if (conditions.cb == 1) {
-        //     instructive = select_manipulation('past', conditions.cond_lang);
-        // }
         text = instructions_inputfield_nl;
     } else if (conditions.cond_lang == 1) {
-        // if (conditions.cb === 0) {
-        //     instructive = select_manipulation('future', conditions.cond_lang);
-        // } else if (conditions.cb == 1) {
-        //     instructive = select_manipulation('past', conditions.cond_lang);
-        // }
-        text = instructions_inputfield_en;
+        if (conditions.time === 0) {
+            text = instructions_inputfield_past_en;
+        } else if (conditions.time == 1) {
+            text = instructions_inputfield_future_en;
+        }
     }
-
     var input_field = '<textarea type="text" rows="10" cols="80" class="text_input1" id="statement1" placehoder="your answer"></textarea>';
-
     $('body').prepend('<div id="statement_input1" class="main_instructions_">' + text + input_field + '</div>');
     start_timer();
     record_deletes();
     simple_transition_2($(".main_instructions_"), $("#statement_input1"));
-    // $("#next").attr('onclick', 'to_main_instructions8()');
     $("#next").attr('onclick', 'to_manipulation_check()');
-    // check input length & meaningfulness
 }
 
 function to_manipulation_check() {
@@ -635,7 +626,6 @@ function to_demographics2() {
     if (check_fields($(".select_menu")) === true) {
         $("h2").remove();
         if (has_second_language() === false) {
-            // $("#lang2").css('display', 'none');
             $("#lang2_en").hide();
             $("#lang2_nl").hide();
         }
@@ -646,9 +636,7 @@ function to_demographics2() {
             simple_transition($("#demographics1_en"), $("#demographics2_en"));
             $("#demographics2_nl").hide();
         }
-        // simple_transition($("#demographics1"), $("#demographics2"));
         $("#next").attr('onclick', 'to_lextale()');
-        // $("#back").attr('onclick', 'to_demographics1()');
     }
 }
 
@@ -707,7 +695,6 @@ function to_vocabulary_task() {
     $("#next").hide();
     $('body').prepend('<div id="langtask1" class="main_instructions_">' + vocabulary_task_explanation + vocabulary_task_dom + '</div>');
     init_language_task1_2($("#tbwordprod"), time_langtask1);
-    // $("#next").attr('onclick', 'to_outro()');
 }
 
 function to_outro() {
@@ -789,6 +776,10 @@ function get_data() {
     data.n_activities = n_activities;
 
     data.selected_activities = selected_activities;
+
+    data.length_prompt_n = length_prompt;
+    data.language_prompt_n = language_prompt;
+    data.ms_prompt_n = ms_prompt;
 
     data.statement1_content = statement1_main.content;
     data.statement1_defoucus = statement1_main.pagefocus.defocus;
