@@ -4,11 +4,23 @@ var data_statement1;
 var unid;
 var repetition_count = 0;
 var conditions;
-var timer_ms1 = 3000; //90000
+var timer_ms1 = 60000; //90000
 var timer_ms2 = 300;
-var time_langtask1 = 2000;
+var time_langtask1 = 90000;
 var quiz_order = [0, 1, 2, 3, 4, 5, 6, 7];
-var min_char = 10;
+var min_char = 80;
+
+function add_input_listener(classname) {
+    classname.each(function() {
+        if ($(this).is(":visible")) {
+            $(this).on("input", function() {
+                $(this).prop('moved', true);
+            });
+            // console.log("added listener to " + this.id);
+        }
+    });
+}
+
 
 // task flow
 $(document).ready(function() {
@@ -18,29 +30,33 @@ $(document).ready(function() {
     $('body').prepend('<div id="intro1" class="main_instructions_">' + text + '</div>' + buttons1);
     $("#intro1").show();
     $("#back").hide();
-    $("#next").attr('onclick', 'to_informed_consent()').hide();
+    // $("#next").attr('onclick', 'to_informed_consent()');
+    $("#next").attr('onclick', 'to_main_instructions1()').hide();
     get_unid();
 });
 
-function to_informed_consent() {
-    $(".simple_button").hide();
-    $("#next").show();
-    conditions = get_cond();
-    $("#back").hide();
-    var text = ic;
-    $('body').prepend('<div id="informed_consent" class="main_instructions_">' + text + '</div>');
-    simple_transition_2($(".main_instructions_"), $("#informed_consent"));
-    $("#next").attr('onclick', 'to_main_instructions1()');
-}
+// function to_informed_consent() {
+//     $(".simple_button").hide();
+//     $("#next").show();
+//     conditions = get_cond();
+//     $("#back").hide();
+//     var text = ic;
+//     $('body').prepend('<div id="informed_consent" class="main_instructions_">' + text + '</div>');
+//     simple_transition_2($(".main_instructions_"), $("#informed_consent"));
+//     $("#next").attr('onclick', 'to_main_instructions1()');
+// }
 
 function to_main_instructions1() {
+    $(".simple_button").hide();
+    conditions = get_cond();
     var text;
     if (conditions.cond_lang === 0) {
         text = instructions_general1_nl;
     } else if (conditions.cond_lang == 1) {
         text = instructions_general1_en;
     }
-    $("#back").show();
+    $("#next").show();
+    $("#back").hide();
     $('body').prepend('<div id="main_instructions1" class="main_instructions_">' + text + '</div>');
     simple_transition_2($(".main_instructions_"), $("#main_instructions1"));
     $("#next").attr('onclick', 'to_main_instructions2()');
@@ -66,7 +82,7 @@ function to_main_instructions6() {
     var menu1;
     var menu2;
     if (conditions.cond_lang === 0) {
-        if (conditions.cb === 0) {
+        if (conditions.time === 0) {
             text = instructions_nextweekend_nl;
             menu1 = '<div id="activity_future" class="text3">' +
                 'Welk van de volgende activiteiten ga je dit weekend doen?' +
@@ -78,7 +94,7 @@ function to_main_instructions6() {
                 '<select id="activity_future_non_sel" class="select_menu_2" multiple>' +
                 '</select>' +
                 '</div>';
-        } else if (conditions.cb == 1) {
+        } else if (conditions.time == 1) {
             text = instructions_pastweekend_nl;
             menu1 = '<div id="activity_future" class="text3">' +
                 'Welk van de volgende activiteiten heb je afgelopen weekend gedaan?' +
@@ -92,7 +108,7 @@ function to_main_instructions6() {
                 '</div>';
         }
     } else if (conditions.cond_lang == 1) {
-        if (conditions.cb === 0) {
+        if (conditions.time === 0) {
             text = instructions_nextweekend_en;
             menu1 = '<div id="activity_future" class="text3">' +
                 'Which of the following activities are going to do this weekend?' +
@@ -104,7 +120,7 @@ function to_main_instructions6() {
                 '<select id="activity_future_non_sel" class="select_menu_2" multiple>' +
                 '</select>' +
                 '</div>';
-        } else if (conditions.cb == 1) {
+        } else if (conditions.time == 1) {
             text = instructions_pastweekend_en;
             menu1 = '<div id="activity_past" class="text3">' +
                 'Which of the following acitivities did you do last weekend?' +
@@ -133,7 +149,7 @@ function to_main_instructions6_proxy() {
     var menu1;
     var menu2;
     if (conditions.cond_lang === 0) {
-        if (conditions.cb === 0) {
+        if (conditions.time === 0) {
             text = instructions_nextweekend_nl;
             menu1 = '<div id="activity_future" class="text3">' +
                 'Welk van de volgende activiteiten ga je dit weekend doen?' +
@@ -145,7 +161,7 @@ function to_main_instructions6_proxy() {
                 '<select id="activity_future_non_sel" class="select_menu_2" multiple>' +
                 '</select>' +
                 '</div>';
-        } else if (conditions.cb == 1) {
+        } else if (conditions.time == 1) {
             text = instructions_pastweekend_nl;
             menu1 = '<div id="activity_future" class="text3">' +
                 'Welk van de volgende activiteiten heb je afgelopen weekend gedaan?' +
@@ -159,7 +175,7 @@ function to_main_instructions6_proxy() {
                 '</div>';
         }
     } else if (conditions.cond_lang == 1) {
-        if (conditions.cb === 0) {
+        if (conditions.time === 0) {
             text = instructions_nextweekend_en;
             menu1 = '<div id="activity_future" class="text3">' +
                 'Which of the following activities are going to do this weekend?' +
@@ -171,7 +187,7 @@ function to_main_instructions6_proxy() {
                 '<select id="activity_future_non_sel" class="select_menu_2" multiple>' +
                 '</select>' +
                 '</div>';
-        } else if (conditions.cb == 1) {
+        } else if (conditions.time == 1) {
             text = instructions_pastweekend_en;
             menu1 = '<div id="activity_past" class="text3">' +
                 'Which of the following acitivities did you do last weekend?' +
@@ -197,7 +213,7 @@ function to_main_instructions6_proxy() {
 
 
 function to_main_instructions7() {
-    if (check_multi_select_2(conditions.cond_lang) === true) {
+    if (check_multi_select_3(conditions.cond_lang, 4) === true) {
         if (find_duplicates_in_array() === true) {
             var items_for_rating;
             var items_for_rating_3;
@@ -205,18 +221,18 @@ function to_main_instructions7() {
             var a;
             var text;
             if (conditions.cond_lang === 0) {
-                if (conditions.cb === 0) {
+                if (conditions.time === 0) {
                     items_for_rating = collect_selected('future', 'do');
                     text = slider_text_nextweekend_do_nl;
-                } else if (conditions.cb == 1) {
+                } else if (conditions.time == 1) {
                     items_for_rating = collect_selected('past', 'do');
                     text = slider_text_pastweekend_do_nl;
                 }
             } else if (conditions.cond_lang == 1) {
-                if (conditions.cb === 0) {
+                if (conditions.time === 0) {
                     items_for_rating = collect_selected('future', 'do');
                     text = slider_text_nextweekend_do_en;
-                } else if (conditions.cb == 1) {
+                } else if (conditions.time == 1) {
                     items_for_rating = collect_selected('past', 'do');
                     text = slider_text_pastweekend_do_en;
                 }
@@ -230,16 +246,17 @@ function to_main_instructions7() {
                 items_for_rating_3 = items_for_rating;
             }
             $(items_for_rating_3).each(function(index, val) {
-                if (conditions.cb === 0) {
+                if (conditions.time === 0) {
                     a = generate_table_row(index, val, 'future', conditions.cond_lang, 'do');
                     $('#main_instructions7').append(a);
-                } else if (conditions.cb == 1) {
+                } else if (conditions.time == 1) {
                     a = generate_table_row(index, val, 'past', conditions.cond_lang, 'do');
                     $('#main_instructions7').append(a);
                 }
             });
             activate_stretch();
             simple_transition_2($(".main_instructions_"), $("#main_instructions7"));
+            add_input_listener($(".slider_io_slider"));
             $("#next").attr('onclick', 'to_main_instructions7a()');
             $("#back").attr('onclick', 'to_main_instructions6_proxy()').show();
         }
@@ -255,18 +272,18 @@ function to_main_instructions7_proxy() {
         var a;
         var text;
         if (conditions.cond_lang === 0) {
-            if (conditions.cb === 0) {
+            if (conditions.time === 0) {
                 items_for_rating = collect_selected('future', 'do');
                 text = slider_text_nextweekend_do_nl;
-            } else if (conditions.cb == 1) {
+            } else if (conditions.time == 1) {
                 items_for_rating = collect_selected('past', 'do');
                 text = slider_text_pastweekend_do_nl;
             }
         } else if (conditions.cond_lang == 1) {
-            if (conditions.cb === 0) {
+            if (conditions.time === 0) {
                 items_for_rating = collect_selected('future', 'do');
                 text = slider_text_nextweekend_do_en;
-            } else if (conditions.cb == 1) {
+            } else if (conditions.time == 1) {
                 items_for_rating = collect_selected('past', 'do');
                 text = slider_text_pastweekend_do_en;
             }
@@ -279,16 +296,17 @@ function to_main_instructions7_proxy() {
             items_for_rating_3 = items_for_rating;
         }
         $(items_for_rating_3).each(function(index, val) {
-            if (conditions.cb === 0) {
+            if (conditions.time === 0) {
                 a = generate_table_row(index, val, 'future', conditions.cond_lang, 'do');
                 $('#main_instructions7').append(a);
-            } else if (conditions.cb == 1) {
+            } else if (conditions.time == 1) {
                 a = generate_table_row(index, val, 'past', conditions.cond_lang, 'do');
                 $('#main_instructions7').append(a);
             }
         });
         activate_stretch();
         simple_transition_2($(".main_instructions__"), $("#main_instructions7"));
+        add_input_listener($(".slider_io_slider"));
         $("#next").attr('onclick', 'to_main_instructions7a()');
         $("#back").attr('onclick', 'to_main_instructions6_proxy()').show();
     }
@@ -297,26 +315,26 @@ function to_main_instructions7_proxy() {
 
 
 function to_main_instructions7a() {
-    if (check_slider($(".slider_io_output")) === true) {
+    if (check_slider_with_listener($(".slider_io_slider")) === true) {
         var items_for_rating;
         var items_for_rating_3;
         var table_rows;
         var a;
         var text;
         if (conditions.cond_lang === 0) {
-            if (conditions.cb === 0) {
+            if (conditions.time === 0) {
                 items_for_rating = collect_selected('future', 'notdo');
                 text = slider_text_nextweekend_notdo_nl;
-            } else if (conditions.cb == 1) {
+            } else if (conditions.time == 1) {
                 items_for_rating = collect_selected('past', 'notdo');
                 text = slider_text_pastweekend_notdo_nl;
             }
 
         } else if (conditions.cond_lang == 1) {
-            if (conditions.cb === 0) {
+            if (conditions.time === 0) {
                 items_for_rating = collect_selected('future', 'notdo');
                 text = slider_text_nextweekend_notdo_en;
-            } else if (conditions.cb == 1) {
+            } else if (conditions.time == 1) {
                 items_for_rating = collect_selected('past', 'notdo');
                 text = slider_text_pastweekend_notdo_en;
             }
@@ -330,24 +348,24 @@ function to_main_instructions7a() {
         $('body').prepend('<div id="main_instructions7a" class="main_instructions__">' + text + '</div>');
 
         $(items_for_rating_3).each(function(index, val) {
-            if (conditions.cb === 0) {
+            if (conditions.time === 0) {
                 a = generate_table_row(index, val, 'future', conditions.cond_lang, 'notdo');
                 $('#main_instructions7a').append(a);
-            } else if (conditions.cb == 1) {
+            } else if (conditions.time == 1) {
                 a = generate_table_row(index, val, 'past', conditions.cond_lang, 'notdo');
                 $('#main_instructions7a').append(a);
             }
         });
         activate_stretch();
         simple_transition_2($(".main_instructions__"), $("#main_instructions7a"));
-        // $("#next").attr('onclick', 'to_model_statement1()');
+        add_input_listener($(".slider_io_slider"));
         $("#next").attr('onclick', 'to_text_input_instructions1()');
         $("#back").attr('onclick', 'to_main_instructions7_proxy()');
     }
 }
 
 function to_text_input_instructions1() {
-    if (check_slider($(".slider_io_output")) === true) {
+    if (check_slider_with_listener($(".slider_io_slider")) === true) {
         var text;
         if (conditions.cond_lang === 0) {
             if (conditions.cond_ver === 0) {
@@ -364,9 +382,9 @@ function to_text_input_instructions1() {
         }
         // !!// check: always gives specific option
         instructive = '';
-        if (conditions.cb === 0) {
+        if (conditions.time === 0) {
             instructive = select_manipulation('future', conditions.cond_lang);
-        } else if (conditions.cb == 1) {
+        } else if (conditions.time == 1) {
             instructive = select_manipulation('past', conditions.cond_lang);
         }
         // if (conditions.cond_ver === 0) {
@@ -506,11 +524,7 @@ function to_statement_input1() {
     if (conditions.cond_lang === 0) {
         text = instructions_inputfield_nl;
     } else if (conditions.cond_lang == 1) {
-        if (conditions.time === 0) {
-            text = instructions_inputfield_past_en;
-        } else if (conditions.time == 1) {
-            text = instructions_inputfield_future_en;
-        }
+        text = instructions_inputfield_en;
     }
     var input_field = '<textarea type="text" rows="10" cols="80" class="text_input1" id="statement1" placehoder="your answer"></textarea>';
     $('body').prepend('<div id="statement_input1" class="main_instructions_">' + text + input_field + '</div>');
@@ -531,7 +545,7 @@ function to_manipulation_check() {
             slider_a = '<div id="manip_check" class="table_row_div">' +
                 '<span class="manipulation_check_span" style="left: 50%;">' +
                 '<div class="slider_io">' +
-                '<span id="slider_instr">Wat waren jouw instructies?</span> ' +
+                '<span id="slider_instr">Wat waren je instructies voorafgaand aan het schrijven van je verhaal?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="manipulation_check1_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check1_slider_value()">' +
                 '<output class="slider_io_output" id="manipulation_check1_output">beweeg de slider</output>' +
                 '<div class="slider_io_output_labels stretch">(waarheid) -  -  -  (liegen)</div> ' +
@@ -541,7 +555,7 @@ function to_manipulation_check() {
             slider_b = '<div id="manip_check" class="table_row_div">' +
                 '<span class="manipulation_check_span" style="left: 50%;">' +
                 '<div class="slider_io">' +
-                '<span id="slider_instr">How waarachtig was jouw verhaal?</span> ' +
+                '<span id="slider_instr">Hoe waarachtig was jouw verhaal?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="manipulation_check2_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check2_slider_value()">' +
                 '<output class="slider_io_output" id="manipulation_check2_output">beweeg de slider</output>' +
                 '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (volledig)</div> ' +
@@ -555,6 +569,26 @@ function to_manipulation_check() {
                 '<input type="range" class="slider_io_slider select_menu" id="manipulation_check3_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check3_slider_value()">' +
                 '<output class="slider_io_output" id="manipulation_check3_output">beweeg de slider</output>' +
                 '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (absoluut)</div> ' +
+                '</div>' +
+                '</span>' +
+                '</div>';
+            slider_d = '<div id="manip_check" class="table_row_div">' +
+                '<span class="manipulation_check_span" style="left: 50%;">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">In hoeverre vond je het moeilijk om een overtuigend verhaal te schrijven?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="manipulation_check4_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check4_slider_value()">' +
+                '<output class="slider_io_output" id="manipulation_check4_output">beweeg de slider</output>' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (absoluut)</div> ' +
+                '</div>' +
+                '</span>' +
+                '</div>';
+            slider_e = '<div id="manip_check" class="table_row_div">' +
+                '<span class="manipulation_check_span" style="left: 50%;">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Geef alsjeblieft aan hoeveel mentale inspanning het je kostte om een overtuigend verhaal te schrijven.</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="manipulation_check5_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check5_slider_value()">' +
+                '<output class="slider_io_output" id="manipulation_check5_output">beweeg de slider</output>' +
+                '<div class="slider_io_output_labels stretch">(heel weinig) -  -  -  (heel veel)</div> ' +
                 '</div>' +
                 '</span>' +
                 '</div>';
@@ -590,12 +624,35 @@ function to_manipulation_check() {
                 '</div>' +
                 '</span>' +
                 '</div>';
+            slider_d = '<div id="manip_check" class="table_row_div">' +
+                '<span class="manipulation_check_span" style="left: 50%;">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">To what extent did you find it difficult to write a convincing statement?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="manipulation_check4_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check4_slider_value()">' +
+                '<output class="slider_io_output" id="manipulation_check4_output">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (absolutely)</div> ' +
+                '</div>' +
+                '</span>' +
+                '</div>';
+            slider_e = '<div id="manip_check" class="table_row_div">' +
+                '<span class="manipulation_check_span" style="left: 50%;">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Please rate your mental effort required to write a convincing statement.</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="manipulation_check5_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check5_slider_value()">' +
+                '<output class="slider_io_output" id="manipulation_check5_output">move the slider</output>' +
+                '<div class="slider_io_output_labels stretch">(very low) -  -  -  (very high)</div> ' +
+                '</div>' +
+                '</span>' +
+                '</div>';
         }
         $('body').prepend('<div id="manipulation_check" class="main_instructions_">' + text + '</div>');
         $("#manipulation_check").append(slider_a);
         $("#manipulation_check").append(slider_b);
         $("#manipulation_check").append(slider_c);
+        $("#manipulation_check").append(slider_d);
+        $("#manipulation_check").append(slider_e);
         activate_stretch();
+        add_input_listener($(".slider_io_slider"));
         simple_transition_2($(".main_instructions_"), $("#manipulation_check"));
         $("#next").attr('onclick', 'to_demographics1()');
     }
@@ -603,7 +660,7 @@ function to_manipulation_check() {
 
 
 function to_demographics1() {
-    if (check_slider($(".slider_io_output")) === true) {
+    if (check_slider_with_listener($(".slider_io_slider")) === true) {
         var transition_text;
         if (conditions.cond_lang === 0) {
             transition_text = transition_nl;
@@ -760,7 +817,7 @@ function get_data() {
     data.cond_ver = conditions.cond_ver;
     data.time = conditions.time;
 
-    data.user_email = $("#emailaddress").val();
+    data.user_email = $("#crowdf").val();
 
     data.pp_name_store = param_pp_name;
     data.pp_id_store = param_pp_id;
@@ -771,6 +828,8 @@ function get_data() {
     data.manipulation_check1 = $("#manipulation_check1_val").val();
     data.manipulation_check2 = $("#manipulation_check2_val").val();
     data.manipulation_check3 = $("#manipulation_check3_val").val();
+    data.manipulation_check4 = $("#manipulation_check4_val").val();
+    data.manipulation_check5 = $("#manipulation_check5_val").val();
 
     data.activity = instructive;
     data.n_activities = n_activities;
@@ -789,5 +848,20 @@ function get_data() {
     data.statement1_elapsed = statement1_main.elapsed;
     data.statement1_deletes = statement1_main.deletes;
 
+    data.wordprod = $("#tbwordprod").val();
+    data.wordprod_length = $("#tbwordprod").val().split(" ").length;
     // console.log(data);
+}
+
+function get_data_now() {
+    data.ip = clientip;
+    data.browsername = $.browser.name;
+    data.browserversion = $.browser.version;
+    data.ts_time = moment().format('LTS');
+    data.ts_date = moment().format('l');
+    data.unid = unid;
+    data.pp_name_store = param_pp_name;
+    data.pp_id_store = param_pp_id;
+    data.user_id_store = param_user_id;
+    data.prj_id_store = param_prj_id;
 }

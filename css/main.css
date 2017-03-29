@@ -163,13 +163,13 @@ h2 {
 .table_row_div {
     border-bottom: 0.1vw solid #FFBF00;
     border-top: 0.1vw solid #FFBF00;
-    height: 40%;
+    height: 35%;
     width: 95%;
     margin: 0;
     position: relative;
     text-align: center;
-    font-size: 1.2vw;
-    top: 30%;
+    font-size: 1.1vw;
+    top: 25%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -668,19 +668,19 @@ h2 {
     border: 0.3vw solid #FFBF00;
     overflow: scroll;
     background-color: #1C1C1C;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
     height: 60%;
     width: 85%;
     padding: 1%;
     margin: 0;
     position: absolute;
     text-align: left;
-    font-size: 1.2vw;
+    font-size: 1.1vw;
     top: 40%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+    /*font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;*/
 }
 
 .statement_wrapper, .question_wrapper {
@@ -1038,4 +1038,9 @@ input[type=checkbox] {
   padding-left: 1%;
   padding-right: 1%;
   padding-top: 1%;
+}
+
+#model_statement1 {
+    font-size: 1.4vw;
+    letter-spacing: 0.10vw;
 }

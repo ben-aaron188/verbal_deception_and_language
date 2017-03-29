@@ -435,8 +435,8 @@ function mainAction() {
                 Status.push(stim[i].wstatus);
                 Stim.push(stim[i].word);
                 t1 = t2;
-                // if (i == stim.length - 1) {
-                if (i == 7) {
+                if (i == stim.length - 1) {
+                // if (i == 7) {
                     end();
                 } else {
                     i++;
